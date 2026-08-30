@@ -1,0 +1,668 @@
+<title>Tax Strategies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F6F3;
+    --surface: #FFFFFF;
+    --ink: #16232C;
+    --ink-soft: #52616B;
+    --ink-faint: #7C8890;
+    --line: #DCE2DD;
+    --line-strong: #C4CCC6;
+    --accent: #8A6A2F;
+    --accent-strong: #6E5424;
+    --example-bg: #F3EEE3;
+    --example-line: #D8CBA8;
+    --note-bg: #EAF0EE;
+    --note-line: #C7D6D0;
+    --chip-bg: #EDEFEA;
+    --focus: #3B6E63;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10171B;
+      --surface: #161F24;
+      --ink: #E7ECE9;
+      --ink-soft: #AEBAB5;
+      --ink-faint: #7C8B85;
+      --line: #263136;
+      --line-strong: #344248;
+      --accent: #CBA55F;
+      --accent-strong: #E0BC7C;
+      --example-bg: #221D14;
+      --example-line: #4A3D22;
+      --note-bg: #142320;
+      --note-line: #2A423C;
+      --chip-bg: #1C2529;
+      --focus: #74B3A2;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10171B;
+    --surface: #161F24;
+    --ink: #E7ECE9;
+    --ink-soft: #AEBAB5;
+    --ink-faint: #7C8B85;
+    --line: #263136;
+    --line-strong: #344248;
+    --accent: #CBA55F;
+    --accent-strong: #E0BC7C;
+    --example-bg: #221D14;
+    --example-line: #4A3D22;
+    --note-bg: #142320;
+    --note-line: #2A423C;
+    --chip-bg: #1C2529;
+    --focus: #74B3A2;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-strong); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 0;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* ---- Sidebar / TOC ---- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 2.5rem 1.5rem 2.5rem 2rem;
+    border-right: 1px solid var(--line);
+  }
+  .sidebar__eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 0.35rem;
+  }
+  .sidebar__title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-wrap: balance;
+    margin: 0 0 0.35rem;
+  }
+  .sidebar__sub {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem;
+    line-height: 1.5;
+  }
+  .toc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15rem; }
+  .toc a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 0.45rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.88rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .toc a:hover { background: var(--chip-bg); color: var(--ink); }
+  .toc a.active { background: var(--chip-bg); color: var(--accent-strong); }
+  .toc__num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    flex: none;
+    padding-top: 0.1rem;
+  }
+  .toc a.active .toc__num { color: var(--accent-strong); }
+  .toc__title { line-height: 1.35; }
+
+  .sidebar-toggle { display: none; }
+
+  /* ---- Main content ---- */
+  main {
+    padding: 3.5rem 3rem 6rem;
+    min-width: 0;
+  }
+  .masthead {
+    max-width: 640px;
+    margin: 0 0 3.5rem;
+  }
+  .masthead__eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    margin: 0 0 0.9rem;
+  }
+  .masthead h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+  }
+  .masthead p {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .strategy { max-width: 660px; }
+  .strategy__head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 0 0 1.1rem;
+  }
+  .strategy__num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    flex: none;
+  }
+  .strategy h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.18rem;
+    color: var(--ink);
+    margin: 2.1rem 0 0.9rem;
+  }
+  .strategy p {
+    margin: 0 0 1.1rem;
+    max-width: 66ch;
+  }
+  .lede {
+    font-size: 1.04rem;
+    color: var(--ink-soft);
+    max-width: 66ch;
+  }
+  .strategy ul {
+    margin: 0 0 1.2rem;
+    padding-left: 1.3rem;
+    max-width: 62ch;
+  }
+  .strategy li { margin: 0 0 0.55rem; }
+  .strategy li::marker { color: var(--accent); }
+
+  .refs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem 0.7rem;
+    padding: 0.9rem 1rem;
+    background: var(--chip-bg);
+    border-radius: 8px;
+    margin: 0 0 1.6rem;
+    max-width: 66ch;
+  }
+  .refs__label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    flex: none;
+  }
+  .refs__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+  }
+  .refs__list li {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .callout {
+    max-width: 62ch;
+    margin: 0 0 1.3rem;
+    padding: 1rem 1.15rem;
+    border-radius: 8px;
+    border-left: 3px solid;
+  }
+  .callout p { margin: 0.35rem 0 0; max-width: none; }
+  .callout__label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .callout--example {
+    background: var(--example-bg);
+    border-color: var(--example-line);
+  }
+  .callout--example .callout__label { color: var(--accent-strong); }
+  .callout--example p { font-style: italic; color: var(--ink-soft); }
+  .callout--note {
+    background: var(--note-bg);
+    border-color: var(--note-line);
+  }
+  .callout--note .callout__label { color: var(--focus); }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 3.2rem 0;
+    max-width: 660px;
+  }
+
+  footer.colophon {
+    max-width: 660px;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 900px) {
+    .page { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 1.25rem 1.5rem;
+    }
+    .sidebar__sub { display: none; }
+    .sidebar-toggle {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding: 0.4rem 0;
+      cursor: pointer;
+    }
+    .toc { display: none; padding-top: 0.5rem; }
+    .sidebar.open .toc { display: flex; }
+    main { padding: 2.5rem 1.4rem 4rem; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+</style>
+
+<div class="page">
+  <nav class="sidebar" id="sidebar">
+    <p class="sidebar__eyebrow">Reference Guide</p>
+    <h1 class="sidebar__title">Tax Strategies</h1>
+    <p class="sidebar__sub">10 independent strategies. Each one is self-contained &mdash; read any single entry on its own.</p>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-expanded="false">Contents &darr;</button>
+    <ul class="toc" id="toc">
+<li><a href="#s1-reasonable-compensation-for-s-corporation-owners" data-target="s1-reasonable-compensation-for-s-corporation-owners"><span class="toc__num">01</span><span class="toc__title">Reasonable Compensation for S-Corporation Owners</span></a></li>
+<li><a href="#s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-target="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav"><span class="toc__num">02</span><span class="toc__title">Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</span></a></li>
+<li><a href="#s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-target="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469"><span class="toc__num">03</span><span class="toc__title">Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</span></a></li>
+<li><a href="#s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-target="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou"><span class="toc__num">04</span><span class="toc__title">Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</span></a></li>
+<li><a href="#s5-home-office-reimbursement-through-an-accountable-plan" data-target="s5-home-office-reimbursement-through-an-accountable-plan"><span class="toc__num">05</span><span class="toc__title">Home Office Reimbursement Through an Accountable Plan</span></a></li>
+<li><a href="#s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-target="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re"><span class="toc__num">06</span><span class="toc__title">The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</span></a></li>
+<li><a href="#s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-target="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the"><span class="toc__num">07</span><span class="toc__title">The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</span></a></li>
+<li><a href="#s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-target="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-"><span class="toc__num">08</span><span class="toc__title">Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</span></a></li>
+<li><a href="#s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-target="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse"><span class="toc__num">09</span><span class="toc__title">Banking Capital Loss Carryforwards as a Future Planning Asset</span></a></li>
+<li><a href="#s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-target="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-"><span class="toc__num">10</span><span class="toc__title">Verifying Tax Data Against IRS Transcripts Before Filing or Planning</span></a></li>
+    </ul>
+  </nav>
+  <main>
+    <div class="masthead">
+      <p class="masthead__eyebrow">Tax Planning &middot; Strategy Reference</p>
+      <h1>Tax Strategies</h1>
+      <p>A working reference of tax-planning techniques, one per entry, each explained fully on its own terms. Built to grow &mdash; new strategies get added here as they come up.</p>
+    </div>
+    
+<article class="strategy" id="s1-reasonable-compensation-for-s-corporation-owners" data-index="1">
+  <header class="strategy__head">
+    <span class="strategy__num">01</span>
+    <h2>Reasonable Compensation for S-Corporation Owners</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 3121(d) — definition of employee</li>
+<li>IRS Fact Sheet FS-2008-25, Wage Compensation for S Corporation Officers</li>
+<li>Rev. Rul. 74-44</li></ul>
+  </div>
+  <p class="lede">When a business is organized as an S corporation and its owner also works in the business, the owner is paid in two different ways: a W-2 salary for the work performed (like any employee), and separate profit distributions as a shareholder. Only the salary portion is subject to Social Security and Medicare tax (together called "payroll tax" or "FICA tax," currently 15.3% split between employer and employee up to a wage base, with the Medicare portion continuing above it). Distributions are not subject to payroll tax at all. Because of this, the IRS requires that the salary paid to an owner-employee be "reasonable" — meaning close to what an unrelated business would pay someone else to do the same job. This rule exists specifically to prevent owners from underpaying themselves in wages and overpaying themselves in distributions purely to avoid payroll tax.</p>
+  <h3>How the Strategy Works and Why It Matters</h3>
+<p>The core idea is simple: an S-corp owner who works in the business must be treated as an employee first. The business calculates what a reasonable salary would be for that role — based on the owner’s duties, hours, experience, and what similar positions pay in the same industry and region — and pays that amount through normal payroll, withholding income tax and FICA tax exactly as it would for any other employee. Only after that salary is paid can any remaining profit be distributed to the owner as a shareholder distribution, which carries no payroll tax at all.</p>
+<p>The tax benefit of the S-corp structure comes from this split: every dollar that can legitimately be paid as a distribution instead of salary saves 15.3% in combined payroll tax (subject to the wage-base limit on the Social Security portion). This is a real and legal benefit — it is the reason many profitable owner-operated businesses choose S-corp status in the first place. The strategy only becomes a problem, and a target for IRS enforcement, when the salary portion is set unreasonably low specifically to shift income into the tax-free distribution category.</p>
+<p>If the IRS examines a return and concludes the salary was unreasonably low, it has the authority to reclassify some or all of the distributions as wages after the fact. That reclassification is retroactive: the business is treated as though it should have withheld and paid payroll tax on that reclassified amount all along, which means back payroll taxes, late-payment and late-filing penalties on payroll tax returns that were never filed for that amount, and interest — assessed years after the original return was filed. For a business with even a modest gap between actual salary and a reasonable salary, this can add up to a substantial liability once penalties and interest are included.</p>
+<ul>
+<li>Factors used to judge "reasonable" compensation include: the owner’s training and experience, the specific duties performed, the number of hours worked, what comparable businesses pay someone in an equivalent role, what the business pays its own non-owner employees for similar work, and the overall pattern of compensation versus distributions over time.</li>
+<li>A pattern that reliably draws scrutiny: non-owner employees earning more in wages than the owner does, while the owner simultaneously takes large distributions. This makes it very hard to argue the owner’s low salary reflects the true market value of their work.</li>
+<li>There is no single safe percentage or formula — courts and the IRS look at the full set of facts every time, so the right approach is to benchmark against real market pay data for the specific role, not to pick an arbitrary round number.</li>
+<li>The correction, once a salary is found to be too low, is always forward-looking: raise the salary going forward and run it consistently through payroll. Prior years are not amended after the fact — the business simply corrects the practice from that point on.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>Maria owns 100% of a small marketing consultancy organized as an S corporation. She works full-time in the business, but pays herself a salary of only $30,000 per year while taking $150,000 in annual distributions. A marketing consultant with Maria’s experience and hours would typically command $90,000–$110,000 in salary at a comparable firm. On audit, the IRS could reclassify a large portion of Maria’s distributions as wages, assessing back payroll tax on the difference between her actual $30,000 salary and a defensible $90,000–$110,000 figure, plus penalties and interest. The fix is to raise her going-forward salary into that range and run it through normal payroll before the next year-end, rather than continuing to take the bulk of her income as distributions.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>Reasonable compensation is measured per owner, not as a combined household or ownership-group figure. If two owners together pay themselves $80,000 in total salary, that is not the same defense as each owner separately earning $80,000 — a "combined" number that sounds reasonable can still represent a badly underpaid salary once split between two working owners.</p></div>
+
+<h3>Practical Application: Bonuses and Timing</h3>
+<p>Because the reasonable-compensation determination looks at the total wages paid over the year, any year-end bonus intended for an owner-employee should be paid as additional W-2 wages through the payroll system — with the appropriate withholding — rather than as an extra distribution check written outside of payroll. Paying it as wages both reinforces the salary figure the IRS will benchmark against and keeps the payment consistent with how the rest of the owner’s compensation is documented.</p>
+<ul>
+<li>Run any owner bonus through the payroll provider before the business’s year-end closes, so FICA and income tax withholding are applied and the amount appears on the owner’s W-2.</li>
+<li>Decide on a target reasonable-compensation figure early in the year (based on market data for the role) rather than waiting until year-end, since payroll systems generally cannot retroactively reclassify money that has already been paid out as a distribution.</li>
+</ul>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-index="2">
+  <header class="strategy__head">
+    <span class="strategy__num">02</span>
+    <h2>Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 401(a) and § 412 — qualified plan and defined-benefit funding rules</li>
+<li>SECURE 2.0 Act § 45E — small-employer retirement-plan startup credit</li>
+<li>IRS Publication 560, Retirement Plans for Small Business</li></ul>
+  </div>
+  <p class="lede">A cash-balance plan is a type of qualified retirement plan — legally a defined-benefit pension plan, but administered so it looks and feels like an individual account to each participant. It is designed for exactly one situation: a profitable business where the owners want to shelter far more income from current tax than a standard 401(k) allows, and where there are few enough non-owner employees that funding their smaller required contributions is manageable.</p>
+  <h3>How a Standard 401(k) Compares</h3>
+<p>In a typical 401(k) plan, each employee — owner or not — can defer a fixed maximum amount of their own salary each year on a pre-tax basis (a limit set by statute and adjusted annually, with an additional "catch-up" amount allowed for participants age 50 and older). A business can add a matching contribution or a profit-sharing contribution on top of that deferral, but total contributions for any one person are still capped by an overall annual limit that applies regardless of the plan type. For a highly profitable owner who wants to shelter a much larger amount of income, a 401(k) alone — even with profit sharing added — usually cannot get there, because the contribution formula is tied to a percentage of salary, not to how much profit is actually available.</p>
+
+<h3>How a Cash-Balance Plan Changes the Math</h3>
+<p>A cash-balance plan uses an entirely different contribution formula. Instead of being based only on salary, the allowable contribution for each participant is calculated by a licensed actuary based on the participant’s age, years to retirement, and compensation — the formula is designed so that older, higher-paid participants can have dramatically larger contributions made on their behalf, often several times what a 401(k) alone would permit. Because business owners are typically both older and higher-paid than their staff, and because a cash-balance plan can be designed so almost all of the contribution benefit flows to the owners while a much smaller required contribution covers the rank-and-file employees, this plan type is most powerful for a business with a small number of non-owner employees relative to its owners.</p>
+<p>A cash-balance plan is not something a business sets up on its own — it requires a formal plan document and an annual actuarial calculation performed by a third-party administrator (TPA), since the contribution amount is not a simple percentage but a calculated figure that changes each year based on age, pay, and plan funding status. It is also generally expected to be maintained for a number of years; terminating it too soon after setup can trigger unwinding costs and reduce its tax efficiency.</p>
+<p>A cash-balance plan is commonly layered on top of a 401(k)/profit-sharing plan rather than replacing it — the 401(k) continues to let each participant defer their own salary, while the cash-balance plan adds a much larger employer-funded contribution on top, calculated by the actuary to work within the combined limits the IRS allows when both plan types exist together.</p>
+<ul>
+<li>Best fit: a profitable business where the owners are older (contributions become more powerful with age, since there is less time left to fund an eventual retirement benefit) and where non-owner staff are few relative to the owners.</li>
+<li>The contribution amount for each owner depends directly on that owner’s salary — a business paying its owners an artificially low salary for other reasons will find the maximum cash-balance contribution capped well below what it could otherwise be, since the actuarial formula uses reported compensation as an input.</li>
+<li>Contributions are generally deductible to the business in the year they relate to, and can often be funded any time up until the extended due date of that year’s tax return, which gives useful flexibility on cash flow.</li>
+<li>A small-employer tax credit is available under SECURE 2.0 (IRC § 45E) for the cost of establishing a new retirement plan, potentially covering a significant share of the setup and administrative cost for the first few years, with an additional credit available for plans that include automatic enrollment.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>David, age 52, is the sole owner of a profitable consulting firm with one part-time administrative employee. His actuary calculates that a cash-balance plan would allow a contribution of approximately $150,000 for David in the current year, based on his age and salary, while the required contribution for his part-time employee is approximately $4,000. Combined with a 401(k) deferral, David’s total deductible retirement contribution for the year could exceed $170,000 — compared to roughly $30,000 if he relied on a 401(k) with profit sharing alone.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>Because the contribution formula depends on age, a cash-balance plan is generally far more powerful for an owner in their 50s or 60s than for one in their 20s or 30s, who has decades left before retirement and would see a much smaller calculated contribution for the same salary level.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-index="3">
+  <header class="strategy__head">
+    <span class="strategy__num">03</span>
+    <h2>Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 469 — passive activity loss rules and grouping elections</li>
+<li>IRC § 1245 / § 1250 — depreciation recapture</li>
+<li>Treas. Reg. § 1.469-4 — grouping of activities</li></ul>
+  </div>
+  <p class="lede">A business that pays significant rent to lease the space it operates from is a candidate to instead buy that real estate through a separate legal entity, then lease the property to its own operating business at a market rent. Done correctly, this converts a rent payment (which gives the tenant nothing in return except use of the space) into an ownership position that builds equity and unlocks depreciation deductions the tenant business could never claim while merely renting.</p>
+  <h3>Why the Real Estate Belongs in a Separate Entity</h3>
+<p>Real estate should not be held directly inside an S corporation. If real estate held inside an S corporation is ever distributed to a shareholder (for example, because the owner wants to sell it personally, refinance it independently of the business, or pass it to an heir), the corporation is treated as if it sold the property for its full fair market value at that moment — triggering taxable gain even though no cash actually changed hands. Real estate is also comparatively illiquid and long-lived, which makes it a poor fit for an entity type built around a single class of stock and a single, undivided ownership structure. The standard approach instead is to form a separate LLC — owned by the same individuals who own the operating business, or by the operating business itself — that purchases the real estate and leases it back to the operating business at a market-rate rent.</p>
+
+<h3>Unlocking Losses with a § 469 Grouping Election</h3>
+<p>Rental real estate income and losses are, by default, classified as "passive" under the tax code, which means a loss generated by the rental (including the very large depreciation loss a cost-segregation study can create in the first year of ownership — see the following section) can normally only offset other passive income, not the owner’s wages or the operating business’s active profit. However, IRC § 469 permits related activities to be treated as one combined "economic unit" through a grouping election, when the facts genuinely support that they operate as a single enterprise — for example, when the same owners control both the rental LLC and the operating business, and the real estate exists specifically to house that operating business rather than as an independent investment. Once properly grouped, an owner’s active, material participation in the operating business can support treating the rental activity as non-passive as well, which allows a large first-year loss from the real estate to offset the owner’s other active income in that same year — potentially producing a very large deduction against income that would otherwise be fully taxable.</p>
+<ul>
+<li>A grouping election, once made, must generally be applied consistently in later years rather than revisited each year based on which treatment happens to be more favorable — the IRS looks unfavorably on inconsistent groupings used purely to manage tax outcomes.</li>
+<li>The grouping must reflect real economic facts — common ownership and genuine operational interdependence between the two activities — not simply a paper structure created to reclassify income for tax purposes.</li>
+</ul>
+
+<h3>Cost Segregation to Accelerate Depreciation</h3>
+<p>When real estate is purchased, the tax code normally requires the building itself to be depreciated slowly — over 39 years for commercial property or 27.5 years for residential rental property — while land is not depreciated at all. A cost segregation study is an engineering-based analysis that identifies components of the purchase price that qualify for much shorter depreciation lives: items such as certain electrical and plumbing systems tied to specific equipment, decorative or removable fixtures, parking lot paving, and landscaping can often be depreciated over 5, 7, or 15 years instead of the building’s full life — and those shorter-lived components are also eligible for bonus depreciation, allowing a large share of their cost to be deducted immediately in the year the property is placed in service. On a typical commercial property purchase, a cost segregation study can reclassify a meaningful share of the purchase price this way, turning what would otherwise be a small first-year depreciation deduction into a substantially larger one.</p>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>A retail business currently pays $80,000 per year in rent for its storefront. Its owners form a separate LLC that purchases a comparable $600,000 building, leases it back to the retail business at the same $80,000 market rent, and elects to group the two activities under § 469 since the same owners actively run the retail business day to day. A cost segregation study identifies roughly $150,000 of the purchase price as five-, seven-, and fifteen-year property eligible for bonus depreciation, producing a large first-year deduction that — because of the grouping election — can offset the owners’ other active income rather than being trapped as a passive loss.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>Accelerated depreciation is a timing benefit, not a permanent one: when the property is eventually sold, the depreciation previously deducted is generally "recaptured" — taxed as ordinary income for the shorter-lived personal-property components (IRC § 1245) or at a special 25% rate for the building portion (IRC § 1250 unrecaptured gain). Cost segregation defers tax into the future rather than eliminating it, and should be evaluated with an eventual sale in mind, not just the immediate deduction.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-index="4">
+  <header class="strategy__head">
+    <span class="strategy__num">04</span>
+    <h2>Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 263(a) — capitalization of amounts paid to acquire or improve tangible property</li>
+<li>Treas. Reg. § 1.263(a)-1 through -3 — tangible property ("repair") regulations</li>
+<li>Form 3115, Application for Change in Accounting Method</li></ul>
+  </div>
+  <p class="lede">Every business purchase of equipment, furniture, or other long-lived property is supposed to be handled one of two ways for tax purposes: either capitalized (recorded as an asset and depreciated over its useful life, or deducted immediately under bonus depreciation/§179 if it qualifies) or, for smaller items, expensed immediately under a specific safe harbor. A common bookkeeping mistake is to instead book these purchases straight to an ordinary expense account — often something generically labeled "supplies" or "materials" — with no asset ever recorded, no depreciation schedule created, and no accumulated-depreciation tracking maintained.</p>
+  <h3>Why This Error Often Goes Unnoticed</h3>
+<p>If an asset that should have been capitalized would have qualified for 100% bonus depreciation anyway, the current-year tax deduction can end up being exactly the same dollar amount whether it was capitalized-then-fully-depreciated or simply expensed as a supply. Because the immediate tax bill looks identical either way, this kind of error is easy to overlook for years — nothing on the tax return itself signals that anything is wrong. But the business is left with no accurate record of what it actually owns, no basis figure to reference, and no accumulated-depreciation ledger, even though the assets themselves still exist and are still being used.</p>
+
+<h3>Why It Matters Anyway</h3>
+<p>The absence of a basis and depreciation record becomes a real problem the moment any of those assets are sold, or the business itself is sold and a buyer wants to allocate the purchase price across specific assets. Without records, there is no way to correctly calculate gain, loss, or depreciation recapture on a later sale of the misclassified items. The business’s balance sheet also permanently understates its true asset base — for example, a company that has quietly built up a warehouse of valuable equipment over several years, but never recorded any of it as an asset, will show an artificially thin balance sheet that misrepresents what the business actually owns.</p>
+
+<h3>How to Fix It: Form 3115</h3>
+<p>When misclassification has occurred consistently across more than one prior tax year, it is treated as an accounting-method problem rather than a simple mistake correctable by amending a single return. The proper fix is to file Form 3115, Application for Change in Accounting Method, which allows the business to formally switch to the correct capitalization method going forward and make a one-time "catch-up" adjustment (under IRC § 481(a)) to true up the difference between the old and new methods — without needing to amend every affected prior-year return individually. If the items were already fully deducted under bonus depreciation or § 179 in the year purchased, this catch-up adjustment is often net-zero in dollar terms, since no additional deduction is actually being claimed — the filing exists to correct the accounting record and establish a going-forward basis schedule, not to generate a new deduction.</p>
+<ul>
+<li>After filing Form 3115, build (or have a bookkeeper build) a per-asset schedule recording the description, purchase date, cost, and depreciation method for every capitalized item, so the record stays accurate going forward.</li>
+<li>Adopt a clear, written capitalization policy — for example, a formal de minimis safe-harbor election for smaller-dollar purchases — so future purchases are classified correctly the first time, rather than repeating the same error.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>A catering company has purchased chafing dishes, folding tables, and portable ovens over several years, expensing every purchase to a "supplies" account. None of these items appear on the balance sheet as assets, even though the company still owns and uses all of them. The company’s accountant files Form 3115 to formally change the accounting method for these purchases, resulting in a net-zero catch-up adjustment (since the items were already fully deducted through bonus depreciation in the years purchased), and then builds a per-asset schedule so any future equipment purchase is capitalized and tracked correctly from the start.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>Filing Form 3115 to correct the accounting method does not usually change the total tax already paid in prior years — its purpose is to create an accurate go-forward asset record without needing to amend multiple old returns.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s5-home-office-reimbursement-through-an-accountable-plan" data-index="5">
+  <header class="strategy__head">
+    <span class="strategy__num">05</span>
+    <h2>Home Office Reimbursement Through an Accountable Plan</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 280A — disallowance of certain expenses in connection with business use of home</li>
+<li>Rev. Proc. 2013-13 — simplified home-office deduction method</li>
+<li>Treas. Reg. § 1.62-2 — accountable plans</li></ul>
+  </div>
+  <p class="lede">An owner who works through a corporation — an S corporation or a C corporation — is legally an employee of that corporation, even though they also own it. Employees generally cannot claim a home-office deduction directly on their personal tax return the way a sole proprietor or independent contractor can. Instead, the way to get the same economic benefit — the corporation effectively covering the cost of the home office — is for the corporation to reimburse the employee for home-office expenses under a formal "accountable plan."</p>
+  <h3>Why an Owner-Employee Cannot Just Deduct a Home Office Personally</h3>
+<p>The home-office deduction available on a sole proprietor’s Schedule C (or under the simplified method) is designed for someone whose business income is reported directly on their own return. An owner-employee of a corporation instead receives W-2 wages and, if the entity is an S corporation, a separate K-1 for their share of the business’s profit — neither of which allows the same kind of direct home-office deduction. Simply having the employee pay for home-office costs personally and deduct them is not available for an employee under current law. The correct mechanism is for the corporation itself to reimburse the employee for the business-use portion of home expenses under an accountable plan.</p>
+
+<h3>How an Accountable Plan Reimbursement Works</h3>
+<p>Under Treas. Reg. § 1.62-2, a corporation can adopt a written accountable-plan policy authorizing it to reimburse an employee for legitimate home-office expenses tied to a specific space in the home used regularly and exclusively for business — a dedicated room, not a shared or occasional-use area like a kitchen table. The reimbursement typically covers a business-use percentage of costs such as mortgage interest (or rent, if the home is rented), property tax, homeowners association dues, utilities, and internet service.</p>
+<p>When structured and substantiated correctly, this reimbursement is fully deductible to the corporation as a business expense, and — unlike simply paying the employee additional wages to cover the same costs — it is not treated as taxable income to the employee. This is the key advantage over the alternative of just raising the employee’s salary: a wage increase would be taxed as ordinary income and subject to payroll tax, while a proper accountable-plan reimbursement is not.</p>
+<p>A qualifying home office used this way also establishes that location as a genuine "tax home" for mileage purposes, which can convert what would otherwise be non-deductible commuting mileage (from home to a client site or other business location) into deductible business mileage, since the trip now starts from a recognized place of business rather than from a purely personal residence.</p>
+<ul>
+<li>The space claimed must be a defined area used regularly and exclusively for business — occasional use of a general living space does not qualify.</li>
+<li>The plan must be in writing, and the reimbursement must be substantiated with an actual expense calculation (square footage percentage, actual bills, etc.) rather than paid as a flat, unsubstantiated allowance.</li>
+<li>Expense reports or supporting calculations should be kept on file exactly as they would be for any other reimbursed business expense, since an accountable plan that is not properly documented risks being treated as ordinary taxable wages if ever examined.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>Priya is the sole owner-employee of her graphic design corporation and works from a dedicated 150-square-foot office in her 1,500-square-foot home — 10% of the home’s total square footage. Her corporation adopts a written accountable plan and reimburses her 10% of her mortgage interest, property tax, homeowners insurance, and internet bill each month, based on actual receipts and the calculated percentage. The corporation deducts the reimbursed amount as a business expense, and Priya does not report it as taxable income.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>An informal or undocumented reimbursement — for example, the corporation simply writing the owner a check labeled "home office" with no written policy or expense calculation behind it — risks being recharacterized as ordinary taxable wages on examination.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-index="6">
+  <header class="strategy__head">
+    <span class="strategy__num">06</span>
+    <h2>The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 280A(g) — rental of a dwelling unit used as a residence for fewer than 15 days</li></ul>
+  </div>
+  <p class="lede">IRC § 280A(g) contains an unusually generous, narrow rule: if an individual rents out their personal residence for fewer than 15 days total during the year, none of that rental income has to be reported or taxed — no matter how much was charged — while a business that pays for the rental can still deduct the payment as an ordinary business expense. This provision is nicknamed the "Augusta Rule" after Augusta, Georgia, where homeowners near the Masters golf tournament have long rented out their houses for a few days each year at high rates, tax-free.</p>
+  <h3>How the Strategy Is Applied to a Business Owner</h3>
+<p>A business owner can rent their own personal residence to their own business for legitimate business purposes — board meetings, employee events, strategic planning sessions, or client entertaining — as long as the total number of rental days in the year stays under 15. The business pays the owner a rental fee for each day used, at a rate that reflects what comparable meeting or event space would genuinely cost to rent in that area. The business deducts the rental payment as an ordinary business expense. The owner, personally, does not report the rental income at all — it is entirely excluded from gross income under § 280A(g), and no expenses need to be allocated against it either, since there is no income to offset.</p>
+<p>This works because § 280A(g) treats a residence rented for fewer than 15 days a year as outside the normal rules that would otherwise require reporting rental income and limit related deductions — the provision simply removes such minimal, personal-use-dominant rentals from the tax system entirely, in both directions.</p>
+<ul>
+<li>The rental rate charged must be a genuine, defensible fair-market rate — typically benchmarked against what comparable local event or meeting-space rentals cost, not an arbitrary number chosen to maximize the deduction.</li>
+<li>The business purpose must be real and documented: an agenda for the meeting, minutes recording what was discussed and decided, and a clear business reason for holding the event at the residence rather than elsewhere.</li>
+<li>A written lease agreement between the individual (as landlord) and the business (as tenant) should be executed and kept on file, along with records of each rental date, the rate charged, and the payment made.</li>
+<li>The 14-day-per-year limit is an all-or-nothing threshold: if total rental days for the year reach 15 or more, the exclusion is lost entirely for that year — not merely reduced for the days beyond 14 — so the count should be tracked carefully across the full year.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>James owns a landscaping business and holds four quarterly all-day strategy sessions at his home each year, each documented with a written agenda and follow-up minutes. He charges his business $600 per day — a rate he benchmarks against the cost of renting comparable meeting space at a local venue. His business deducts $2,400 for the year as a business expense. James does not report any of the $2,400 as personal income, since it falls entirely under the 14-day exclusion.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>The dollar amounts involved in this strategy are usually modest compared to something like a retirement plan or real estate purchase, but it costs very little to implement correctly and carries limited downside risk when the rental rate and business purpose are properly documented — it is a small, reliable benefit rather than a major one.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-index="7">
+  <header class="strategy__head">
+    <span class="strategy__num">07</span>
+    <h2>The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>State pass-through entity tax statutes (availability and mechanics vary by state)</li>
+<li>IRC § 164 — deduction for taxes; the $10,000 SALT cap for individuals</li>
+<li>IRS Notice 2020-75 — federal deductibility of entity-level PTET payments</li></ul>
+  </div>
+  <p class="lede">Since 2018, individuals who itemize deductions have been limited to deducting no more than $10,000 total per year in state and local taxes (SALT) on their federal return — a cap that includes state income tax, regardless of how much state tax was actually paid. For an owner of a profitable pass-through business (an S corporation or partnership), this cap can mean a large amount of state tax paid personally receives no federal deduction at all. Many states have responded by creating a pass-through entity tax (PTET) election that offers a workaround.</p>
+  <h3>How the Workaround Functions</h3>
+<p>Under a state PTET election, the business itself (rather than its individual owners) elects to pay state income tax directly, calculated on the business’s income. Because this tax is paid and deducted at the entity level — as an ordinary cost of doing business — it is not subject to the $10,000 individual SALT cap at all; entity-level taxes are simply a business expense, the same as any other tax the business pays. The owners then typically receive an offsetting benefit on their personal state return — either a credit for their share of the tax the entity already paid, or an equivalent exclusion from their state taxable income — so they are not taxed twice on the same income at the state level.</p>
+<p>The net effect is that a state tax bill that would otherwise be capped at $10,000 of federal deductibility (no matter how large it actually was) becomes fully deductible, because it was paid and deducted by the entity rather than the individual. The larger a business’s income (and therefore its state tax bill), the more valuable this election becomes, since the gap between "capped at $10,000" and "fully deductible" grows accordingly.</p>
+<ul>
+<li>Whether a PTET election is available, how it is calculated, and its filing deadlines all vary significantly by state — some states require the election annually, often with a specific payment deadline tied to the state’s own estimated-tax schedule, and missing that deadline can forfeit the benefit for the year entirely.</li>
+<li>This election generally must be made deliberately each year (it does not happen automatically) and should be confirmed with the specific state’s current rules before relying on it, since state programs continue to evolve.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>An S corporation earns $400,000 in taxable income in a state with a 5% PTET election and a 5% flat individual income tax rate. Without the election, the owner would pay roughly $20,000 in state tax personally, but could deduct only $10,000 of it federally (assuming no other SALT items), losing the federal benefit of the remaining $10,000. By having the entity make the PTET election, the business pays the $20,000 in state tax directly and deducts the full amount as a business expense, while the owner receives an offsetting state credit — the full $20,000 is federally deductible instead of only $10,000.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-index="8">
+  <header class="strategy__head">
+    <span class="strategy__num">08</span>
+    <h2>Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 1361(b)(3) — qualified subchapter S subsidiary election</li>
+<li>IRC § 1361–1362 — S corporation eligibility and election requirements</li></ul>
+  </div>
+  <p class="lede">When a profitable S corporation wants to start a new but related line of business — one with a somewhat different risk profile or customer base — a common question is whether to form an entirely new, independently-elected S corporation, or to structure the new activity as a Qualified Subchapter S Subsidiary (QSub) owned by the existing S corporation. In most cases, the QSub structure is the simpler and more efficient choice.</p>
+  <h3>What a QSub Is and How It Is Treated</h3>
+<p>A QSub is a corporation that is 100%-owned by an existing S corporation and for which the parent has made a specific QSub election. For federal tax purposes, a QSub is treated as if it does not exist separately at all — it is "disregarded," meaning all of its income, expenses, and activity are simply reported as part of the parent S corporation’s single tax return. This means there is no second S-election to maintain, no second corporate tax return to file, and no separate reasonable-compensation analysis needed for a second entity, since everything flows into the one existing S-corp return.</p>
+
+<h3>Why This Is Often Preferable to a Second S Corporation</h3>
+<p>Forming an entirely new, independent S corporation for a related business line means a second set of corporate formalities, a second tax return, a second reasonable-compensation determination, and potentially a second set of shareholder eligibility requirements to track (S corporations have restrictions on who can own shares and how many shareholders they can have). A QSub avoids essentially all of this administrative duplication while still providing state-law liability isolation between the two business lines — because the QSub is still its own separate legal entity for purposes of contracts, lawsuits, and liability, even though it is invisible for federal tax purposes.</p>
+<ul>
+<li>Liability isolation depends on state law and proper entity formalities — the QSub still needs its own operating agreement or bylaws, its own contracts, and its own insurance appropriate to its specific activity, since "disregarded for tax purposes" does not mean "disregarded for liability purposes."</li>
+<li>A QSub election is made by the parent S corporation on the appropriate IRS form and should be confirmed as properly filed and in effect before the new business line begins meaningful operations.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>An S corporation that provides IT consulting wants to launch a separate hardware-repair service under different branding, with its own storefront lease and its own liability exposure from handling customer equipment. Rather than forming a second, independently-elected S corporation, the owners form a new LLC, have the parent S corporation elect QSub treatment for it, and operate the repair business through that entity. The repair business’s income and expenses flow entirely into the parent’s existing S-corp tax return, with no second return required, while the separate LLC still provides its own liability shield for the new activity.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-index="9">
+  <header class="strategy__head">
+    <span class="strategy__num">09</span>
+    <h2>Banking Capital Loss Carryforwards as a Future Planning Asset</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>IRC § 1211–1212 — capital loss limitations and carryforwards</li>
+<li>Schedule D and Form 8949 — reporting capital gains and losses</li></ul>
+  </div>
+  <p class="lede">When an individual’s capital losses in a given year exceed their capital gains, only a limited amount of the excess loss ($3,000 per year for most individual filers) can be used to offset ordinary income like wages. Any loss beyond that amount is not lost — it carries forward indefinitely into future tax years, where it can be used to offset capital gains dollar-for-dollar, with no expiration date and no limit on the amount that can be used against gains in any single future year.</p>
+  <h3>Why This Deserves Active Planning, Not Just Passive Tracking</h3>
+<p>A large capital loss carryforward is a genuine, valuable tax asset — it functions almost like a stored-up deduction that can shelter a future gain from tax entirely, dollar-for-dollar, whenever that gain eventually occurs. The mistake many taxpayers make is treating a capital loss purely as a one-time bad-news item from the year it occurred, tracked (if at all) as a small footnote on a brokerage statement, rather than as a resource to actively plan around. A taxpayer who is aware they are carrying forward a large loss can deliberately time a future asset sale, or accelerate realizing a gain that was going to happen anyway, specifically to use up the banked loss and avoid paying tax on that gain when it otherwise would have been fully taxable.</p>
+<ul>
+<li>Capital loss carryforwards retain their character (short-term or long-term) and are used against gains of the same character first, then the other character, following ordering rules under IRC § 1211–1212.</li>
+<li>A carryforward loss does not expire and is not lost if unused in a given year — it simply continues forward until it is fully used or the taxpayer passes away without having used it (at which point it generally cannot be inherited or transferred).</li>
+<li>Keep a running record of the carryforward amount separately from the return itself, since it is easy to lose track of over several years if it only appears as one line on a tax software carryforward worksheet.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>Elena sells an investment at a loss, realizing a $60,000 capital loss in one year. She uses $3,000 of it against her ordinary income that year, leaving a $57,000 loss carried forward. Two years later, she sells a piece of investment real estate she has owned for a decade, realizing a $50,000 long-term capital gain. Because she tracked her carryforward and planned the real estate sale with it in mind, the $50,000 gain is fully offset by her banked loss, and she pays no tax on that gain at all — using $50,000 of her $57,000 carryforward and leaving $7,000 still available for future years.</p></div>
+
+</article>
+<hr class="divider" />
+
+<article class="strategy" id="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-index="10">
+  <header class="strategy__head">
+    <span class="strategy__num">10</span>
+    <h2>Verifying Tax Data Against IRS Transcripts Before Filing or Planning</h2>
+  </header>
+  <div class="refs">
+    <span class="refs__label">Key Code References</span>
+    <ul class="refs__list"><li>Form 8821, Tax Information Authorization</li>
+<li>Form 2848, Power of Attorney and Declaration of Representative</li>
+<li>IRS Account Transcripts and Wage &amp; Income Transcripts (available via IRS e-Services or by request)</li></ul>
+  </div>
+  <p class="lede">Any tax return or tax plan is only as accurate as the data it is built on. Client-provided returns, bookkeeping records, and account statements can differ — sometimes significantly — from what the IRS actually has on file for that taxpayer: payments that were misapplied, information returns (like 1099s or W-2s) the taxpayer forgot they received, or prior-year adjustments the taxpayer never mentioned. Pulling the taxpayer’s official IRS transcripts and reconciling them against the taxpayer’s own records is a simple, low-cost step that catches problems a plan built only on client-supplied numbers would miss entirely.</p>
+  <h3>What IRS Transcripts Show and Why They Matter</h3>
+<p>An IRS Account Transcript shows the official record of a taxpayer’s filings, payments, penalties, and adjustments for a given tax year and entity, directly from the IRS’s own systems — not from what the taxpayer believes was filed or paid. A Wage &amp; Income Transcript shows every information return (W-2, 1099, K-1, and similar forms) that was actually reported to the IRS under that taxpayer’s identification number for a given year, regardless of whether the taxpayer remembered to mention it.</p>
+<p>Before finalizing a tax return — and especially before relying on a return that contains any unexplained or unusual income items — pulling and reviewing these transcripts confirms that every reported income item has an identified source, that all payments and prior-year credits the taxpayer believes exist are actually recorded by the IRS, and that no additional income document exists that the taxpayer simply forgot to provide.</p>
+<ul>
+<li>To access a taxpayer’s transcripts, a tax professional generally needs a signed authorization from the taxpayer — typically Form 8821 (Tax Information Authorization) for read-only access, or Form 2848 (Power of Attorney) if the professional will also need to represent the taxpayer before the IRS.</li>
+<li>This step is especially important whenever a return contains income items with no clearly identified source, or whenever there has been a change in preparer, since prior-year issues may not have been fully resolved or communicated.</li>
+</ul>
+<div class="callout callout--example"><span class="callout__label">Example</span><p>A draft tax return shows several thousand dollars of "other income" and unusually high reported interest income, with no corresponding document in the taxpayer’s own files explaining where those amounts came from. Rather than filing the return as drafted, the preparer pulls a Wage &amp; Income Transcript, discovers a 1099 the taxpayer had genuinely forgotten they received from a small side account, and confirms the correct amount before the taxpayer signs and the return is filed.</p></div>
+<div class="callout callout--note"><span class="callout__label">Note</span><p>A transcript pull is inexpensive and fast relative to the risk it addresses — an unresolved discrepancy discovered by the IRS after filing is far more costly, in both time and potential penalties, than catching it beforehand.</p></div>
+
+</article>
+    <footer class="colophon">
+      For learning and internal reference only &mdash; not tax advice. Verify current-year figures, thresholds, and code sections before applying any strategy to a real return.
+    </footer>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('sidebarToggle');
+    var sidebar = document.getElementById('sidebar');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var open = sidebar.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.textContent = open ? 'Contents ↑' : 'Contents ↓';
+      });
+    }
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var sections = links.map(function (l) {
+      return document.getElementById(l.getAttribute('data-target'));
+    });
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var link = document.querySelector('.toc a[data-target="' + entry.target.id + '"]');
+          if (!link) return;
+          if (entry.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove('active'); });
+            link.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+      sections.forEach(function (s) { if (s) observer.observe(s); });
+    }
+  })();
+</script>
