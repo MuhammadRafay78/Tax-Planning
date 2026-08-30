@@ -1,5 +1,4 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tax-planning",
   "compatibility_date": "2026-08-01",
   "assets": {
