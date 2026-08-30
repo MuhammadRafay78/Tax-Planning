@@ -137,6 +137,50 @@
 
   .sidebar-toggle { display: none; }
 
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1.4rem;
+  }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    color: var(--ink-soft);
+    background: var(--chip-bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .chip:hover { border-color: var(--line-strong); color: var(--ink); }
+  .chip.is-active {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    color: var(--surface);
+  }
+  .toc li[hidden] { display: none; }
+
+  .cat-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1rem;
+  }
+  .cat-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: var(--accent-strong);
+    background: var(--example-bg);
+    border: 1px solid var(--example-line);
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+  }
+  .strategy[hidden] { display: none; }
+
   /* ---- Main content ---- */
   main {
     padding: 3.5rem 3rem 6rem;
@@ -334,38 +378,51 @@
     <h1 class="sidebar__title">Tax Strategies</h1>
     <p class="sidebar__sub">31 independent strategies. Each one is self-contained &mdash; read any single entry on its own.</p>
     <button class="sidebar-toggle" id="sidebarToggle" aria-expanded="false">Contents &darr;</button>
+    <div class="filters" id="filters" role="group" aria-label="Filter by entity or topic">
+<button type="button" class="chip is-active" data-filter="all">All</button>
+<button type="button" class="chip" data-filter="s-corporation">S-Corporation</button>
+<button type="button" class="chip" data-filter="retirement-planning">Retirement Planning</button>
+<button type="button" class="chip" data-filter="cross-entity-general-business">Cross-Entity / General Business</button>
+<button type="button" class="chip" data-filter="real-estate">Real Estate</button>
+<button type="button" class="chip" data-filter="c-corporation">C-Corporation</button>
+<button type="button" class="chip" data-filter="partnership-llc">Partnership / LLC</button>
+<button type="button" class="chip" data-filter="individual-investment">Individual / Investment</button>
+<button type="button" class="chip" data-filter="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</button>
+<button type="button" class="chip" data-filter="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</button>
+<button type="button" class="chip" data-filter="charitable-estate">Charitable &amp; Estate</button>
+    </div>
     <ul class="toc" id="toc">
-<li><a href="#s1-reasonable-compensation-for-s-corporation-owners" data-target="s1-reasonable-compensation-for-s-corporation-owners"><span class="toc__num">01</span><span class="toc__title">Reasonable Compensation for S-Corporation Owners</span></a></li>
-<li><a href="#s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-target="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav"><span class="toc__num">02</span><span class="toc__title">Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</span></a></li>
-<li><a href="#s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-target="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469"><span class="toc__num">03</span><span class="toc__title">Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</span></a></li>
-<li><a href="#s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-target="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou"><span class="toc__num">04</span><span class="toc__title">Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</span></a></li>
-<li><a href="#s5-home-office-reimbursement-through-an-accountable-plan" data-target="s5-home-office-reimbursement-through-an-accountable-plan"><span class="toc__num">05</span><span class="toc__title">Home Office Reimbursement Through an Accountable Plan</span></a></li>
-<li><a href="#s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-target="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re"><span class="toc__num">06</span><span class="toc__title">The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</span></a></li>
-<li><a href="#s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-target="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the"><span class="toc__num">07</span><span class="toc__title">The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</span></a></li>
-<li><a href="#s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-target="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-"><span class="toc__num">08</span><span class="toc__title">Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</span></a></li>
-<li><a href="#s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-target="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse"><span class="toc__num">09</span><span class="toc__title">Banking Capital Loss Carryforwards as a Future Planning Asset</span></a></li>
-<li><a href="#s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-target="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-"><span class="toc__num">10</span><span class="toc__title">Verifying Tax Data Against IRS Transcripts Before Filing or Planning</span></a></li>
-<li><a href="#s11-self-employment-tax-exposure-for-active-llc-and-partnership-" data-target="s11-self-employment-tax-exposure-for-active-llc-and-partnership-"><span class="toc__num">11</span><span class="toc__title">Self-Employment Tax Exposure for Active LLC and Partnership Members</span></a></li>
-<li><a href="#s12-holding-third-party-funds-as-agent-rather-than-as-business-i" data-target="s12-holding-third-party-funds-as-agent-rather-than-as-business-i"><span class="toc__num">12</span><span class="toc__title">Holding Third-Party Funds as Agent Rather Than as Business Income</span></a></li>
-<li><a href="#s13-documenting-intercompany-charges-between-related-entities" data-target="s13-documenting-intercompany-charges-between-related-entities"><span class="toc__num">13</span><span class="toc__title">Documenting Intercompany Charges Between Related Entities</span></a></li>
-<li><a href="#s14-eliminating-estimated-tax-penalties-through-payroll-withhold" data-target="s14-eliminating-estimated-tax-penalties-through-payroll-withhold"><span class="toc__num">14</span><span class="toc__title">Eliminating Estimated-Tax Penalties Through Payroll Withholding Timing</span></a></li>
-<li><a href="#s15-substantiating-business-vehicle-deductions-under-274d" data-target="s15-substantiating-business-vehicle-deductions-under-274d"><span class="toc__num">15</span><span class="toc__title">Substantiating Business Vehicle Deductions Under § 274(d)</span></a></li>
-<li><a href="#s16-partner-basis-limits-on-distributions-from-an-llc-or-partner" data-target="s16-partner-basis-limits-on-distributions-from-an-llc-or-partner"><span class="toc__num">16</span><span class="toc__title">Partner Basis Limits on Distributions from an LLC or Partnership</span></a></li>
-<li><a href="#s17-timing-the-s-corporation-election-to-its-breakeven-point" data-target="s17-timing-the-s-corporation-election-to-its-breakeven-point"><span class="toc__num">17</span><span class="toc__title">Timing the S-Corporation Election to Its Breakeven Point</span></a></li>
-<li><a href="#s18-the-83b-election-on-restricted-or-founder-equity" data-target="s18-the-83b-election-on-restricted-or-founder-equity"><span class="toc__num">18</span><span class="toc__title">The § 83(b) Election on Restricted or Founder Equity</span></a></li>
-<li><a href="#s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202" data-target="s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202"><span class="toc__num">19</span><span class="toc__title">The Qualified Small Business Stock (QSBS) Exclusion Under § 1202</span></a></li>
-<li><a href="#s20-donating-appreciated-securities-through-a-donor-advised-fund" data-target="s20-donating-appreciated-securities-through-a-donor-advised-fund"><span class="toc__num">20</span><span class="toc__title">Donating Appreciated Securities Through a Donor-Advised Fund</span></a></li>
-<li><a href="#s21-the-backdoor-roth-ira-for-high-income-earners" data-target="s21-the-backdoor-roth-ira-for-high-income-earners"><span class="toc__num">21</span><span class="toc__title">The Backdoor Roth IRA for High-Income Earners</span></a></li>
-<li><a href="#s22-the-mega-backdoor-roth-401k-strategy" data-target="s22-the-mega-backdoor-roth-401k-strategy"><span class="toc__num">22</span><span class="toc__title">The Mega-Backdoor Roth 401(k) Strategy</span></a></li>
-<li><a href="#s23-529-plan-superfunding-the-five-year-gift-tax-election" data-target="s23-529-plan-superfunding-the-five-year-gift-tax-election"><span class="toc__num">23</span><span class="toc__title">529 Plan Superfunding: The Five-Year Gift-Tax Election</span></a></li>
-<li><a href="#s24-the-short-term-rental-loophole-for-active-losses" data-target="s24-the-short-term-rental-loophole-for-active-losses"><span class="toc__num">24</span><span class="toc__title">The Short-Term Rental Loophole for Active Losses</span></a></li>
-<li><a href="#s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo" data-target="s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo"><span class="toc__num">25</span><span class="toc__title">Selling a Partnership Interest: Debt-Relief Gain, Suspended-Loss Release, and Hot Assets</span></a></li>
-<li><a href="#s26-qualified-opportunity-zone-qoz-capital-gain-deferral" data-target="s26-qualified-opportunity-zone-qoz-capital-gain-deferral"><span class="toc__num">26</span><span class="toc__title">Qualified Opportunity Zone (QOZ) Capital Gain Deferral</span></a></li>
-<li><a href="#s27-tax-loss-harvesting-to-offset-capital-gains" data-target="s27-tax-loss-harvesting-to-offset-capital-gains"><span class="toc__num">27</span><span class="toc__title">Tax-Loss Harvesting to Offset Capital Gains</span></a></li>
-<li><a href="#s28-the-six-year-voluntary-compliance-window-for-late-filed-retu" data-target="s28-the-six-year-voluntary-compliance-window-for-late-filed-retu"><span class="toc__num">28</span><span class="toc__title">The Six-Year Voluntary Compliance Window for Late-Filed Returns</span></a></li>
-<li><a href="#s29-getting-a-misapplied-irs-payment-correctly-credited" data-target="s29-getting-a-misapplied-irs-payment-correctly-credited"><span class="toc__num">29</span><span class="toc__title">Getting a Misapplied IRS Payment Correctly Credited</span></a></li>
-<li><a href="#s30-pursuing-irs-penalty-abatement" data-target="s30-pursuing-irs-penalty-abatement"><span class="toc__num">30</span><span class="toc__title">Pursuing IRS Penalty Abatement</span></a></li>
-<li><a href="#s31-trust-fund-recovery-penalty-exposure-for-responsible-persons" data-target="s31-trust-fund-recovery-penalty-exposure-for-responsible-persons"><span class="toc__num">31</span><span class="toc__title">Trust Fund Recovery Penalty Exposure for Responsible Persons</span></a></li>
+<li data-cats="s-corporation"><a href="#s1-reasonable-compensation-for-s-corporation-owners" data-target="s1-reasonable-compensation-for-s-corporation-owners"><span class="toc__num">01</span><span class="toc__title">Reasonable Compensation for S-Corporation Owners</span></a></li>
+<li data-cats="retirement-planning cross-entity-general-business"><a href="#s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-target="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav"><span class="toc__num">02</span><span class="toc__title">Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</span></a></li>
+<li data-cats="real-estate"><a href="#s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-target="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469"><span class="toc__num">03</span><span class="toc__title">Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</span></a></li>
+<li data-cats="cross-entity-general-business"><a href="#s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-target="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou"><span class="toc__num">04</span><span class="toc__title">Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</span></a></li>
+<li data-cats="s-corporation c-corporation"><a href="#s5-home-office-reimbursement-through-an-accountable-plan" data-target="s5-home-office-reimbursement-through-an-accountable-plan"><span class="toc__num">05</span><span class="toc__title">Home Office Reimbursement Through an Accountable Plan</span></a></li>
+<li data-cats="s-corporation c-corporation"><a href="#s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-target="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re"><span class="toc__num">06</span><span class="toc__title">The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</span></a></li>
+<li data-cats="s-corporation partnership-llc"><a href="#s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-target="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the"><span class="toc__num">07</span><span class="toc__title">The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</span></a></li>
+<li data-cats="s-corporation"><a href="#s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-target="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-"><span class="toc__num">08</span><span class="toc__title">Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</span></a></li>
+<li data-cats="individual-investment"><a href="#s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-target="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse"><span class="toc__num">09</span><span class="toc__title">Banking Capital Loss Carryforwards as a Future Planning Asset</span></a></li>
+<li data-cats="irs-compliance-risk-management"><a href="#s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-target="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-"><span class="toc__num">10</span><span class="toc__title">Verifying Tax Data Against IRS Transcripts Before Filing or Planning</span></a></li>
+<li data-cats="partnership-llc"><a href="#s11-self-employment-tax-exposure-for-active-llc-and-partnership-" data-target="s11-self-employment-tax-exposure-for-active-llc-and-partnership-"><span class="toc__num">11</span><span class="toc__title">Self-Employment Tax Exposure for Active LLC and Partnership Members</span></a></li>
+<li data-cats="cross-entity-general-business"><a href="#s12-holding-third-party-funds-as-agent-rather-than-as-business-i" data-target="s12-holding-third-party-funds-as-agent-rather-than-as-business-i"><span class="toc__num">12</span><span class="toc__title">Holding Third-Party Funds as Agent Rather Than as Business Income</span></a></li>
+<li data-cats="cross-entity-general-business"><a href="#s13-documenting-intercompany-charges-between-related-entities" data-target="s13-documenting-intercompany-charges-between-related-entities"><span class="toc__num">13</span><span class="toc__title">Documenting Intercompany Charges Between Related Entities</span></a></li>
+<li data-cats="cross-entity-general-business irs-compliance-risk-management"><a href="#s14-eliminating-estimated-tax-penalties-through-payroll-withhold" data-target="s14-eliminating-estimated-tax-penalties-through-payroll-withhold"><span class="toc__num">14</span><span class="toc__title">Eliminating Estimated-Tax Penalties Through Payroll Withholding Timing</span></a></li>
+<li data-cats="cross-entity-general-business"><a href="#s15-substantiating-business-vehicle-deductions-under-274d" data-target="s15-substantiating-business-vehicle-deductions-under-274d"><span class="toc__num">15</span><span class="toc__title">Substantiating Business Vehicle Deductions Under § 274(d)</span></a></li>
+<li data-cats="partnership-llc"><a href="#s16-partner-basis-limits-on-distributions-from-an-llc-or-partner" data-target="s16-partner-basis-limits-on-distributions-from-an-llc-or-partner"><span class="toc__num">16</span><span class="toc__title">Partner Basis Limits on Distributions from an LLC or Partnership</span></a></li>
+<li data-cats="s-corporation schedule-c-sole-proprietor"><a href="#s17-timing-the-s-corporation-election-to-its-breakeven-point" data-target="s17-timing-the-s-corporation-election-to-its-breakeven-point"><span class="toc__num">17</span><span class="toc__title">Timing the S-Corporation Election to Its Breakeven Point</span></a></li>
+<li data-cats="c-corporation"><a href="#s18-the-83b-election-on-restricted-or-founder-equity" data-target="s18-the-83b-election-on-restricted-or-founder-equity"><span class="toc__num">18</span><span class="toc__title">The § 83(b) Election on Restricted or Founder Equity</span></a></li>
+<li data-cats="c-corporation"><a href="#s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202" data-target="s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202"><span class="toc__num">19</span><span class="toc__title">The Qualified Small Business Stock (QSBS) Exclusion Under § 1202</span></a></li>
+<li data-cats="charitable-estate individual-investment"><a href="#s20-donating-appreciated-securities-through-a-donor-advised-fund" data-target="s20-donating-appreciated-securities-through-a-donor-advised-fund"><span class="toc__num">20</span><span class="toc__title">Donating Appreciated Securities Through a Donor-Advised Fund</span></a></li>
+<li data-cats="retirement-planning individual-investment"><a href="#s21-the-backdoor-roth-ira-for-high-income-earners" data-target="s21-the-backdoor-roth-ira-for-high-income-earners"><span class="toc__num">21</span><span class="toc__title">The Backdoor Roth IRA for High-Income Earners</span></a></li>
+<li data-cats="retirement-planning"><a href="#s22-the-mega-backdoor-roth-401k-strategy" data-target="s22-the-mega-backdoor-roth-401k-strategy"><span class="toc__num">22</span><span class="toc__title">The Mega-Backdoor Roth 401(k) Strategy</span></a></li>
+<li data-cats="charitable-estate"><a href="#s23-529-plan-superfunding-the-five-year-gift-tax-election" data-target="s23-529-plan-superfunding-the-five-year-gift-tax-election"><span class="toc__num">23</span><span class="toc__title">529 Plan Superfunding: The Five-Year Gift-Tax Election</span></a></li>
+<li data-cats="real-estate"><a href="#s24-the-short-term-rental-loophole-for-active-losses" data-target="s24-the-short-term-rental-loophole-for-active-losses"><span class="toc__num">24</span><span class="toc__title">The Short-Term Rental Loophole for Active Losses</span></a></li>
+<li data-cats="partnership-llc"><a href="#s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo" data-target="s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo"><span class="toc__num">25</span><span class="toc__title">Selling a Partnership Interest: Debt-Relief Gain, Suspended-Loss Release, and Hot Assets</span></a></li>
+<li data-cats="real-estate individual-investment"><a href="#s26-qualified-opportunity-zone-qoz-capital-gain-deferral" data-target="s26-qualified-opportunity-zone-qoz-capital-gain-deferral"><span class="toc__num">26</span><span class="toc__title">Qualified Opportunity Zone (QOZ) Capital Gain Deferral</span></a></li>
+<li data-cats="individual-investment"><a href="#s27-tax-loss-harvesting-to-offset-capital-gains" data-target="s27-tax-loss-harvesting-to-offset-capital-gains"><span class="toc__num">27</span><span class="toc__title">Tax-Loss Harvesting to Offset Capital Gains</span></a></li>
+<li data-cats="irs-compliance-risk-management"><a href="#s28-the-six-year-voluntary-compliance-window-for-late-filed-retu" data-target="s28-the-six-year-voluntary-compliance-window-for-late-filed-retu"><span class="toc__num">28</span><span class="toc__title">The Six-Year Voluntary Compliance Window for Late-Filed Returns</span></a></li>
+<li data-cats="irs-compliance-risk-management"><a href="#s29-getting-a-misapplied-irs-payment-correctly-credited" data-target="s29-getting-a-misapplied-irs-payment-correctly-credited"><span class="toc__num">29</span><span class="toc__title">Getting a Misapplied IRS Payment Correctly Credited</span></a></li>
+<li data-cats="irs-compliance-risk-management"><a href="#s30-pursuing-irs-penalty-abatement" data-target="s30-pursuing-irs-penalty-abatement"><span class="toc__num">30</span><span class="toc__title">Pursuing IRS Penalty Abatement</span></a></li>
+<li data-cats="irs-compliance-risk-management cross-entity-general-business"><a href="#s31-trust-fund-recovery-penalty-exposure-for-responsible-persons" data-target="s31-trust-fund-recovery-penalty-exposure-for-responsible-persons"><span class="toc__num">31</span><span class="toc__title">Trust Fund Recovery Penalty Exposure for Responsible Persons</span></a></li>
     </ul>
   </nav>
   <main>
@@ -375,11 +432,12 @@
       <p>A working reference of tax-planning techniques, one per entry, each explained fully on its own terms. Built to grow &mdash; new strategies get added here as they come up.</p>
     </div>
     
-<article class="strategy" id="s1-reasonable-compensation-for-s-corporation-owners" data-index="1">
+<article class="strategy" id="s1-reasonable-compensation-for-s-corporation-owners" data-index="1" data-cats="s-corporation">
   <header class="strategy__head">
     <span class="strategy__num">01</span>
     <h2>Reasonable Compensation for S-Corporation Owners</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 3121(d) — definition of employee</li>
@@ -410,11 +468,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-index="2">
+<article class="strategy" id="s2-cash-balance-defined-benefit-retirement-plans-for-owner-heav" data-index="2" data-cats="retirement-planning cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">02</span>
     <h2>Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 401(a) and § 412 — qualified plan and defined-benefit funding rules</li>
@@ -441,11 +500,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-index="3">
+<article class="strategy" id="s3-real-estate-buy-vs-rent-strategy-using-an-affiliated-llc-469" data-index="3" data-cats="real-estate">
   <header class="strategy__head">
     <span class="strategy__num">03</span>
     <h2>Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 469 — passive activity loss rules and grouping elections</li>
@@ -471,11 +531,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-index="4">
+<article class="strategy" id="s4-correcting-misclassified-fixed-assets-with-a-change-in-accou" data-index="4" data-cats="cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">04</span>
     <h2>Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 263(a) — capitalization of amounts paid to acquire or improve tangible property</li>
@@ -501,11 +562,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s5-home-office-reimbursement-through-an-accountable-plan" data-index="5">
+<article class="strategy" id="s5-home-office-reimbursement-through-an-accountable-plan" data-index="5" data-cats="s-corporation c-corporation">
   <header class="strategy__head">
     <span class="strategy__num">05</span>
     <h2>Home Office Reimbursement Through an Accountable Plan</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 280A — disallowance of certain expenses in connection with business use of home</li>
@@ -531,11 +593,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-index="6">
+<article class="strategy" id="s6-the-augusta-rule-tax-free-short-term-rental-of-a-personal-re" data-index="6" data-cats="s-corporation c-corporation">
   <header class="strategy__head">
     <span class="strategy__num">06</span>
     <h2>The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 280A(g) — rental of a dwelling unit used as a residence for fewer than 15 days</li></ul>
@@ -556,11 +619,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-index="7">
+<article class="strategy" id="s7-the-pass-through-entity-tax-ptet-election-to-work-around-the" data-index="7" data-cats="s-corporation partnership-llc">
   <header class="strategy__head">
     <span class="strategy__num">07</span>
     <h2>The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>State pass-through entity tax statutes (availability and mechanics vary by state)</li>
@@ -580,11 +644,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-index="8">
+<article class="strategy" id="s8-using-a-qualified-subchapter-s-subsidiary-qsub-to-add-a-new-" data-index="8" data-cats="s-corporation">
   <header class="strategy__head">
     <span class="strategy__num">08</span>
     <h2>Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1361(b)(3) — qualified subchapter S subsidiary election</li>
@@ -605,11 +670,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-index="9">
+<article class="strategy" id="s9-banking-capital-loss-carryforwards-as-a-future-planning-asse" data-index="9" data-cats="individual-investment">
   <header class="strategy__head">
     <span class="strategy__num">09</span>
     <h2>Banking Capital Loss Carryforwards as a Future Planning Asset</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1211–1212 — capital loss limitations and carryforwards</li>
@@ -628,11 +694,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-index="10">
+<article class="strategy" id="s10-verifying-tax-data-against-irs-transcripts-before-filing-or-" data-index="10" data-cats="irs-compliance-risk-management">
   <header class="strategy__head">
     <span class="strategy__num">10</span>
     <h2>Verifying Tax Data Against IRS Transcripts Before Filing or Planning</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>Form 8821, Tax Information Authorization</li>
@@ -653,11 +720,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s11-self-employment-tax-exposure-for-active-llc-and-partnership-" data-index="11">
+<article class="strategy" id="s11-self-employment-tax-exposure-for-active-llc-and-partnership-" data-index="11" data-cats="partnership-llc">
   <header class="strategy__head">
     <span class="strategy__num">11</span>
     <h2>Self-Employment Tax Exposure for Active LLC and Partnership Members</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1402(a) and § 1402(a)(13) — self-employment income and the limited-partner exception</li>
@@ -679,11 +747,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s12-holding-third-party-funds-as-agent-rather-than-as-business-i" data-index="12">
+<article class="strategy" id="s12-holding-third-party-funds-as-agent-rather-than-as-business-i" data-index="12" data-cats="cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">12</span>
     <h2>Holding Third-Party Funds as Agent Rather Than as Business Income</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 61 — gross income defined</li>
@@ -705,11 +774,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s13-documenting-intercompany-charges-between-related-entities" data-index="13">
+<article class="strategy" id="s13-documenting-intercompany-charges-between-related-entities" data-index="13" data-cats="cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">13</span>
     <h2>Documenting Intercompany Charges Between Related Entities</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 482 — allocation of income and deductions among taxpayers</li>
@@ -729,11 +799,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s14-eliminating-estimated-tax-penalties-through-payroll-withhold" data-index="14">
+<article class="strategy" id="s14-eliminating-estimated-tax-penalties-through-payroll-withhold" data-index="14" data-cats="cross-entity-general-business irs-compliance-risk-management">
   <header class="strategy__head">
     <span class="strategy__num">14</span>
     <h2>Eliminating Estimated-Tax Penalties Through Payroll Withholding Timing</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 6654 and § 6654(g) — underpayment of estimated tax</li>
@@ -754,11 +825,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s15-substantiating-business-vehicle-deductions-under-274d" data-index="15">
+<article class="strategy" id="s15-substantiating-business-vehicle-deductions-under-274d" data-index="15" data-cats="cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">15</span>
     <h2>Substantiating Business Vehicle Deductions Under § 274(d)</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 162, § 280F, and § 274(d) — trade or business expenses, luxury-vehicle limits, and substantiation</li>
@@ -780,11 +852,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s16-partner-basis-limits-on-distributions-from-an-llc-or-partner" data-index="16">
+<article class="strategy" id="s16-partner-basis-limits-on-distributions-from-an-llc-or-partner" data-index="16" data-cats="partnership-llc">
   <header class="strategy__head">
     <span class="strategy__num">16</span>
     <h2>Partner Basis Limits on Distributions from an LLC or Partnership</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 731(a)(1) and § 705 — distributions and basis</li>
@@ -804,11 +877,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s17-timing-the-s-corporation-election-to-its-breakeven-point" data-index="17">
+<article class="strategy" id="s17-timing-the-s-corporation-election-to-its-breakeven-point" data-index="17" data-cats="s-corporation schedule-c-sole-proprietor">
   <header class="strategy__head">
     <span class="strategy__num">17</span>
     <h2>Timing the S-Corporation Election to Its Breakeven Point</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1361 and § 1362 — S corporation eligibility and election</li>
@@ -829,11 +903,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s18-the-83b-election-on-restricted-or-founder-equity" data-index="18">
+<article class="strategy" id="s18-the-83b-election-on-restricted-or-founder-equity" data-index="18" data-cats="c-corporation">
   <header class="strategy__head">
     <span class="strategy__num">18</span>
     <h2>The § 83(b) Election on Restricted or Founder Equity</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 83 and § 83(b) — property transferred in connection with services</li>
@@ -854,11 +929,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202" data-index="19">
+<article class="strategy" id="s19-the-qualified-small-business-stock-qsbs-exclusion-under-1202" data-index="19" data-cats="c-corporation">
   <header class="strategy__head">
     <span class="strategy__num">19</span>
     <h2>The Qualified Small Business Stock (QSBS) Exclusion Under § 1202</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1202 — exclusion of gain from certain small business stock</li></ul>
@@ -879,11 +955,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s20-donating-appreciated-securities-through-a-donor-advised-fund" data-index="20">
+<article class="strategy" id="s20-donating-appreciated-securities-through-a-donor-advised-fund" data-index="20" data-cats="charitable-estate individual-investment">
   <header class="strategy__head">
     <span class="strategy__num">20</span>
     <h2>Donating Appreciated Securities Through a Donor-Advised Fund</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 170 — charitable contribution deduction</li>
@@ -904,11 +981,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s21-the-backdoor-roth-ira-for-high-income-earners" data-index="21">
+<article class="strategy" id="s21-the-backdoor-roth-ira-for-high-income-earners" data-index="21" data-cats="retirement-planning individual-investment">
   <header class="strategy__head">
     <span class="strategy__num">21</span>
     <h2>The Backdoor Roth IRA for High-Income Earners</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 408 and § 408A — traditional and Roth IRAs</li>
@@ -929,11 +1007,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s22-the-mega-backdoor-roth-401k-strategy" data-index="22">
+<article class="strategy" id="s22-the-mega-backdoor-roth-401k-strategy" data-index="22" data-cats="retirement-planning">
   <header class="strategy__head">
     <span class="strategy__num">22</span>
     <h2>The Mega-Backdoor Roth 401(k) Strategy</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 402(g) and § 415(c) — elective deferral and overall annual-additions limits</li>
@@ -954,11 +1033,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s23-529-plan-superfunding-the-five-year-gift-tax-election" data-index="23">
+<article class="strategy" id="s23-529-plan-superfunding-the-five-year-gift-tax-election" data-index="23" data-cats="charitable-estate">
   <header class="strategy__head">
     <span class="strategy__num">23</span>
     <h2>529 Plan Superfunding: The Five-Year Gift-Tax Election</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 529 — qualified tuition programs</li>
@@ -980,11 +1060,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s24-the-short-term-rental-loophole-for-active-losses" data-index="24">
+<article class="strategy" id="s24-the-short-term-rental-loophole-for-active-losses" data-index="24" data-cats="real-estate">
   <header class="strategy__head">
     <span class="strategy__num">24</span>
     <h2>The Short-Term Rental Loophole for Active Losses</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>Treas. Reg. § 1.469-1T(e)(3)(ii)(A) — activities involving average customer use of seven days or less</li>
@@ -1006,11 +1087,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo" data-index="25">
+<article class="strategy" id="s25-selling-a-partnership-interest-debt-relief-gain-suspended-lo" data-index="25" data-cats="partnership-llc">
   <header class="strategy__head">
     <span class="strategy__num">25</span>
     <h2>Selling a Partnership Interest: Debt-Relief Gain, Suspended-Loss Release, and Hot Assets</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 752(b), § 741, § 1001 — amount realized and liability relief on a partnership-interest sale</li>
@@ -1048,11 +1130,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s26-qualified-opportunity-zone-qoz-capital-gain-deferral" data-index="26">
+<article class="strategy" id="s26-qualified-opportunity-zone-qoz-capital-gain-deferral" data-index="26" data-cats="real-estate individual-investment">
   <header class="strategy__head">
     <span class="strategy__num">26</span>
     <h2>Qualified Opportunity Zone (QOZ) Capital Gain Deferral</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1400Z-2 — special rules for capital gains invested in qualified opportunity zones</li>
@@ -1073,11 +1156,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s27-tax-loss-harvesting-to-offset-capital-gains" data-index="27">
+<article class="strategy" id="s27-tax-loss-harvesting-to-offset-capital-gains" data-index="27" data-cats="individual-investment">
   <header class="strategy__head">
     <span class="strategy__num">27</span>
     <h2>Tax-Loss Harvesting to Offset Capital Gains</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 1091 — the wash-sale rule</li>
@@ -1098,11 +1182,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s28-the-six-year-voluntary-compliance-window-for-late-filed-retu" data-index="28">
+<article class="strategy" id="s28-the-six-year-voluntary-compliance-window-for-late-filed-retu" data-index="28" data-cats="irs-compliance-risk-management">
   <header class="strategy__head">
     <span class="strategy__num">28</span>
     <h2>The Six-Year Voluntary Compliance Window for Late-Filed Returns</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRS Policy Statement 5-133 (Internal Revenue Manual 1.2.1.6.18) — delinquent return enforcement policy</li>
@@ -1123,11 +1208,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s29-getting-a-misapplied-irs-payment-correctly-credited" data-index="29">
+<article class="strategy" id="s29-getting-a-misapplied-irs-payment-correctly-credited" data-index="29" data-cats="irs-compliance-risk-management">
   <header class="strategy__head">
     <span class="strategy__num">29</span>
     <h2>Getting a Misapplied IRS Payment Correctly Credited</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRS Letter 1687C — notice of a payment the IRS could not apply</li>
@@ -1147,11 +1233,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s30-pursuing-irs-penalty-abatement" data-index="30">
+<article class="strategy" id="s30-pursuing-irs-penalty-abatement" data-index="30" data-cats="irs-compliance-risk-management">
   <header class="strategy__head">
     <span class="strategy__num">30</span>
     <h2>Pursuing IRS Penalty Abatement</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 6651 — failure-to-file and failure-to-pay penalties</li>
@@ -1174,11 +1261,12 @@
 </article>
 <hr class="divider" />
 
-<article class="strategy" id="s31-trust-fund-recovery-penalty-exposure-for-responsible-persons" data-index="31">
+<article class="strategy" id="s31-trust-fund-recovery-penalty-exposure-for-responsible-persons" data-index="31" data-cats="irs-compliance-risk-management cross-entity-general-business">
   <header class="strategy__head">
     <span class="strategy__num">31</span>
     <h2>Trust Fund Recovery Penalty Exposure for Responsible Persons</h2>
   </header>
+  <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
   <div class="refs">
     <span class="refs__label">Key Code References</span>
     <ul class="refs__list"><li>IRC § 6672 — failure to collect and pay over tax (the Trust Fund Recovery Penalty)</li>
@@ -1231,5 +1319,36 @@
       }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
       sections.forEach(function (s) { if (s) observer.observe(s); });
     }
+
+    var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var tocItems = Array.prototype.slice.call(document.querySelectorAll('#toc > li'));
+    var articles = Array.prototype.slice.call(document.querySelectorAll('.strategy'));
+    var dividers = Array.prototype.slice.call(document.querySelectorAll('.divider'));
+
+    function applyFilter(filter) {
+      articles.forEach(function (art) {
+        var cats = (art.getAttribute('data-cats') || '').split(' ');
+        var match = filter === 'all' || cats.indexOf(filter) !== -1;
+        art.hidden = !match;
+      });
+      tocItems.forEach(function (li) {
+        var cats = (li.getAttribute('data-cats') || '').split(' ');
+        var match = filter === 'all' || cats.indexOf(filter) !== -1;
+        li.hidden = !match;
+      });
+      dividers.forEach(function (hr) {
+        var prev = hr.previousElementSibling;
+        var next = hr.nextElementSibling;
+        hr.hidden = !!(prev && prev.hidden) || !!(next && next.hidden);
+      });
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        applyFilter(chip.getAttribute('data-filter'));
+      });
+    });
   })();
 </script>
