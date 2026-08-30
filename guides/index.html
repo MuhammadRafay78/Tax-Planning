@@ -137,30 +137,68 @@
 
   .sidebar-toggle { display: none; }
 
-  .filters {
+  .theme-switch {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 0 0 1.4rem;
-  }
-  .chip {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    color: var(--ink-soft);
+    gap: 0.2rem;
+    padding: 0.2rem;
     background: var(--chip-bg);
     border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+    margin: 0 0 1.1rem;
+  }
+  .theme-switch button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.3rem;
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
-  .chip:hover { border-color: var(--line-strong); color: var(--ink); }
-  .chip.is-active {
-    background: var(--accent-strong);
-    border-color: var(--accent-strong);
-    color: var(--surface);
+  .theme-switch button:hover { color: var(--ink); }
+  .theme-switch button.is-active {
+    background: var(--surface);
+    color: var(--accent-strong);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   }
+
+  .filter-field {
+    margin: 0 0 1.4rem;
+  }
+  .filter-field label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 0.4rem;
+  }
+  .filter-field select {
+    width: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    padding: 0.5rem 0.6rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2352616B' stroke-width='1.6'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    padding-right: 1.8rem;
+  }
+  .filter-field select:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
   .toc li[hidden] { display: none; }
 
   .cat-tags {
@@ -378,18 +416,26 @@
     <h1 class="sidebar__title">Tax Strategies</h1>
     <p class="sidebar__sub">31 independent strategies. Each one is self-contained &mdash; read any single entry on its own.</p>
     <button class="sidebar-toggle" id="sidebarToggle" aria-expanded="false">Contents &darr;</button>
-    <div class="filters" id="filters" role="group" aria-label="Filter by entity or topic">
-<button type="button" class="chip is-active" data-filter="all">All</button>
-<button type="button" class="chip" data-filter="s-corporation">S-Corporation</button>
-<button type="button" class="chip" data-filter="retirement-planning">Retirement Planning</button>
-<button type="button" class="chip" data-filter="cross-entity-general-business">Cross-Entity / General Business</button>
-<button type="button" class="chip" data-filter="real-estate">Real Estate</button>
-<button type="button" class="chip" data-filter="c-corporation">C-Corporation</button>
-<button type="button" class="chip" data-filter="partnership-llc">Partnership / LLC</button>
-<button type="button" class="chip" data-filter="individual-investment">Individual / Investment</button>
-<button type="button" class="chip" data-filter="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</button>
-<button type="button" class="chip" data-filter="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</button>
-<button type="button" class="chip" data-filter="charitable-estate">Charitable &amp; Estate</button>
+    <div class="theme-switch" id="themeSwitch" role="group" aria-label="Color theme">
+      <button type="button" data-theme-choice="light">Light</button>
+      <button type="button" data-theme-choice="dark">Dark</button>
+      <button type="button" data-theme-choice="system" class="is-active">Auto</button>
+    </div>
+    <div class="filter-field">
+      <label for="categoryFilter">Filter by entity / topic</label>
+      <select id="categoryFilter">
+<option value="all">All strategies (31)</option>
+<option value="s-corporation">S-Corporation (6)</option>
+<option value="retirement-planning">Retirement Planning (3)</option>
+<option value="cross-entity-general-business">Cross-Entity / General Business (7)</option>
+<option value="real-estate">Real Estate (3)</option>
+<option value="c-corporation">C-Corporation (4)</option>
+<option value="partnership-llc">Partnership / LLC (4)</option>
+<option value="individual-investment">Individual / Investment (5)</option>
+<option value="irs-compliance-risk-management">IRS Compliance &amp; Risk Management (6)</option>
+<option value="schedule-c-sole-proprietor">Schedule C / Sole Proprietor (1)</option>
+<option value="charitable-estate">Charitable &amp; Estate (2)</option>
+      </select>
     </div>
     <ul class="toc" id="toc">
 <li data-cats="s-corporation"><a href="#s1-reasonable-compensation-for-s-corporation-owners" data-target="s1-reasonable-compensation-for-s-corporation-owners"><span class="toc__num">01</span><span class="toc__title">Reasonable Compensation for S-Corporation Owners</span></a></li>
@@ -1320,13 +1366,13 @@
       sections.forEach(function (s) { if (s) observer.observe(s); });
     }
 
-    var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var categorySelect = document.getElementById('categoryFilter');
     var tocItems = Array.prototype.slice.call(document.querySelectorAll('#toc > li'));
-    var articles = Array.prototype.slice.call(document.querySelectorAll('.strategy'));
+    var strategyEls = Array.prototype.slice.call(document.querySelectorAll('.strategy'));
     var dividers = Array.prototype.slice.call(document.querySelectorAll('.divider'));
 
     function applyFilter(filter) {
-      articles.forEach(function (art) {
+      strategyEls.forEach(function (art) {
         var cats = (art.getAttribute('data-cats') || '').split(' ');
         var match = filter === 'all' || cats.indexOf(filter) !== -1;
         art.hidden = !match;
@@ -1343,11 +1389,39 @@
       });
     }
 
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        chips.forEach(function (c) { c.classList.remove('is-active'); });
-        chip.classList.add('is-active');
-        applyFilter(chip.getAttribute('data-filter'));
+    if (categorySelect) {
+      categorySelect.addEventListener('change', function () {
+        applyFilter(categorySelect.value);
+      });
+    }
+
+    var themeButtons = Array.prototype.slice.call(document.querySelectorAll('#themeSwitch button'));
+    var root = document.documentElement;
+    var THEME_KEY = 'tax-strategies-theme';
+
+    function setTheme(choice, persist) {
+      if (choice === 'light') {
+        root.setAttribute('data-theme', 'light');
+      } else if (choice === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+      } else {
+        root.removeAttribute('data-theme');
+      }
+      themeButtons.forEach(function (b) {
+        b.classList.toggle('is-active', b.getAttribute('data-theme-choice') === choice);
+      });
+      if (persist) {
+        try { localStorage.setItem(THEME_KEY, choice); } catch (e) {}
+      }
+    }
+
+    var savedTheme = 'system';
+    try { savedTheme = localStorage.getItem(THEME_KEY) || 'system'; } catch (e) {}
+    setTheme(savedTheme, false);
+
+    themeButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setTheme(btn.getAttribute('data-theme-choice'), true);
       });
     });
   })();
