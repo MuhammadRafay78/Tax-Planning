@@ -196,7 +196,7 @@ ${context}`;
   const requestBody = JSON.stringify({
     system_instruction: { parts: [{ text: systemPrompt }] },
     contents: [...history, { role: 'user', parts: [{ text: message }] }],
-    generationConfig: { maxOutputTokens: 2048 },
+    generationConfig: { maxOutputTokens: 4096 },
   });
 
   // Convert Gemini's SSE stream (one JSON chunk per "data:" line) into a plain
