@@ -1,6 +1,6 @@
 import strategies from './strategies-data.generated.js';
 
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = 'gemini-3.6-flash';
 const MAX_MESSAGE_LENGTH = 1500;
 const MAX_HISTORY_TURNS = 6;
 const RETRIEVAL_TOP_N = 4;
@@ -134,8 +134,7 @@ ${context}`;
   if (!geminiResponse.ok) {
     const status = geminiResponse.status;
     if (status === 429) return jsonResponse({ error: 'The assistant is getting a lot of questions right now — try again shortly.' }, 429);
-    const detail = await geminiResponse.text();
-    return jsonResponse({ error: 'The AI service returned an error.', debugStatus: status, debugDetail: detail }, 502);
+    return jsonResponse({ error: 'The AI service returned an error.' }, 502);
   }
 
   const data = await geminiResponse.json();
