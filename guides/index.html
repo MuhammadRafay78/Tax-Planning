@@ -573,6 +573,11 @@
     border: 1px solid var(--example-line);
   }
   .chat-msg--pending { color: var(--ink-faint); font-style: italic; }
+  .chat-msg--bot p { margin: 0 0 0.6em; }
+  .chat-msg--bot p:last-child { margin-bottom: 0; }
+  .chat-msg--bot ul, .chat-msg--bot ol { margin: 0 0 0.6em; padding-left: 1.2em; }
+  .chat-msg--bot ul:last-child, .chat-msg--bot ol:last-child { margin-bottom: 0; }
+  .chat-msg--bot li { margin: 0.15em 0; }
 
   .chat-panel__form {
     display: flex;
@@ -2517,10 +2522,64 @@
     if (launcher) launcher.addEventListener('click', openChat);
     if (closeBtn) closeBtn.addEventListener('click', closeChat);
 
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function formatBotText(text) {
+      var lines = text.replace(/
+/g, '
+').split('
+');
+      var html = '';
+      var listItems = null;
+      var listTag = null;
+
+      function flushList() {
+        if (listItems) {
+          html += '<' + listTag + '>' + listItems + '</' + listTag + '>';
+          listItems = null;
+          listTag = null;
+        }
+      }
+
+      function inline(s) {
+        s = escapeHtml(s);
+        s = s.replace(/**(.+?)**/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])*(?!*)([^*]+)*(?!*)/g, '$1<em>$2</em>');
+        return s;
+      }
+
+      lines.forEach(function (line) {
+        var trimmed = line.trim();
+        var ordered = /^d+[.)]s+(.*)/.exec(trimmed);
+        var bullet = /^[-*]s+(.*)/.exec(trimmed);
+
+        if (ordered) {
+          if (listTag !== 'ol') { flushList(); listTag = 'ol'; listItems = ''; }
+          listItems += '<li>' + inline(ordered[1]) + '</li>';
+        } else if (bullet) {
+          if (listTag !== 'ul') { flushList(); listTag = 'ul'; listItems = ''; }
+          listItems += '<li>' + inline(bullet[1]) + '</li>';
+        } else if (trimmed === '') {
+          flushList();
+        } else {
+          flushList();
+          html += '<p>' + inline(trimmed) + '</p>';
+        }
+      });
+      flushList();
+      return html;
+    }
+
     function addMessage(text, kind) {
       var div = document.createElement('div');
       div.className = 'chat-msg chat-msg--' + kind;
-      div.textContent = text;
+      if (kind === 'bot') {
+        div.innerHTML = formatBotText(text);
+      } else {
+        div.textContent = text;
+      }
       body.appendChild(div);
       body.scrollTop = body.scrollHeight;
       return div;
