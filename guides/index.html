@@ -4864,6 +4864,9 @@
       });
     }
 
+    var STALL_TIMEOUT_MS = 20000;
+    var HARD_TIMEOUT_MS = 90000;
+
     function sendMessage(text) {
       if (sending) return;
       sending = true;
@@ -4875,10 +4878,33 @@
       botDiv.classList.add('chat-msg--streaming');
       var accumulated = '';
 
+      var controller = ('AbortController' in window) ? new AbortController() : null;
+      var stallTimer = null;
+      var hardTimer = null;
+      var timedOut = false;
+
+      function clearTimers() {
+        clearTimeout(stallTimer);
+        clearTimeout(hardTimer);
+      }
+      function armStallTimer() {
+        clearTimeout(stallTimer);
+        stallTimer = setTimeout(function () {
+          timedOut = true;
+          if (controller) controller.abort();
+        }, STALL_TIMEOUT_MS);
+      }
+      armStallTimer();
+      hardTimer = setTimeout(function () {
+        timedOut = true;
+        if (controller) controller.abort();
+      }, HARD_TIMEOUT_MS);
+
       fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ message: text, history: chatHistory, currentStrategyTitle: currentStrategyTitle }),
+        signal: controller ? controller.signal : undefined,
       })
         .then(function (res) {
           if (!res.ok || !res.body) {
@@ -4891,6 +4917,7 @@
           function pump() {
             return reader.read().then(function (result) {
               if (result.done) return;
+              armStallTimer();
               accumulated += decoder.decode(result.value, { stream: true });
               botDiv.innerHTML = formatBotText(accumulated);
               body.scrollTop = body.scrollHeight;
@@ -4900,6 +4927,7 @@
           return pump();
         })
         .then(function () {
+          clearTimers();
           if (!accumulated) {
             botDiv.remove();
             addMessage('Sorry, I could not generate a response.', 'error');
@@ -4912,10 +4940,22 @@
           if (quickActions) quickActions.hidden = false;
         })
         .catch(function (err) {
+          clearTimers();
           botDiv.remove();
+          if (timedOut) {
+            if (accumulated) {
+              // Partial reply already streamed in — keep it, just note the cutoff.
+              addMessage(accumulated, 'bot');
+              addMessage('(That reply stalled partway through and was cut off — try asking again for the rest.)', 'error');
+            } else {
+              addMessage('That took too long and timed out. Try asking again — shorter or more specific questions usually come back faster.', 'error');
+            }
+            return;
+          }
           addMessage((err && err.message) || 'Could not reach the assistant. Check your connection and try again.', 'error');
         })
         .finally(function () {
+          clearTimers();
           sending = false;
           sendBtn.disabled = false;
           setQuickActionsEnabled(true);

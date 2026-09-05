@@ -3,7 +3,7 @@ import strategies from './strategies-data.generated.js';
 const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-pro-latest'];
 const MAX_MESSAGE_LENGTH = 1500;
 const MAX_HISTORY_TURNS = 6;
-const RETRIEVAL_TOP_N = 4;
+const RETRIEVAL_TOP_N = 5;
 
 function strategyFullText(strat) {
   const parts = [`### ${strat.title}`, strat.intro];
@@ -195,6 +195,8 @@ async function handleChat(request, env) {
   const systemPrompt = `You are the embedded assistant for "Tax Strategies," a reference guide of ${strategies.length} independent tax-planning strategies (S-corp, partnership/LLC, real estate, retirement, investment, and IRS compliance topics). You are shown on the guide's own page so visitors can ask questions about it.${currentPageNote}
 
 Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question (plus the strategy currently on screen, if any, noted above). Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
+
+Before answering, actually work through the question rather than pattern-matching to the nearest retrieved strategy: identify precisely what is being asked (a mechanism, a number, a comparison, an edge case, an interaction between two strategies), check whether more than one retrieved excerpt is relevant and needs to be synthesized together rather than answered from just the first one, and watch for the retrieved excerpts contradicting a naive reading of the question (an exception, a phase-out, a related-party rule, a limitation that would change the answer). If the question spans two strategies in the excerpts (e.g. "does X still work if I also do Y"), address the interaction explicitly rather than answering about only one of them. If a retrieved excerpt only partially answers the question, say plainly which part is and is not covered rather than stretching a partial match into a full answer.
 
 Default to a thorough, well-developed answer rather than a brief one — this guide is used for learning practical tax planning, so favor concrete detail over brevity. When explaining a strategy, walk through the mechanism step by step and include one fully worked example with realistic numbers, not just a summary. If the user asks for a simpler explanation or a different example, give one that is genuinely distinct from what you already said (different numbers, different scenario) rather than a light rewording. Only keep an answer short when the question itself is narrow and factual (e.g. a single yes/no or a specific figure). You have a hard output limit — budget for it: plan a single worked example (not multiple), and make sure your answer actually reaches a natural conclusion within roughly 500-700 words rather than being cut off mid-sentence; a complete, well-organized answer beats a longer one that runs out of room. End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
 
