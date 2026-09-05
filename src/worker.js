@@ -134,7 +134,8 @@ ${context}`;
   if (!geminiResponse.ok) {
     const status = geminiResponse.status;
     if (status === 429) return jsonResponse({ error: 'The assistant is getting a lot of questions right now — try again shortly.' }, 429);
-    return jsonResponse({ error: 'The AI service returned an error.' }, 502);
+    const detail = await geminiResponse.text();
+    return jsonResponse({ error: 'The AI service returned an error.', debugStatus: status, debugDetail: detail }, 502);
   }
 
   const data = await geminiResponse.json();
