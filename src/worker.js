@@ -18,35 +18,118 @@ function strategyFullText(strat) {
   return parts.join('\n');
 }
 
-function haystackFor(strat) {
-  const parts = [strat.title, strat.intro, ...strat.categories];
+function bodyTextFor(strat) {
+  const parts = [strat.intro, ...strat.categories];
   for (const sec of strat.sections) {
     parts.push(sec.h2);
     (sec.body || []).forEach((t) => parts.push(t));
     (sec.bullets || []).forEach((t) => parts.push(t));
     (sec.examplesAndNotes || []).forEach((e) => parts.push(e.text));
   }
-  return parts.join(' ').toLowerCase();
+  return parts.join(' ');
 }
 
 const STOPWORDS = new Set(['the', 'and', 'for', 'are', 'with', 'this', 'that', 'what', 'how', 'can', 'you', 'does', 'do', 'is', 'a', 'an', 'to', 'of', 'in', 'on', 'my', 'i', 'me', 'it', 'about', 'tax', 'strategy', 'strategies']);
 
-function retrieve(query, topN) {
-  const terms = query
-    .toLowerCase()
-    .split(/[^a-z0-9%§]+/)
-    .filter((t) => t.length > 2 && !STOPWORDS.has(t));
+// Query-side and index-side synonym expansion so common tax shorthand and
+// full-form phrasing land on the same tokens (e.g. "s-corp" <-> "s corporation").
+const SYNONYM_PATTERNS = [
+  [/\bs[\s-]?corp(oration)?s?\b/g, ' scorp '],
+  [/\bc[\s-]?corp(oration)?s?\b/g, ' ccorp '],
+  [/\b401\s?\(?k\)?\b/g, ' 401k '],
+  [/\bqbi\b/g, ' qbi qualifiedbusinessincome '],
+  [/\bllc'?s?\b/g, ' llc '],
+  [/\bsole[\s-]?prop(rietor(ship)?)?\b/g, ' soleproprietor '],
+  [/\birs\b/g, ' irs '],
+  [/\bhsa\b/g, ' hsa healthsavingsaccount '],
+  [/\bira\b/g, ' ira '],
+];
 
+function normalizeText(text) {
+  let t = ` ${text.toLowerCase()} `;
+  for (const [pattern, replacement] of SYNONYM_PATTERNS) t = t.replace(pattern, replacement);
+  return t;
+}
+
+// Light stemming: strip common suffixes so "distributions"/"distribution" and
+// "filing"/"filed"/"files" collapse to the same token. Guarded against short words.
+function stem(word) {
+  if (word.length > 5 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+  if (word.length > 5 && word.endsWith('es')) return word.slice(0, -2);
+  if (word.length > 4 && word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1);
+  if (word.length > 6 && word.endsWith('ing')) return word.slice(0, -3);
+  if (word.length > 5 && word.endsWith('ed')) return word.slice(0, -2);
+  return word;
+}
+
+function tokenize(text) {
+  return normalizeText(text)
+    .split(/[^a-z0-9%§]+/)
+    .filter((t) => t.length > 2 && !STOPWORDS.has(t))
+    .map(stem);
+}
+
+function termCounts(tokens) {
+  const counts = new Map();
+  for (const t of tokens) counts.set(t, (counts.get(t) || 0) + 1);
+  return counts;
+}
+
+// BM25 over two fields (title, body) with a title-weight boost, computed once
+// at module load and reused across requests handled by this isolate.
+const BM25_K1 = 1.5;
+const BM25_B = 0.75;
+const TITLE_WEIGHT = 2.5;
+
+function buildIndex() {
+  const docs = strategies.map((s) => ({
+    titleTokens: tokenize(s.title),
+    bodyTokens: tokenize(bodyTextFor(s)),
+  }));
+  docs.forEach((d) => {
+    d.titleCounts = termCounts(d.titleTokens);
+    d.bodyCounts = termCounts(d.bodyTokens);
+  });
+
+  const avgTitleLen = docs.reduce((sum, d) => sum + d.titleTokens.length, 0) / docs.length;
+  const avgBodyLen = docs.reduce((sum, d) => sum + d.bodyTokens.length, 0) / docs.length;
+
+  const df = new Map();
+  docs.forEach((d) => {
+    const seen = new Set([...d.titleCounts.keys(), ...d.bodyCounts.keys()]);
+    seen.forEach((term) => df.set(term, (df.get(term) || 0) + 1));
+  });
+
+  const N = docs.length;
+  const idf = new Map();
+  df.forEach((count, term) => idf.set(term, Math.log((N - count + 0.5) / (count + 0.5) + 1)));
+
+  return { docs, idf, avgTitleLen, avgBodyLen };
+}
+
+function bm25TermScore(freq, docLen, avgLen, idfVal) {
+  if (!freq) return 0;
+  const numerator = freq * (BM25_K1 + 1);
+  const denominator = freq + BM25_K1 * (1 - BM25_B + BM25_B * (docLen / (avgLen || 1)));
+  return idfVal * (numerator / denominator);
+}
+
+let INDEX = null;
+
+function retrieve(query, topN) {
+  if (!INDEX) INDEX = buildIndex();
+  const terms = tokenize(query);
   if (terms.length === 0) return [];
 
-  const scored = strategies.map((s) => {
-    const hay = haystackFor(s);
+  const scored = INDEX.docs.map((d, i) => {
     let score = 0;
     for (const t of terms) {
-      if (hay.includes(t)) score += 1;
-      if (s.title.toLowerCase().includes(t)) score += 2;
+      const idfVal = INDEX.idf.get(t);
+      if (!idfVal) continue;
+      score += bm25TermScore(d.bodyCounts.get(t) || 0, d.bodyTokens.length, INDEX.avgBodyLen, idfVal);
+      score += TITLE_WEIGHT * bm25TermScore(d.titleCounts.get(t) || 0, d.titleTokens.length, INDEX.avgTitleLen, idfVal);
     }
-    return { s, score };
+    return { s: strategies[i], score };
   });
 
   return scored
