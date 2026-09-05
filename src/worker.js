@@ -1,9 +1,9 @@
 import strategies from './strategies-data.generated.js';
 
-const GEMINI_MODEL = 'gemini-3.6-flash';
+const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-pro-latest'];
 const MAX_MESSAGE_LENGTH = 1500;
 const MAX_HISTORY_TURNS = 6;
-const RETRIEVAL_TOP_N = 4;
+const RETRIEVAL_TOP_N = 3;
 
 function strategyFullText(strat) {
   const parts = [`### ${strat.title}`, strat.intro];
@@ -110,43 +110,54 @@ ${tableOfContents}
 Retrieved excerpts most relevant to the current question:
 ${context}`;
 
-  let geminiResponse;
-  try {
-    geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-      {
-        method: 'POST',
-        headers: {
-          'x-goog-api-key': apiKey,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: [...history, { role: 'user', parts: [{ text: message }] }],
-          generationConfig: { maxOutputTokens: 1024 },
-        }),
-      },
-    );
-  } catch {
-    return jsonResponse({ error: 'Could not reach the AI service. Try again in a moment.' }, 502);
-  }
-
-  if (!geminiResponse.ok) {
-    const status = geminiResponse.status;
-    if (status === 429) return jsonResponse({ error: 'The assistant is getting a lot of questions right now — try again shortly.' }, 429);
-    return jsonResponse({ error: 'The AI service returned an error.' }, 502);
-  }
-
-  const data = await geminiResponse.json();
-  const candidate = data.candidates && data.candidates[0];
-  const reply = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]
-    ? candidate.content.parts[0].text
-    : 'Sorry, I could not generate a response.';
-
-  return jsonResponse({
-    reply,
-    matchedStrategies: matches.map((s) => s.title),
+  const requestBody = JSON.stringify({
+    system_instruction: { parts: [{ text: systemPrompt }] },
+    contents: [...history, { role: 'user', parts: [{ text: message }] }],
+    generationConfig: { maxOutputTokens: 640 },
   });
+
+  let lastStatus = 502;
+  for (const model of GEMINI_MODELS) {
+    let geminiResponse;
+    try {
+      geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: 'POST',
+          headers: {
+            'x-goog-api-key': apiKey,
+            'content-type': 'application/json',
+          },
+          body: requestBody,
+        },
+      );
+    } catch {
+      continue;
+    }
+
+    if (geminiResponse.status === 429) {
+      lastStatus = 429;
+      continue;
+    }
+    if (!geminiResponse.ok) {
+      lastStatus = geminiResponse.status;
+      continue;
+    }
+
+    const data = await geminiResponse.json();
+    const candidate = data.candidates && data.candidates[0];
+    const reply = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]
+      ? candidate.content.parts[0].text
+      : 'Sorry, I could not generate a response.';
+
+    return jsonResponse({
+      reply,
+      matchedStrategies: matches.map((s) => s.title),
+    });
+  }
+
+  if (lastStatus === 429) return jsonResponse({ error: 'The assistant is getting a lot of questions right now — try again shortly.' }, 429);
+  return jsonResponse({ error: 'The AI service returned an error.' }, 502);
 }
 
 export default {

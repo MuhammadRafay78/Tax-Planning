@@ -495,6 +495,10 @@
     z-index: 41;
     width: min(380px, calc(100vw - 2.8rem));
     height: min(560px, calc(100vh - 2.8rem));
+    min-width: 300px;
+    min-height: 320px;
+    max-width: calc(100vw - 1.4rem);
+    max-height: calc(100vh - 1.4rem);
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -502,6 +506,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    resize: both;
   }
   .chat-panel[hidden] { display: none; }
 
