@@ -113,7 +113,7 @@ ${context}`;
   const requestBody = JSON.stringify({
     system_instruction: { parts: [{ text: systemPrompt }] },
     contents: [...history, { role: 'user', parts: [{ text: message }] }],
-    generationConfig: { maxOutputTokens: 640 },
+    generationConfig: { maxOutputTokens: 1024 },
   });
 
   let lastStatus = 502;
