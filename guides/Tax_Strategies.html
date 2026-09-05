@@ -2532,10 +2532,7 @@
     }
 
     function formatBotText(text) {
-      var lines = text.replace(/
-/g, '
-').split('
-');
+      var lines = text.replace(/\r\n/g, '\n').split('\n');
       var html = '';
       var listItems = null;
       var listTag = null;
@@ -2550,8 +2547,8 @@
 
       function inline(s) {
         s = escapeHtml(s);
-        s = s.replace(/**(.+?)**/g, '<strong>$1</strong>');
-        s = s.replace(/(^|[^*])*(?!*)([^*]+)*(?!*)/g, '$1<em>$2</em>');
+        s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*(?!\*)([^*]+)\*(?!\*)/g, '$1<em>$2</em>');
         return s;
       }
 
