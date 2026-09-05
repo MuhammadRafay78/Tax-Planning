@@ -185,7 +185,7 @@ async function handleChat(request, env) {
 
 Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question. Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
 
-Default to a thorough, well-developed answer rather than a brief one — this guide is used for learning practical tax planning, so favor concrete detail over brevity. When explaining a strategy, walk through the mechanism step by step and include a fully worked example with realistic numbers, not just a summary. If the user asks for a simpler explanation or a different example, give one that is genuinely distinct from what you already said (different numbers, different scenario) rather than a light rewording. Only keep an answer short when the question itself is narrow and factual (e.g. a single yes/no or a specific figure). End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
+Default to a thorough, well-developed answer rather than a brief one — this guide is used for learning practical tax planning, so favor concrete detail over brevity. When explaining a strategy, walk through the mechanism step by step and include one fully worked example with realistic numbers, not just a summary. If the user asks for a simpler explanation or a different example, give one that is genuinely distinct from what you already said (different numbers, different scenario) rather than a light rewording. Only keep an answer short when the question itself is narrow and factual (e.g. a single yes/no or a specific figure). You have a hard output limit — budget for it: plan a single worked example (not multiple), and make sure your answer actually reaches a natural conclusion within roughly 500-700 words rather than being cut off mid-sentence; a complete, well-organized answer beats a longer one that runs out of room. End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
 
 Full list of strategies in the guide:
 ${tableOfContents}
@@ -196,7 +196,7 @@ ${context}`;
   const requestBody = JSON.stringify({
     system_instruction: { parts: [{ text: systemPrompt }] },
     contents: [...history, { role: 'user', parts: [{ text: message }] }],
-    generationConfig: { maxOutputTokens: 4096 },
+    generationConfig: { maxOutputTokens: 8192 },
   });
 
   // Convert Gemini's SSE stream (one JSON chunk per "data:" line) into a plain
