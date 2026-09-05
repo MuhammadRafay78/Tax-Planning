@@ -174,16 +174,27 @@ async function handleChat(request, env) {
       parts: [{ text: m.content.slice(0, MAX_MESSAGE_LENGTH) }],
     }));
 
-  const matches = retrieve(message, RETRIEVAL_TOP_N);
+  const currentStrategyTitle = typeof payload.currentStrategyTitle === 'string' ? payload.currentStrategyTitle.trim() : '';
+  const pinnedStrategy = currentStrategyTitle ? strategies.find((s) => s.title === currentStrategyTitle) : null;
+
+  const retrieved = retrieve(message, RETRIEVAL_TOP_N);
+  const matches = pinnedStrategy && !retrieved.includes(pinnedStrategy)
+    ? [pinnedStrategy, ...retrieved]
+    : retrieved;
+
   const context = matches.length
     ? matches.map(strategyFullText).join('\n\n---\n\n')
     : '(No strategy in the guide matched this question closely by keyword — say so, and only answer from general knowledge if you are confident it is still about a topic covered elsewhere in the guide; otherwise say it is outside the guide.)';
 
   const tableOfContents = strategies.map((s, i) => `${i + 1}. ${s.title}`).join('\n');
 
-  const systemPrompt = `You are the embedded assistant for "Tax Strategies," a reference guide of ${strategies.length} independent tax-planning strategies (S-corp, partnership/LLC, real estate, retirement, investment, and IRS compliance topics). You are shown on the guide's own page so visitors can ask questions about it.
+  const currentPageNote = pinnedStrategy
+    ? `\n\nThe visitor is currently reading this exact strategy on the page: "${pinnedStrategy.title}". If their question is short, ambiguous, or phrased as a natural follow-up ("does this apply to...", "what about a partnership instead", "give me another example", "walk through it again") without naming a different strategy, assume it refers to this one first — it is always included in the excerpts below regardless of keyword match. Only treat the question as being about something else in the guide if it clearly names or describes a different topic.`
+    : '';
 
-Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question. Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
+  const systemPrompt = `You are the embedded assistant for "Tax Strategies," a reference guide of ${strategies.length} independent tax-planning strategies (S-corp, partnership/LLC, real estate, retirement, investment, and IRS compliance topics). You are shown on the guide's own page so visitors can ask questions about it.${currentPageNote}
+
+Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question (plus the strategy currently on screen, if any, noted above). Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
 
 Default to a thorough, well-developed answer rather than a brief one — this guide is used for learning practical tax planning, so favor concrete detail over brevity. When explaining a strategy, walk through the mechanism step by step and include one fully worked example with realistic numbers, not just a summary. If the user asks for a simpler explanation or a different example, give one that is genuinely distinct from what you already said (different numbers, different scenario) rather than a light rewording. Only keep an answer short when the question itself is narrow and factual (e.g. a single yes/no or a specific figure). You have a hard output limit — budget for it: plan a single worked example (not multiple), and make sure your answer actually reaches a natural conclusion within roughly 500-700 words rather than being cut off mid-sentence; a complete, well-organized answer beats a longer one that runs out of room. End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
 

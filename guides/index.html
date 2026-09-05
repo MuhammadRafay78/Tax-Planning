@@ -4435,6 +4435,11 @@
     var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
     var strategyEls = Array.prototype.slice.call(document.querySelectorAll('.strategy'));
     var strategyIds = strategyEls.map(function (el) { return el.id; });
+    var strategyTitles = strategyEls.map(function (el) {
+      var h2 = el.querySelector('.strategy__head h2');
+      return h2 ? h2.textContent : '';
+    });
+    var currentStrategyTitle = strategyTitles[0] || null;
     var categorySelect = document.getElementById('categoryFilter');
     var searchInput = document.getElementById('searchInput');
     var searchClear = document.getElementById('searchClear');
@@ -4481,6 +4486,7 @@
       var idx = strategyIds.indexOf(id);
       if (idx === -1) idx = 0;
       id = strategyIds[idx];
+      currentStrategyTitle = strategyTitles[idx] || null;
       strategyEls.forEach(function (el) { el.hidden = el.id !== id; });
       tocLinks.forEach(function (l) {
         l.classList.toggle('active', l.getAttribute('data-target') === id);
@@ -4872,7 +4878,7 @@
       fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ message: text, history: chatHistory }),
+        body: JSON.stringify({ message: text, history: chatHistory, currentStrategyTitle: currentStrategyTitle }),
       })
         .then(function (res) {
           if (!res.ok || !res.body) {
