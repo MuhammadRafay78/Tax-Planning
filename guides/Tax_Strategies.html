@@ -777,6 +777,50 @@
     border-top: 1px solid var(--line);
     margin: 0.6em 0;
   }
+  .chat-msg--bot code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+    background: var(--chip-bg);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+  .chat-msg__code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    background: var(--chip-bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.6em 0.75em;
+    margin: 0 0 0.6em;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .chat-msg__code code { background: none; padding: 0; }
+  .chat-msg__quote {
+    margin: 0 0 0.6em;
+    padding: 0.1em 0 0.1em 0.75em;
+    border-left: 3px solid var(--line-strong);
+    color: var(--ink-soft);
+  }
+  .chat-msg__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 0.7em;
+    font-size: 0.8rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .chat-msg__table th, .chat-msg__table td {
+    border: 1px solid var(--line);
+    padding: 0.35em 0.55em;
+    text-align: left;
+    vertical-align: top;
+  }
+  .chat-msg__table th {
+    background: var(--chip-bg);
+    font-weight: 600;
+  }
 
   .chat-quick-actions {
     display: flex;
@@ -4694,15 +4738,58 @@
         s = escapeHtml(s);
         s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         s = s.replace(/(^|[^*])\*(?!\*)([^*]+)\*(?!\*)/g, '$1<em>$2</em>');
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
         return s;
       }
 
-      lines.forEach(function (line) {
+      function splitTableRow(row) {
+        var trimmedRow = row.trim().replace(/^\|/, '').replace(/\|$/, '');
+        return trimmedRow.split('|').map(function (c) { return c.trim(); });
+      }
+
+      var isTableSeparator = function (row) {
+        return /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?$/.test(row.trim());
+      };
+
+      var i = 0;
+      while (i < lines.length) {
+        var line = lines[i];
         var trimmed = line.trim();
+
+        if (/^```/.test(trimmed)) {
+          flushList();
+          var codeLines = [];
+          i++;
+          while (i < lines.length && !/^```/.test(lines[i].trim())) {
+            codeLines.push(lines[i]);
+            i++;
+          }
+          html += '<pre class="chat-msg__code"><code>' + escapeHtml(codeLines.join('\n')) + '</code></pre>';
+          i++;
+          continue;
+        }
+
+        if (trimmed.indexOf('|') !== -1 && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+          flushList();
+          var headerCells = splitTableRow(trimmed);
+          html += '<table class="chat-msg__table"><thead><tr>' +
+            headerCells.map(function (c) { return '<th>' + inline(c) + '</th>'; }).join('') +
+            '</tr></thead><tbody>';
+          i += 2;
+          while (i < lines.length && lines[i].trim().indexOf('|') !== -1 && lines[i].trim() !== '') {
+            var rowCells = splitTableRow(lines[i]);
+            html += '<tr>' + rowCells.map(function (c) { return '<td>' + inline(c) + '</td>'; }).join('') + '</tr>';
+            i++;
+          }
+          html += '</tbody></table>';
+          continue;
+        }
+
         var heading = /^#{1,6}\s+(.*)/.exec(trimmed);
         var rule = /^(-{3,}|\*{3,}|_{3,})$/.exec(trimmed);
         var ordered = /^\d+[.)]\s+(.*)/.exec(trimmed);
         var bullet = /^[-*]\s+(.*)/.exec(trimmed);
+        var quote = /^>\s?(.*)/.exec(trimmed);
 
         if (heading) {
           flushList();
@@ -4710,6 +4797,9 @@
         } else if (rule) {
           flushList();
           html += '<hr class="chat-msg__rule">';
+        } else if (quote) {
+          flushList();
+          html += '<blockquote class="chat-msg__quote">' + inline(quote[1]) + '</blockquote>';
         } else if (ordered) {
           if (listTag !== 'ol') { flushList(); listTag = 'ol'; listItems = ''; }
           listItems += '<li>' + inline(ordered[1]) + '</li>';
@@ -4722,7 +4812,8 @@
           flushList();
           html += '<p>' + inline(trimmed) + '</p>';
         }
-      });
+        i++;
+      }
       flushList();
       return html;
     }
