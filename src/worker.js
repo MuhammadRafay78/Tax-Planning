@@ -3,7 +3,7 @@ import strategies from './strategies-data.generated.js';
 const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-pro-latest'];
 const MAX_MESSAGE_LENGTH = 1500;
 const MAX_HISTORY_TURNS = 6;
-const RETRIEVAL_TOP_N = 3;
+const RETRIEVAL_TOP_N = 4;
 
 function strategyFullText(strat) {
   const parts = [`### ${strat.title}`, strat.intro];
@@ -185,7 +185,7 @@ async function handleChat(request, env) {
 
 Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question. Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
 
-Keep answers conversational but tight — a few sentences to a short paragraph, not a full essay, unless the user is asking for real depth. End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
+Default to a thorough, well-developed answer rather than a brief one — this guide is used for learning practical tax planning, so favor concrete detail over brevity. When explaining a strategy, walk through the mechanism step by step and include a fully worked example with realistic numbers, not just a summary. If the user asks for a simpler explanation or a different example, give one that is genuinely distinct from what you already said (different numbers, different scenario) rather than a light rewording. Only keep an answer short when the question itself is narrow and factual (e.g. a single yes/no or a specific figure). End with a brief reminder that this is educational reference material, not personalized tax advice, only when it's not obvious from context (don't repeat it every single turn in a back-and-forth).
 
 Full list of strategies in the guide:
 ${tableOfContents}
@@ -196,15 +196,51 @@ ${context}`;
   const requestBody = JSON.stringify({
     system_instruction: { parts: [{ text: systemPrompt }] },
     contents: [...history, { role: 'user', parts: [{ text: message }] }],
-    generationConfig: { maxOutputTokens: 1024 },
+    generationConfig: { maxOutputTokens: 2048 },
   });
+
+  // Convert Gemini's SSE stream (one JSON chunk per "data:" line) into a plain
+  // text stream of just the incremental reply text, so the client can render
+  // tokens as they arrive instead of waiting for the full response.
+  function sseToTextStream(sseBody) {
+    const reader = sseBody.pipeThrough(new TextDecoderStream()).getReader();
+    const encoder = new TextEncoder();
+    let buffer = '';
+    return new ReadableStream({
+      async pull(controller) {
+        const { done, value } = await reader.read();
+        if (done) {
+          controller.close();
+          return;
+        }
+        buffer += value;
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith('data:')) continue;
+          const jsonStr = trimmed.slice(5).trim();
+          if (!jsonStr || jsonStr === '[DONE]') continue;
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const text = parsed.candidates && parsed.candidates[0] && parsed.candidates[0].content
+              && parsed.candidates[0].content.parts && parsed.candidates[0].content.parts[0]
+              && parsed.candidates[0].content.parts[0].text;
+            if (text) controller.enqueue(encoder.encode(text));
+          } catch {
+            // Ignore partial/malformed chunk boundaries.
+          }
+        }
+      },
+    });
+  }
 
   let lastStatus = 502;
   for (const model of GEMINI_MODELS) {
     let geminiResponse;
     try {
       geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse`,
         {
           method: 'POST',
           headers: {
@@ -227,20 +263,54 @@ ${context}`;
       continue;
     }
 
-    const data = await geminiResponse.json();
-    const candidate = data.candidates && data.candidates[0];
-    const reply = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]
-      ? candidate.content.parts[0].text
-      : 'Sorry, I could not generate a response.';
-
-    return jsonResponse({
-      reply,
-      matchedStrategies: matches.map((s) => s.title),
+    return new Response(sseToTextStream(geminiResponse.body), {
+      status: 200,
+      headers: {
+        'content-type': 'text/plain; charset=utf-8',
+        'x-matched-strategies': encodeURIComponent(JSON.stringify(matches.map((s) => s.title))),
+      },
     });
   }
 
   if (lastStatus === 429) return jsonResponse({ error: 'The assistant is getting a lot of questions right now — try again shortly.' }, 429);
   return jsonResponse({ error: 'The AI service returned an error.' }, 502);
+}
+
+const VALID_USERS = ['TALHA', 'RAFAY'];
+
+async function handleGetProgress(request, env) {
+  const url = new URL(request.url);
+  const user = (url.searchParams.get('user') || '').toUpperCase();
+  if (!VALID_USERS.includes(user)) return jsonResponse({ error: 'Unknown user.' }, 400);
+
+  const raw = await env.PROGRESS_KV.get(`progress:${user}`);
+  const completed = raw ? JSON.parse(raw) : [];
+  return jsonResponse({ user, completed });
+}
+
+async function handlePostProgress(request, env) {
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid JSON body.' }, 400);
+  }
+
+  const user = typeof payload.user === 'string' ? payload.user.toUpperCase() : '';
+  const id = typeof payload.id === 'string' ? payload.id : '';
+  const completed = !!payload.completed;
+  if (!VALID_USERS.includes(user)) return jsonResponse({ error: 'Unknown user.' }, 400);
+  if (!id) return jsonResponse({ error: 'A strategy "id" string is required.' }, 400);
+
+  const key = `progress:${user}`;
+  const raw = await env.PROGRESS_KV.get(key);
+  const current = new Set(raw ? JSON.parse(raw) : []);
+  if (completed) current.add(id);
+  else current.delete(id);
+
+  const updated = Array.from(current);
+  await env.PROGRESS_KV.put(key, JSON.stringify(updated));
+  return jsonResponse({ user, completed: updated });
 }
 
 export default {
@@ -250,6 +320,12 @@ export default {
     if (url.pathname === '/api/chat') {
       if (request.method !== 'POST') return jsonResponse({ error: 'Use POST.' }, 405);
       return handleChat(request, env);
+    }
+
+    if (url.pathname === '/api/progress') {
+      if (request.method === 'GET') return handleGetProgress(request, env);
+      if (request.method === 'POST') return handlePostProgress(request, env);
+      return jsonResponse({ error: 'Use GET or POST.' }, 405);
     }
 
     return env.ASSETS.fetch(request);
