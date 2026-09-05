@@ -350,43 +350,6 @@
   .strategy li { margin: 0 0 0.55rem; }
   .strategy li::marker { color: var(--accent); }
 
-  .refs {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.6rem 0.7rem;
-    padding: 0.9rem 1rem;
-    background: var(--chip-bg);
-    border-radius: 8px;
-    margin: 0 0 1.6rem;
-    max-width: 66ch;
-  }
-  .refs__label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    flex: none;
-  }
-  .refs__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 0.6rem;
-  }
-  .refs__list li {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.76rem;
-    color: var(--ink-soft);
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 0.2rem 0.5rem;
-  }
-
   .related {
     max-width: 66ch;
     margin: 2.2rem 0 0;
@@ -866,12 +829,6 @@
     <h2>Reasonable Compensation for S-Corporation Owners</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 3121(d) — definition of employee</li>
-<li>IRS Fact Sheet FS-2008-25, Wage Compensation for S Corporation Officers</li>
-<li>Rev. Rul. 74-44</li></ul>
-  </div>
   <p class="lede">When a business is organized as an S corporation and its owner also works in the business, the owner is paid in two different ways: a W-2 salary for the work performed (like any employee), and separate profit distributions as a shareholder. Only the salary portion is subject to Social Security and Medicare tax (together called &quot;payroll tax&quot; or &quot;FICA tax,&quot; currently 15.3% split between employer and employee up to a wage base, with the Medicare portion continuing above it). Distributions are not subject to payroll tax at all. Because of this, the IRS requires that the salary paid to an owner-employee be &quot;reasonable&quot; — meaning close to what an unrelated business would pay someone else to do the same job. This rule exists specifically to prevent owners from underpaying themselves in wages and overpaying themselves in distributions purely to avoid payroll tax.</p>
   <h3>How the Strategy Works and Why It Matters</h3>
 <p>The core idea is simple: an S-corp owner who works in the business must be treated as an employee first. The business calculates what a reasonable salary would be for that role — based on the owner’s duties, hours, experience, and what similar positions pay in the same industry and region — and pays that amount through normal payroll, withholding income tax and FICA tax exactly as it would for any other employee. Only after that salary is paid can any remaining profit be distributed to the owner as a shareholder distribution, which carries no payroll tax at all.</p>
@@ -908,12 +865,6 @@
     <h2>Cash-Balance Defined-Benefit Retirement Plans for Owner-Heavy Businesses</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 401(a) and § 412 — qualified plan and defined-benefit funding rules</li>
-<li>SECURE 2.0 Act § 45E — small-employer retirement-plan startup credit</li>
-<li>IRS Publication 560, Retirement Plans for Small Business</li></ul>
-  </div>
   <p class="lede">A cash-balance plan is a type of qualified retirement plan — legally a defined-benefit pension plan, but administered so it looks and feels like an individual account to each participant. It is designed for exactly one situation: a profitable business where the owners want to shelter far more income from current tax than a standard 401(k) allows, and where there are few enough non-owner employees that funding their smaller required contributions is manageable.</p>
   <h3>How a Standard 401(k) Compares</h3>
 <p>In a typical 401(k) plan, each employee — owner or not — can defer a fixed maximum amount of their own salary each year on a pre-tax basis (a limit set by statute and adjusted annually, with an additional &quot;catch-up&quot; amount allowed for participants age 50 and older). A business can add a matching contribution or a profit-sharing contribution on top of that deferral, but total contributions for any one person are still capped by an overall annual limit that applies regardless of the plan type. For a highly profitable owner who wants to shelter a much larger amount of income, a 401(k) alone — even with profit sharing added — usually cannot get there, because the contribution formula is tied to a percentage of salary, not to how much profit is actually available.</p>
@@ -946,12 +897,6 @@
     <h2>Real Estate Buy-vs-Rent Strategy Using an Affiliated LLC, § 469 Grouping, and Cost Segregation</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 469 — passive activity loss rules and grouping elections</li>
-<li>IRC § 1245 / § 1250 — depreciation recapture</li>
-<li>Treas. Reg. § 1.469-4 — grouping of activities</li></ul>
-  </div>
   <p class="lede">A business that pays significant rent to lease the space it operates from is a candidate to instead buy that real estate through a separate legal entity, then lease the property to its own operating business at a market rent. Done correctly, this converts a rent payment (which gives the tenant nothing in return except use of the space) into an ownership position that builds equity and unlocks depreciation deductions the tenant business could never claim while merely renting.</p>
   <h3>Why the Real Estate Belongs in a Separate Entity</h3>
 <p>Real estate should not be held directly inside an S corporation. If real estate held inside an S corporation is ever distributed to a shareholder (for example, because the owner wants to sell it personally, refinance it independently of the business, or pass it to an heir), the corporation is treated as if it sold the property for its full fair market value at that moment — triggering taxable gain even though no cash actually changed hands. Real estate is also comparatively illiquid and long-lived, which makes it a poor fit for an entity type built around a single class of stock and a single, undivided ownership structure. The standard approach instead is to form a separate LLC — owned by the same individuals who own the operating business, or by the operating business itself — that purchases the real estate and leases it back to the operating business at a market-rate rent.</p>
@@ -983,12 +928,6 @@
     <h2>Correcting Misclassified Fixed Assets with a Change in Accounting Method (Form 3115)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 263(a) — capitalization of amounts paid to acquire or improve tangible property</li>
-<li>Treas. Reg. § 1.263(a)-1 through -3 — tangible property (&quot;repair&quot;) regulations</li>
-<li>Form 3115, Application for Change in Accounting Method</li></ul>
-  </div>
   <p class="lede">Every business purchase of equipment, furniture, or other long-lived property is supposed to be handled one of two ways for tax purposes: either capitalized (recorded as an asset and depreciated over its useful life, or deducted immediately under bonus depreciation/§179 if it qualifies) or, for smaller items, expensed immediately under a specific safe harbor. A common bookkeeping mistake is to instead book these purchases straight to an ordinary expense account — often something generically labeled &quot;supplies&quot; or &quot;materials&quot; — with no asset ever recorded, no depreciation schedule created, and no accumulated-depreciation tracking maintained.</p>
   <h3>Why This Error Often Goes Unnoticed</h3>
 <p>If an asset that should have been capitalized would have qualified for 100% bonus depreciation anyway, the current-year tax deduction can end up being exactly the same dollar amount whether it was capitalized-then-fully-depreciated or simply expensed as a supply. Because the immediate tax bill looks identical either way, this kind of error is easy to overlook for years — nothing on the tax return itself signals that anything is wrong. But the business is left with no accurate record of what it actually owns, no basis figure to reference, and no accumulated-depreciation ledger, even though the assets themselves still exist and are still being used.</p>
@@ -1020,12 +959,6 @@
     <h2>Home Office Reimbursement Through an Accountable Plan</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 280A — disallowance of certain expenses in connection with business use of home</li>
-<li>Rev. Proc. 2013-13 — simplified home-office deduction method</li>
-<li>Treas. Reg. § 1.62-2 — accountable plans</li></ul>
-  </div>
   <p class="lede">An owner who works through a corporation — an S corporation or a C corporation — is legally an employee of that corporation, even though they also own it. Employees generally cannot claim a home-office deduction directly on their personal tax return the way a sole proprietor or independent contractor can. Instead, the way to get the same economic benefit — the corporation effectively covering the cost of the home office — is for the corporation to reimburse the employee for home-office expenses under a formal &quot;accountable plan.&quot;</p>
   <h3>Why an Owner-Employee Cannot Just Deduct a Home Office Personally</h3>
 <p>The home-office deduction available on a sole proprietor’s Schedule C (or under the simplified method) is designed for someone whose business income is reported directly on their own return. An owner-employee of a corporation instead receives W-2 wages and, if the entity is an S corporation, a separate K-1 for their share of the business’s profit — neither of which allows the same kind of direct home-office deduction. Simply having the employee pay for home-office costs personally and deduct them is not available for an employee under current law. The correct mechanism is for the corporation itself to reimburse the employee for the business-use portion of home expenses under an accountable plan.</p>
@@ -1057,10 +990,6 @@
     <h2>The Augusta Rule: Tax-Free Short-Term Rental of a Personal Residence to One’s Own Business</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 280A(g) — rental of a dwelling unit used as a residence for fewer than 15 days</li></ul>
-  </div>
   <p class="lede">IRC § 280A(g) contains an unusually generous, narrow rule: if an individual rents out their personal residence for fewer than 15 days total during the year, none of that rental income has to be reported or taxed — no matter how much was charged — while a business that pays for the rental can still deduct the payment as an ordinary business expense. This provision is nicknamed the &quot;Augusta Rule&quot; after Augusta, Georgia, where homeowners near the Masters golf tournament have long rented out their houses for a few days each year at high rates, tax-free.</p>
   <h3>How the Strategy Is Applied to a Business Owner</h3>
 <p>A business owner can rent their own personal residence to their own business for legitimate business purposes — board meetings, employee events, strategic planning sessions, or client entertaining — as long as the total number of rental days in the year stays under 15. The business pays the owner a rental fee for each day used, at a rate that reflects what comparable meeting or event space would genuinely cost to rent in that area. The business deducts the rental payment as an ordinary business expense. The owner, personally, does not report the rental income at all — it is entirely excluded from gross income under § 280A(g), and no expenses need to be allocated against it either, since there is no income to offset.</p>
@@ -1089,12 +1018,6 @@
     <h2>The Pass-Through Entity Tax (PTET) Election to Work Around the SALT Deduction Cap</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>State pass-through entity tax statutes (availability and mechanics vary by state)</li>
-<li>IRC § 164 — deduction for taxes; the $10,000 SALT cap for individuals</li>
-<li>IRS Notice 2020-75 — federal deductibility of entity-level PTET payments</li></ul>
-  </div>
   <p class="lede">Since 2018, individuals who itemize deductions have been limited to deducting no more than $10,000 total per year in state and local taxes (SALT) on their federal return — a cap that includes state income tax, regardless of how much state tax was actually paid. For an owner of a profitable pass-through business (an S corporation or partnership), this cap can mean a large amount of state tax paid personally receives no federal deduction at all. Many states have responded by creating a pass-through entity tax (PTET) election that offers a workaround.</p>
   <h3>How the Workaround Functions</h3>
 <p>Under a state PTET election, the business itself (rather than its individual owners) elects to pay state income tax directly, calculated on the business’s income. Because this tax is paid and deducted at the entity level — as an ordinary cost of doing business — it is not subject to the $10,000 individual SALT cap at all; entity-level taxes are simply a business expense, the same as any other tax the business pays. The owners then typically receive an offsetting benefit on their personal state return — either a credit for their share of the tax the entity already paid, or an equivalent exclusion from their state taxable income — so they are not taxed twice on the same income at the state level.</p>
@@ -1120,11 +1043,6 @@
     <h2>Using a Qualified Subchapter S Subsidiary (QSub) to Add a New, Related Business Line</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1361(b)(3) — qualified subchapter S subsidiary election</li>
-<li>IRC § 1361–1362 — S corporation eligibility and election requirements</li></ul>
-  </div>
   <p class="lede">When a profitable S corporation wants to start a new but related line of business — one with a somewhat different risk profile or customer base — a common question is whether to form an entirely new, independently-elected S corporation, or to structure the new activity as a Qualified Subchapter S Subsidiary (QSub) owned by the existing S corporation. In most cases, the QSub structure is the simpler and more efficient choice.</p>
   <h3>What a QSub Is and How It Is Treated</h3>
 <p>A QSub is a corporation that is 100%-owned by an existing S corporation and for which the parent has made a specific QSub election. For federal tax purposes, a QSub is treated as if it does not exist separately at all — it is &quot;disregarded,&quot; meaning all of its income, expenses, and activity are simply reported as part of the parent S corporation’s single tax return. This means there is no second S-election to maintain, no second corporate tax return to file, and no separate reasonable-compensation analysis needed for a second entity, since everything flows into the one existing S-corp return.</p>
@@ -1152,11 +1070,6 @@
     <h2>Banking Capital Loss Carryforwards as a Future Planning Asset</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1211–1212 — capital loss limitations and carryforwards</li>
-<li>Schedule D and Form 8949 — reporting capital gains and losses</li></ul>
-  </div>
   <p class="lede">When an individual’s capital losses in a given year exceed their capital gains, only a limited amount of the excess loss ($3,000 per year for most individual filers) can be used to offset ordinary income like wages. Any loss beyond that amount is not lost — it carries forward indefinitely into future tax years, where it can be used to offset capital gains dollar-for-dollar, with no expiration date and no limit on the amount that can be used against gains in any single future year.</p>
   <h3>Why This Deserves Active Planning, Not Just Passive Tracking</h3>
 <p>A large capital loss carryforward is a genuine, valuable tax asset — it functions almost like a stored-up deduction that can shelter a future gain from tax entirely, dollar-for-dollar, whenever that gain eventually occurs. The mistake many taxpayers make is treating a capital loss purely as a one-time bad-news item from the year it occurred, tracked (if at all) as a small footnote on a brokerage statement, rather than as a resource to actively plan around. A taxpayer who is aware they are carrying forward a large loss can deliberately time a future asset sale, or accelerate realizing a gain that was going to happen anyway, specifically to use up the banked loss and avoid paying tax on that gain when it otherwise would have been fully taxable.</p>
@@ -1182,12 +1095,6 @@
     <h2>Verifying Tax Data Against IRS Transcripts Before Filing or Planning</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Form 8821, Tax Information Authorization</li>
-<li>Form 2848, Power of Attorney and Declaration of Representative</li>
-<li>IRS Account Transcripts and Wage &amp; Income Transcripts (available via IRS e-Services or by request)</li></ul>
-  </div>
   <p class="lede">Any tax return or tax plan is only as accurate as the data it is built on. Client-provided returns, bookkeeping records, and account statements can differ — sometimes significantly — from what the IRS actually has on file for that taxpayer: payments that were misapplied, information returns (like 1099s or W-2s) the taxpayer forgot they received, or prior-year adjustments the taxpayer never mentioned. Pulling the taxpayer’s official IRS transcripts and reconciling them against the taxpayer’s own records is a simple, low-cost step that catches problems a plan built only on client-supplied numbers would miss entirely.</p>
   <h3>What IRS Transcripts Show and Why They Matter</h3>
 <p>An IRS Account Transcript shows the official record of a taxpayer’s filings, payments, penalties, and adjustments for a given tax year and entity, directly from the IRS’s own systems — not from what the taxpayer believes was filed or paid. A Wage &amp; Income Transcript shows every information return (W-2, 1099, K-1, and similar forms) that was actually reported to the IRS under that taxpayer’s identification number for a given year, regardless of whether the taxpayer remembered to mention it.</p>
@@ -1214,12 +1121,6 @@
     <h2>Self-Employment Tax Exposure for Active LLC and Partnership Members</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1402(a) and § 1402(a)(13) — self-employment income and the limited-partner exception</li>
-<li>Renkemeyer, Campbell &amp; Weaver LLP v. Comm’r, 136 T.C. 137 (2011)</li>
-<li>Soroban Capital Partners LP v. Comm’r, 161 T.C. No. 12 (2023)</li></ul>
-  </div>
   <p class="lede">A partner or LLC member who actually works in the business — making decisions, running operations, generating revenue — is not automatically exempt from self-employment tax just because their ownership is held through an LLC or a limited-partner interest. A narrow exception in the tax code was written for genuinely passive limited partners, and both the IRS and the Tax Court have become far more willing to look past the label on the K-1 and ask what the person actually does.</p>
   <h3>The Limited-Partner Exception and Why It Is Narrower Than It Looks</h3>
 <p>Under IRC § 1402(a)(13), a limited partner’s distributive share of partnership income is generally excluded from self-employment tax, on the theory that a limited partner is a passive investor, not someone earning income through their own labor. Historically, many people who set up an LLC (rather than a traditional limited partnership) assumed that any LLC member could be treated as a &quot;limited partner&quot; for this purpose, since state LLC law does not have the same limited-versus-general-partner distinction.</p>
@@ -1247,12 +1148,6 @@
     <h2>Holding Third-Party Funds as Agent Rather Than as Business Income</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 61 — gross income defined</li>
-<li>North American Oil Consolidated v. Burnet, 286 U.S. 417 (1932)</li>
-<li>Comm’r v. First Security Bank of Utah, 405 U.S. 394 (1972)</li></ul>
-  </div>
   <p class="lede">Not every dollar that flows through a business’s bank account is that business’s income. When a business collects money that legally belongs to someone else and simply passes it along — acting as an agent or conduit rather than as the owner of the funds — that money is not gross income to the business, provided the arrangement is real and properly documented.</p>
   <h3>The Agency Principle</h3>
 <p>The general rule is that a taxpayer who receives money under a claim of right, with no restriction on its use, has taxable income even if they might later have to repay it. But this rule assumes the recipient is receiving the money for themselves. Where a business instead receives funds explicitly on behalf of another party — for example, managing client accounts, collecting insurance claims on someone else’s behalf, or acting as a billing intermediary — and is contractually obligated to remit that money to the true owner, the funds are not income to the collecting business; they are held as an agent, similar to a trustee.</p>
@@ -1280,11 +1175,6 @@
     <h2>Documenting Intercompany Charges Between Related Entities</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 482 — allocation of income and deductions among taxpayers</li>
-<li>Treas. Reg. § 1.482-1 — general transfer-pricing principles</li></ul>
-  </div>
   <p class="lede">When a business is split across multiple related entities — for example, an operating company and a separate management or administrative-services entity under common ownership — money and services frequently move between them. Without a written agreement and consistent bookkeeping, the IRS can reallocate income and deductions between the entities however it believes better reflects economic reality, and the entities’ own books may simply fail to tie together in a way that invites scrutiny even before the IRS gets involved.</p>
   <h3>Why Intercompany Agreements Matter</h3>
 <p>IRC § 482 gives the IRS broad authority to reallocate income, deductions, and credits among related entities when the arrangement between them does not reflect an arm’s-length result — the price or fee unrelated parties would have agreed to. This applies even when both entities are ultimately owned by the same people and the total tax paid across the group might seem unaffected; a mismatch between entities can still shift income into a more favorable tax position (for instance, into an entity that can absorb it with losses or a lower rate), which is exactly what § 482 is designed to prevent.</p>
@@ -1311,11 +1201,6 @@
     <h2>Eliminating Estimated-Tax Penalties Through Payroll Withholding Timing</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6654 and § 6654(g) — underpayment of estimated tax</li>
-<li>IRC § 31(a) — withholding treated as paid ratably throughout the year</li></ul>
-  </div>
   <p class="lede">Many taxpayers who receive a large, irregular income event — a bonus, a business distribution, a one-time capital gain — end up owing an underpayment penalty simply because they did not send in quarterly estimated payments. There is a legal way to eliminate that penalty entirely without ever writing an estimated-tax check, for anyone who also receives W-2 wages from an S-corporation or other payroll-paying business they control.</p>
   <h3>Why Withholding Timing Is Different From Estimated Payments</h3>
 <p>The tax code requires individuals to pay, throughout the year, either 90% of the current year’s tax or a &quot;safe harbor&quot; percentage of the prior year’s tax (100%, or 110% if the prior year’s adjusted gross income was over $150,000) to avoid an underpayment penalty under IRC § 6654. Quarterly estimated payments count toward this requirement based on when they are actually paid — a payment made in the fourth quarter does not help cover a shortfall from the first quarter.</p>
@@ -1343,12 +1228,6 @@
     <h2>Substantiating Business Vehicle Deductions Under § 274(d)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 162, § 280F, and § 274(d) — trade or business expenses, luxury-vehicle limits, and substantiation</li>
-<li>Treas. Reg. § 1.274-5 — substantiation requirements</li>
-<li>Treas. Reg. § 1.61-21 — personal-use fringe benefit valuation</li></ul>
-  </div>
   <p class="lede">A vehicle used partly for business is one of the most commonly claimed — and most commonly disallowed on audit — deductions, because the substantiation rules for vehicles are stricter than for almost any other business expense. Getting the structure and the recordkeeping right up front is what actually makes the deduction defensible.</p>
   <h3>How the Deduction Works and Why Records Are Non-Negotiable</h3>
 <p>A vehicle used for business can generate a deduction whether it is owned or leased by the business itself, or owned personally with business mileage reimbursed. Either way, only the business-use percentage of the vehicle’s cost (or lease payments) and operating expenses is deductible; the personal-use percentage is not, and if the vehicle is owned by the business, personal use by the owner is generally treated as a taxable fringe benefit that must be added to their wages.</p>
@@ -1376,11 +1255,6 @@
     <h2>Partner Basis Limits on Distributions from an LLC or Partnership</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 731(a)(1) and § 705 — distributions and basis</li>
-<li>Treas. Reg. § 1.731-1</li></ul>
-  </div>
   <p class="lede">A partner or LLC member can generally take cash distributions from the business tax-free — but only up to the amount of their &quot;outside basis&quot; in the partnership interest. A distribution that exceeds a partner’s basis is not simply a tax-free return of capital; the excess is taxable gain, and it is easy for a growing, cash-generative business to cross that line without anyone noticing until the return is prepared.</p>
   <h3>How Basis Limits Distributions</h3>
 <p>A partner’s outside basis starts with what they contributed to the partnership and is adjusted every year: increased by their share of the partnership’s income (and, importantly, by their share of the partnership’s liabilities, under § 752), and decreased by their share of losses and by any distributions they receive. Under IRC § 731(a)(1), a cash distribution is tax-free to the extent of the partner’s basis immediately before the distribution; any distribution in excess of basis is treated as gain from the sale of the partnership interest — usually capital gain, but taxable nonetheless.</p>
@@ -1407,11 +1281,6 @@
     <h2>Timing the S-Corporation Election to Its Breakeven Point</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1361 and § 1362 — S corporation eligibility and election</li>
-<li>Rev. Proc. 2013-30 — relief for a late S election</li></ul>
-  </div>
   <p class="lede">Electing S-corporation status is not automatically beneficial the moment a business becomes profitable — it carries its own costs (payroll administration, a reasonable-compensation requirement, additional tax filings), and for a business with modest profit, those costs can exceed the self-employment tax the election is meant to save. Knowing when the crossover point actually arrives — rather than electing S status reflexively as soon as it is legally available — is itself a planning decision.</p>
   <h3>Where the Breakeven Point Comes From</h3>
 <p>A sole proprietor or a partner in a partnership generally pays self-employment tax (15.3% combined, subject to a wage-base limit on the Social Security portion) on their full share of business profit. An S corporation, by contrast, only imposes payroll tax on the reasonable-compensation salary paid to the owner-employee — the remaining profit passes through as a distribution free of self-employment/payroll tax (see the reasonable-compensation strategy above for how that salary is set).</p>
@@ -1439,11 +1308,6 @@
     <h2>The § 83(b) Election on Restricted or Founder Equity</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 83 and § 83(b) — property transferred in connection with services</li>
-<li>Treas. Reg. § 1.83-2 — the § 83(b) election</li></ul>
-  </div>
   <p class="lede">When a founder or early employee receives equity that is subject to vesting (they forfeit it if they leave before a certain date), the tax code normally taxes that equity as ordinary income only as it vests, based on its value at each vesting date. A § 83(b) election flips that: it taxes the full value up front, at grant, which is enormously advantageous when that value is low or zero — because all of the future appreciation is then taxed later as capital gain instead of ordinary income.</p>
   <h3>Why Filing Early Can Be Extremely Valuable</h3>
 <p>Restricted property received for services is normally taxed under IRC § 83(a) as it vests — at each vesting date, the recipient recognizes ordinary income equal to the property’s value at that time, even though they received the underlying property earlier. For a founder receiving equity when the company is brand new and worth very little, this is a problem: as the company grows in value over the vesting period, each vesting tranche is taxed on a progressively higher value, all as ordinary income.</p>
@@ -1471,10 +1335,6 @@
     <h2>The Qualified Small Business Stock (QSBS) Exclusion Under § 1202</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1202 — exclusion of gain from certain small business stock</li></ul>
-  </div>
   <p class="lede">IRC § 1202 allows the original holder of stock in a qualifying small C-corporation to exclude a large portion — potentially all — of the gain on an eventual sale from federal income tax, provided the stock is held more than five years and the underlying company meets a series of qualification requirements at the time of issuance. For a founder or early investor in a qualifying company, this can be one of the single largest tax benefits available in the entire tax code.</p>
   <h3>How the Exclusion Works and What Qualifies</h3>
 <p>To qualify as QSBS, the stock must be originally issued (not purchased from another shareholder) directly by a domestic C-corporation, acquired at original issuance in exchange for money, property, or services, and the corporation’s gross assets must not have exceeded $50 million at the time of issuance (this threshold and the exact exclusion percentages have been adjusted by recent legislation and should be confirmed against current law for the specific issuance date). The company must also be an active operating business in a qualifying industry — certain service-based fields (health, law, accounting, financial services, among others) are specifically excluded from qualifying.</p>
@@ -1503,11 +1363,6 @@
     <h2>Donating Appreciated Securities Through a Donor-Advised Fund</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 170 — charitable contribution deduction</li>
-<li>IRS Publication 561 — determining the value of donated property</li></ul>
-  </div>
   <p class="lede">Someone who wants to give to charity and is holding investments with a large unrealized gain can do meaningfully better, tax-wise, than selling the investment and donating the cash proceeds. Donating the appreciated security itself — often through a donor-advised fund, which lets the donor take the deduction now and decide which specific charities receive the money later — captures two tax benefits at once instead of one.</p>
   <h3>Why Donating the Asset Beats Donating Cash</h3>
 <p>If an investor sells an appreciated security to raise cash for a charitable gift, they first pay capital gains tax on the sale, and only the after-tax proceeds are available to donate. If instead they donate the security itself — transferring the shares directly to a qualified charity or to a donor-advised fund — two things happen: the donor gets an income-tax deduction for the full fair market value of the security (not just what they originally paid for it), and neither the donor nor the charity ever pays capital gains tax on the appreciation, since the shares are given away rather than sold by the donor.</p>
@@ -1535,11 +1390,6 @@
     <h2>The Backdoor Roth IRA for High-Income Earners</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 408 and § 408A — traditional and Roth IRAs</li>
-<li>IRC § 408(d)(2) — the pro-rata rule for nondeductible IRA distributions</li></ul>
-  </div>
   <p class="lede">Direct Roth IRA contributions are phased out and eventually eliminated entirely once income exceeds statutory thresholds — meaning many higher earners cannot contribute to a Roth IRA directly at all. A well-established, IRS-acknowledged workaround, commonly called the &quot;backdoor Roth,&quot; lets high earners get money into a Roth IRA anyway, through a two-step contribution and conversion.</p>
   <h3>How the Two-Step Process Works</h3>
 <p>The mechanism has two steps. First, the individual makes a nondeductible contribution to a traditional IRA — anyone with earned income can do this regardless of their income level, since the income limits only apply to the Roth contribution and to the deductibility of a traditional IRA contribution, not to a nondeductible traditional IRA contribution itself. Second, shortly afterward, the individual converts that traditional IRA balance to a Roth IRA. Because the contribution was already nondeductible (already taxed), the conversion generally triggers little or no additional tax — the money has already been taxed once, and converting it does not tax it again on the same dollars.</p>
@@ -1567,11 +1417,6 @@
     <h2>The Mega-Backdoor Roth 401(k) Strategy</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 402(g) and § 415(c) — elective deferral and overall annual-additions limits</li>
-<li>IRC § 402A — designated Roth contributions</li></ul>
-  </div>
   <p class="lede">A regular 401(k) lets an employee defer a limited amount of their own salary each year, pre-tax or as a designated Roth contribution. But the overall limit on total contributions to a 401(k) plan — from the employee and the employer combined — is substantially higher than the employee’s own deferral limit. For a plan that permits it, the gap between those two limits can be filled with additional after-tax contributions and converted to Roth, sheltering far more money than a standard 401(k) allows.</p>
   <h3>How the Extra Contribution Room Works</h3>
 <p>The employee elective-deferral limit under IRC § 402(g) caps how much of an employee’s own salary can go into a 401(k) as a regular pre-tax or Roth deferral each year. But a separate, much higher limit under § 415(c) caps the total of all contributions to the account — employee deferrals, any employer match or profit-sharing contribution, and (if the plan allows it) additional after-tax employee contributions — combined.</p>
@@ -1599,12 +1444,6 @@
     <h2>529 Plan Superfunding: The Five-Year Gift-Tax Election</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 529 — qualified tuition programs</li>
-<li>IRC § 529(c)(2)(B) — the five-year forward gift-tax averaging election</li>
-<li>Form 709, United States Gift Tax Return</li></ul>
-  </div>
   <p class="lede">A 529 education savings plan already grows tax-free for qualified education expenses. A special election unique to 529 plans lets a contributor front-load up to five years’ worth of annual gift-tax-exclusion amounts into a single contribution — without using any of their lifetime gift-and-estate-tax exemption — putting a large sum to work growing tax-free for education years earlier than it otherwise could.</p>
   <h3>How the Five-Year Election Works</h3>
 <p>Ordinarily, a gift to another person is tax-free only up to the annual gift-tax exclusion amount per recipient per year (an amount indexed annually for inflation) — a gift larger than that either uses up part of the giver’s lifetime exemption or is taxable. IRC § 529(c)(2)(B) creates a special exception just for 529 plan contributions: a contributor can elect to treat a single lump-sum contribution as if it had been spread evenly over five years, allowing up to five times the annual exclusion amount to be contributed at once, tax-free, without touching the lifetime exemption.</p>
@@ -1632,12 +1471,6 @@
     <h2>The Short-Term Rental Loophole for Active Losses</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.469-1T(e)(3)(ii)(A) — activities involving average customer use of seven days or less</li>
-<li>Treas. Reg. § 1.469-5T — material participation standards</li>
-<li>IRC § 469 — passive activity losses</li></ul>
-  </div>
   <p class="lede">Rental real estate is normally passive by default, which traps its losses against other passive income only — a real limitation for an owner who wants a large first-year cost-segregation loss (see the real estate cost-segregation strategy above) to offset their wages or business income. A specific regulatory exception for short-term rentals removes that trap entirely, without needing a § 469 grouping election or real-estate-professional status, provided the rental genuinely qualifies.</p>
   <h3>Why Short-Term Rentals Are Treated Differently</h3>
 <p>Treas. Reg. § 1.469-1T(e)(3)(ii)(A) excludes a rental activity from the definition of a &quot;rental activity&quot; for passive-loss purposes if the average period of customer use is seven days or less (or thirty days or less if significant personal services are also provided, like a hotel). This exclusion exists because a business that turns over guests every few days looks economically more like operating a hotel than like renting out real estate long-term — and hotel-type businesses have never been treated as automatically passive.</p>
@@ -1665,12 +1498,6 @@
     <h2>Selling a Partnership Interest: Debt-Relief Gain, Suspended-Loss Release, and Hot Assets</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 752(b), § 741, § 1001 — amount realized and liability relief on a partnership-interest sale</li>
-<li>IRC § 469(g) — suspended passive losses freed on a fully taxable disposition</li>
-<li>IRC § 751(a) — ordinary-income treatment of unrealized receivables and inventory</li></ul>
-  </div>
   <p class="lede">Selling an interest in a partnership or an LLC taxed as a partnership is far more complicated than selling ordinary property, because the partner’s share of the partnership’s debt, its suspended losses, and the character of its underlying assets all feed into the final tax result — often in ways that make the true gain very different from what the seller expects looking only at the cash they received.</p>
   <h3>The Debt-Relief Trap: Why the Taxable Gain Can Exceed the Cash Received</h3>
 <p>When a partner sells their interest, the amount they are treated as receiving for tax purposes is not just the cash paid at closing — it also includes their share of the partnership’s liabilities that they are relieved of as part of the sale. Under IRC § 752(b), a decrease in a partner’s share of partnership debt is treated as a deemed cash distribution, and that deemed distribution is added to the actual cash received to determine the total &quot;amount realized.&quot; Gain is then the amount realized minus the partner’s outside basis in the interest.</p>
@@ -1714,11 +1541,6 @@
     <h2>Qualified Opportunity Zone (QOZ) Capital Gain Deferral</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1400Z-2 — special rules for capital gains invested in qualified opportunity zones</li>
-<li>Form 8949 and Form 8997 — deferral election and annual qualified opportunity fund reporting</li></ul>
-  </div>
   <p class="lede">A taxpayer who realizes a large capital gain can elect to defer the tax on that gain — potentially for years — by reinvesting it in a Qualified Opportunity Fund (QOF), an investment vehicle that in turn invests in designated lower-income areas. Beyond the deferral itself, holding the QOF investment long enough can permanently exclude the appreciation that accrues on the new investment.</p>
   <h3>How the Deferral and Exclusion Work</h3>
 <p>A taxpayer with an eligible capital gain has a limited window — generally 180 days from the event that produced the gain — to invest a matching amount in a Qualified Opportunity Fund and elect to defer recognition of that gain. The deferred gain is not forgiven; it is recognized later, generally on the earlier of the taxpayer disposing of the QOF investment or a statutory inclusion date set by the current rules, at which point the originally deferred amount becomes taxable (subject to any basis step-up the specific rules in effect provide for a sufficiently long holding period before that date).</p>
@@ -1746,11 +1568,6 @@
     <h2>Tax-Loss Harvesting to Offset Capital Gains</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1091 — the wash-sale rule</li>
-<li>IRC § 1211–1212 — capital loss limitations and carryforwards</li></ul>
-  </div>
   <p class="lede">An investor holding a diversified portfolio almost always has some positions trading below their purchase price alongside others that have appreciated. Deliberately selling the losing positions to realize losses — &quot;harvesting&quot; them — generates a loss that can offset gains elsewhere, without necessarily changing the investor’s overall market exposure, provided the replacement investment and timing are handled correctly.</p>
   <h3>How Harvesting Losses Offsets Gains</h3>
 <p>Every dollar of realized capital loss offsets a dollar of realized capital gain, regardless of which specific investments produced each — a loss on one stock can offset a gain on a completely unrelated one, as long as both are properly matched by character (short-term losses offset short-term gains first, long-term offset long-term first, with any excess of one type able to offset the other). For an investor who has, or expects to have, a large realized gain in a given year — from a business sale, a concentrated stock position, or any other source — proactively harvesting losses elsewhere in the portfolio before year-end can materially reduce the net taxable gain.</p>
@@ -1778,11 +1595,6 @@
     <h2>The Six-Year Voluntary Compliance Window for Late-Filed Returns</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRS Policy Statement 5-133 (Internal Revenue Manual 1.2.1.6.18) — delinquent return enforcement policy</li>
-<li>IRC § 6501(e) — extended assessment period for a substantial understatement of income</li></ul>
-  </div>
   <p class="lede">A taxpayer with several years of unfiled tax returns often assumes every open year must be filed before they can be considered &quot;caught up.&quot; In practice, IRS internal policy generally treats the most recent six years of delinquent returns as sufficient to establish compliance, and getting the filing sequence and order right matters as much as simply filing everything eventually.</p>
   <h3>Why the Filing Sequence Matters</h3>
 <p>IRS Policy Statement 5-133 states that, as a general enforcement matter, the IRS will usually require the last six years of delinquent returns to be filed to bring a taxpayer into filing compliance, though the IRS retains discretion to require more in particular cases (for example, where a specific year involves unusually large unreported income or an ongoing collection matter). This gives a taxpayer with many years of nonfiling a practical roadmap rather than an undifferentiated backlog.</p>
@@ -1810,11 +1622,6 @@
     <h2>Getting a Misapplied IRS Payment Correctly Credited</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRS Letter 1687C — notice of a payment the IRS could not apply</li>
-<li>Internal Revenue Manual 21.5 — account resolution procedures</li></ul>
-  </div>
   <p class="lede">A taxpayer who has genuinely paid a large tax balance can still show as owing that same balance online and on IRS notices, if the payment could not be matched to their account when it was received — commonly because it arrived through a third party (an escrow or title company, a payroll service, an attorney’s trust account) without the taxpayer’s correct identifying information attached. Recognizing this pattern, rather than assuming a large stated balance means the tax was never actually paid, can resolve what looks like a six-figure liability with a single administrative correction.</p>
   <h3>Why a Real Payment Can Show as Unpaid</h3>
 <p>The IRS matches incoming payments to taxpayer accounts primarily by the taxpayer identification number and name associated with the payment. When a payment is routed through an intermediary — a title company processing a real-estate closing, for instance — and that intermediary’s own identifying information gets attached to the payment instead of (or in addition to) the actual taxpayer’s, the IRS may be unable to match the payment to the correct account. Rather than silently applying it anyway, the IRS holds the payment in an unapplied or suspense status and continues to show the taxpayer’s account as carrying the original, unpaid balance — including, potentially, continuing to accrue interest and penalties on a balance that has, in fact, already been paid.</p>
@@ -1841,12 +1648,6 @@
     <h2>Pursuing IRS Penalty Abatement</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6651 — failure-to-file and failure-to-pay penalties</li>
-<li>IRS first-time abatement administrative policy</li>
-<li>IRC § 6656 — failure-to-deposit penalty (payroll taxes)</li></ul>
-  </div>
   <p class="lede">Late-filing, late-payment, and late-deposit penalties can often be reduced or eliminated entirely after the fact, through a formal abatement request — either based on a taxpayer’s clean recent compliance history, or based on a genuine, well-documented reasonable cause for the lateness. This is a request that has to be affirmatively made; the IRS does not automatically waive penalties just because a good explanation exists.</p>
   <h3>The Two Main Paths to Abatement</h3>
 <p>The first and simplest path is &quot;first-time abatement&quot; (FTA), an administrative policy under which the IRS will generally waive a failure-to-file, failure-to-pay, or failure-to-deposit penalty for a single tax period if the taxpayer has a clean compliance history for the preceding several years — no penalties of the same type, and all required returns filed. This does not require proving any particular hardship or excuse; it is available essentially because of good recent history, making it the easiest penalty relief to obtain when the taxpayer qualifies.</p>
@@ -1875,11 +1676,6 @@
     <h2>Trust Fund Recovery Penalty Exposure for Responsible Persons</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6672 — failure to collect and pay over tax (the Trust Fund Recovery Penalty)</li>
-<li>IRS Form 4180 — report used in TFRP interviews</li></ul>
-  </div>
   <p class="lede">When a business withholds payroll taxes from its employees’ paychecks but fails to remit them to the IRS, the tax code allows the IRS to assess a penalty personally against any individual it determines was a &quot;responsible person&quot; who willfully failed to ensure the money was paid over — collapsing the usual liability shield of a corporation or LLC and reaching directly into that person’s personal assets.</p>
   <h3>How Personal Exposure Arises From a Business’s Payroll Failure</h3>
 <p>Payroll withholding — the income tax and the employee’s share of Social Security and Medicare tax taken out of each paycheck — is technically held &quot;in trust&quot; for the government; it never belonged to the employer in the first place, only to the employees and, through withholding, to the IRS. When a business fails to remit this withheld money, IRC § 6672 allows the IRS to assess a penalty equal to 100% of the unpaid trust-fund portion directly against any individual found to be a &quot;responsible person&quot; who acted &quot;willfully&quot; in failing to ensure it was paid.</p>
@@ -1907,12 +1703,6 @@
     <h2>Distributing S-Corporation Earnings Before Converting to a C-Corporation</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1368 — distributions from an S corporation</li>
-<li>IRC § 1371(a) — general rule that C-corporation rules apply once an S election ends</li>
-<li>IRC § 316 and § 301 — dividend distributions from a C corporation</li></ul>
-  </div>
   <p class="lede">A business that has operated as an S corporation and is now converting to a C corporation — commonly to raise outside investment, since venture and private-equity investors generally require a C-corporation structure — is about to lose a valuable, permanent feature: the ability to distribute already-taxed profit to its owners completely free of any further tax. Sweeping out accumulated S-corporation earnings before the conversion closes is a one-time, use-it-or-lose-it opportunity.</p>
   <h3>Why the Timing of the Distribution Matters So Much</h3>
 <p>While a business is an S corporation, its profit is taxed once — to the owners personally, in the year the profit is earned, whether or not it is actually distributed to them. Because that profit has already been fully taxed, the corporation can later distribute the actual cash to its owners at any time with no further tax due — this is tracked through an accounting concept called the Accumulated Adjustments Account (AAA), which represents the pool of already-taxed profit available for tax-free distribution.</p>
@@ -1940,11 +1730,6 @@
     <h2>Maximizing the Qualified Business Income (QBI) Deduction Through a Wage True-Up</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 199A — qualified business income deduction</li>
-<li>Treas. Reg. § 1.199A-1 through -6</li></ul>
-  </div>
   <p class="lede">The qualified business income (QBI) deduction lets owners of many pass-through businesses deduct up to 20% of their share of business profit. Once income rises above a statutory threshold, however, the deduction is capped by a formula tied to the W-2 wages the business actually pays — meaning a business with too little wage expense can lose part of an otherwise-available deduction, even though its owners are perfectly happy to have earned more profit.</p>
   <h3>How the Wage Limitation Works</h3>
 <p>For owners above the applicable taxable-income threshold (indexed annually), the QBI deduction for a given business is capped at the greater of 50% of the W-2 wages the business paid, or 25% of W-2 wages plus 2.5% of the unadjusted basis of certain business property. For most service and labor-driven businesses without large depreciable asset bases, the 50%-of-wages test is the one that matters, and it is calculated using actual W-2 wages paid by the business for the year — not profit, not distributions, and not 1099 contractor payments.</p>
@@ -1972,12 +1757,6 @@
     <h2>Oil &amp; Gas Working Interest Deductions (Intangible Drilling Costs)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 263(c) — intangible drilling and development costs</li>
-<li>IRC § 469(c)(3) — working interests exempted from the passive-activity rules</li>
-<li>Treas. Reg. § 1.612-4</li></ul>
-  </div>
   <p class="lede">A direct working interest in an oil or gas drilling project offers an unusual combination: a large, immediately deductible expense category (intangible drilling costs, or IDCs) that is specifically exempted from the passive-activity loss limitations that would otherwise trap most investment losses — provided the interest is held in the right legal form.</p>
   <h3>Why This Deduction Is Different From an Ordinary Passive Investment</h3>
 <p>A working interest in an oil or gas well makes the holder responsible for a share of the costs of drilling and developing the well, in exchange for a share of production. A large portion of those costs — intangible drilling costs under IRC § 263(c), covering items like labor, fuel, and drilling-related services that have no salvage value — can generally be deducted in full in the year paid, rather than capitalized and depreciated over time, producing a large first-year deduction relative to the amount invested.</p>
@@ -2004,11 +1783,6 @@
     <h2>Avoiding the Accumulated Earnings Tax in a C-Corporation</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 531–537 — the accumulated earnings tax</li>
-<li>Treas. Reg. § 1.537-1 — reasonable needs of the business</li></ul>
-  </div>
   <p class="lede">A C corporation is taxed once at the corporate level (currently a flat rate) and again when profit is eventually paid out to shareholders as a dividend. Deferring that second layer of tax by simply not paying dividends — keeping profit inside the corporation indefinitely — sounds attractive, but the tax code contains a specific penalty, the accumulated earnings tax, aimed directly at corporations that retain earnings beyond what their business genuinely needs, purely to help shareholders avoid dividend tax.</p>
   <h3>What the Accumulated Earnings Tax Penalizes, and How to Stay on the Right Side of It</h3>
 <p>IRC § 531 imposes an additional tax, on top of the regular corporate income tax, on a corporation’s accumulated taxable income if the corporation was formed or used to avoid income tax on its shareholders by permitting earnings to accumulate instead of being distributed. The IRS bears the burden of showing this tax-avoidance purpose in most cases, but if a corporation has accumulated earnings beyond the reasonable needs of its business, the tax code presumes the avoidance purpose exists unless the corporation can show a genuine business reason for the accumulation.</p>
@@ -2036,12 +1810,6 @@
     <h2>Specific Lot Identification and Holding-Period Timing for Active Investors</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1(h) — capital gains rate structure</li>
-<li>IRC § 1012 and Treas. Reg. § 1.1012-1 — basis and lot identification</li>
-<li>IRC § 1091 — the wash-sale rule</li></ul>
-  </div>
   <p class="lede">The tax code treats an investment gain very differently depending on how long it was held: a position sold after being held more than one year is taxed at preferential long-term capital gains rates, while a position sold after a year or less is taxed as ordinary income at rates that can be nearly double. An active investor who trades frequently, without deliberately managing which specific shares are sold and when, routinely leaves a large and entirely avoidable amount on the table.</p>
   <h3>Two Related but Distinct Levers: Which Lot, and When</h3>
 <p>When an investor has purchased the same security at different times and different prices, each purchase is a distinct &quot;lot&quot; with its own holding period and cost basis. By default, many brokerages sell the earliest-purchased lot first (FIFO), but an investor can instead specifically identify which lot to sell at the time of the trade — choosing, for example, to sell a lot that has been held more than a year (to get long-term treatment) rather than a more recently purchased lot in the same security that would produce a short-term gain, or choosing to sell a high-basis lot to minimize the gain recognized versus a low-basis lot that would maximize it.</p>
@@ -2069,12 +1837,6 @@
     <h2>Gifting Minority Business Interests Before a Priced Funding Round</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 2501–2504 — gift tax</li>
-<li>IRC § 2631 — generation-skipping transfer tax exemption</li>
-<li>IRC § 2503(b) — annual gift-tax exclusion</li></ul>
-  </div>
   <p class="lede">When a privately held business is about to raise outside investment at a formal valuation — a &quot;priced round&quot; — that valuation event is also the moment the business’s worth becomes concrete and, often, dramatically higher than it was previously. Gifting a minority interest in the business to family members (or a trust for their benefit) before that valuation locks in moves all of the appreciation that happens afterward out of the giver’s estate entirely, using a valuation that will only get more expensive to use as time passes.</p>
   <h3>Why Timing Around the Valuation Event Matters So Much</h3>
 <p>A gift of a business interest is valued, for gift-tax purposes, at its fair market value on the date of the gift. Before an outside investor has priced the company, a minority, illiquid interest in a private business is often valued conservatively — reflecting genuine uncertainty about the business’s future, its lack of a ready market, and (for a minority stake specifically) the fact that a minority holder cannot control the company’s decisions, all of which support a lower appraised value than the business might command once an outside investor has just paid a specific price for a stake in it.</p>
@@ -2102,11 +1864,6 @@
     <h2>Depreciating Foreign Rental Real Estate Under the Alternative Depreciation System</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 168(g)(1)(A) — required use of the alternative depreciation system for foreign-use property</li>
-<li>IRC § 1031(h) — foreign real property not treated as like-kind to U.S. real property</li></ul>
-  </div>
   <p class="lede">A taxpayer who owns residential rental property located outside the United States is still required to report the rental income and can still depreciate the property — but under a specific, less favorable set of rules than a comparable U.S. property would use, and against a smaller set of available deferral and exchange options if the property is ever sold.</p>
   <h3>How Depreciation and Sale Rules Differ for Foreign Property</h3>
 <p>A U.S.-located residential rental property is normally depreciated over 27.5 years, and can qualify for accelerated depreciation methods and bonus depreciation on certain components identified through a cost segregation study. Foreign-use residential rental property, by contrast, is required under IRC § 168(g)(1)(A) to use the Alternative Depreciation System (ADS) — a straight-line method over a longer recovery period (30 years for residential rental property), with no bonus depreciation available. The deduction is real and still valuable, but it is spread more slowly and produces a smaller first-year benefit than the same dollar amount invested in comparable U.S. property would.</p>
@@ -2134,11 +1891,6 @@
     <h2>Timing a Nonqualified Deferred Compensation (§409A) Distribution Election</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 409A — nonqualified deferred compensation plans</li>
-<li>Treas. Reg. § 1.409A-3 — permissible distribution events and timing</li></ul>
-  </div>
   <p class="lede">Nonqualified deferred compensation (NQDC) — income an employee earned but agreed to have paid out in a later year, outside of a qualified retirement plan — is governed by strict, unforgiving timing rules under IRC § 409A. An employee who has flexibility over when a deferred payout occurs (or who still has time to change that timing under the plan’s rules) can potentially shift a large amount of income into whichever future year carries the lower marginal tax rate — but the window to make that change closes well before the payment date itself.</p>
   <h3>Why NQDC Timing Is Locked Down So Tightly, and Where Flexibility Still Exists</h3>
 <p>IRC § 409A was enacted specifically to prevent executives from having open-ended discretion over when deferred compensation gets paid to them (which could otherwise be used to dodge tax by simply &quot;deciding&quot; to receive income in a low-tax year after the fact). As a result, the timing of a distribution is generally fixed at the time the original deferral election was made, years earlier, and is enforced through severe penalties (immediate income inclusion of the entire deferred amount, plus a 20% additional tax) if the rules are violated.</p>
@@ -2166,12 +1918,6 @@
     <h2>Establishing a Pre-Revenue Activity as a Legitimate Trade or Business</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 183 — activities not engaged in for profit (&quot;hobby loss&quot; rules)</li>
-<li>IRC § 162 — trade or business expenses</li>
-<li>IRC § 263A — capitalization of certain costs to inventory (UNICAP)</li></ul>
-  </div>
   <p class="lede">An activity that has not yet generated meaningful revenue — a passion project turned side business, a long-gestating creative or agricultural venture — can still be a legitimate deductible trade or business under the tax code, even while it operates at a loss, as long as it is conducted with a genuine intent to make a profit. The mistake many taxpayers (and even some advisors) make is assuming that because a venture “isn’t making money yet,” it isn’t worth the effort of proper accounting — when in fact getting the accounting right from the start is exactly what protects the losses and preserves the deductions the venture is entitled to.</p>
   <h3>Profit Motive, Not Actual Profit, Is the Legal Test</h3>
 <p>IRC § 183 disallows deductions for an activity &quot;not engaged in for profit&quot; — commonly called the hobby-loss rule — but the test is whether the taxpayer has a genuine intention and reasonable expectation of eventually making a profit, not whether the activity has actually turned a profit yet. Courts and the IRS look at factors like whether the activity is conducted in a businesslike manner (separate books and bank accounts, a business plan, efforts to improve profitability), the taxpayer’s expertise and effort, the history of income or losses in the activity, and whether any occasional profit years occurred — no single factor is decisive, and a pre-revenue venture can pass this test if it is run with genuine business discipline even while showing years of losses.</p>
@@ -2199,12 +1945,6 @@
     <h2>Routing 1099 Severance or Consulting Income Through a New LLC</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 401(k) and § 408(k) — retirement plan contribution limits available to self-employment income</li>
-<li>IRC § 162(l) — self-employed health insurance deduction</li>
-<li>IRC § 280A — home office expenses</li></ul>
-  </div>
   <p class="lede">When a departing employee’s severance, a consulting arrangement, or similar payment is going to be issued as 1099 nonemployee compensation rather than W-2 wages, receiving that payment directly in one’s own name (rather than through a business entity) forfeits a set of deductions and retirement-contribution opportunities that are only available to self-employment income earned through an actual trade or business — and the window to set this up closes the moment the payment is actually issued.</p>
   <h3>Why the Entity Has to Exist Before the Money Moves</h3>
 <p>Income paid as 1099 nonemployee compensation is self-employment income, taxable to whoever it is issued to. If it is issued directly to an individual by name, that individual can still deduct ordinary business expenses against it on a personal return, but structuring the same income as being earned by a newly formed, disregarded single-member LLC — with the payer reissuing payment to the LLC rather than the individual — makes the business nature of the arrangement explicit and cleanly separates it from personal finances, which matters both for opening certain retirement-plan doors and for defending the deductions if ever questioned.</p>
@@ -2232,10 +1972,6 @@
     <h2>Electing a Higher Withholding Rate on Supplemental Wages</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.409A note not applicable — see IRC § 6654(g) and § 31(a); IRS Publication 15 (Circular E) — supplemental wage withholding rules</li></ul>
-  </div>
   <p class="lede">Bonuses, commissions, and severance paid through payroll are &quot;supplemental wages,&quot; and employers are generally permitted to withhold federal income tax from them at a flat rate that is often far lower than the recipient’s actual marginal tax rate. A high earner who does not proactively elect a higher withholding rate on a large supplemental payment can end up significantly under-withheld for the year, even though the shortfall was entirely avoidable through a simple payroll election.</p>
   <h3>Why the Default Supplemental Rate Can Create a Hidden Shortfall</h3>
 <p>The default flat withholding rate available for supplemental wages is set well below the top individual marginal tax rate. For an employee whose marginal rate is well above that flat rate — which describes most high earners receiving a large bonus or severance payment — withholding at the default flat rate on that payment withholds far less than what will actually be owed on that income when the return is filed, even though the withholding on the rest of the employee’s regular salary might be entirely adequate on its own.</p>
@@ -2263,11 +1999,6 @@
     <h2>Cryptocurrency Loss Harvesting Without the Wash-Sale Rule</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1091 — the wash-sale rule (applies to &quot;stock or securities&quot;)</li>
-<li>IRS Notice 2014-21 — virtual currency treated as property for federal tax purposes</li></ul>
-  </div>
   <p class="lede">The wash-sale rule, which disallows a tax loss when a security is repurchased within 30 days before or after the sale that generated the loss, applies specifically to &quot;stock or securities.&quot; Because the IRS treats cryptocurrency as property rather than as a security for federal tax purposes, the wash-sale rule does not currently apply to cryptocurrency transactions — creating a loss-harvesting opportunity unavailable to stock and fund investors.</p>
   <h3>Why Crypto Loss Harvesting Works Differently Than Stock Loss Harvesting</h3>
 <p>When a stock investor harvests a loss, they generally cannot simply repurchase the identical position immediately — doing so within 30 days triggers the wash-sale rule, disallowing the loss and requiring the investor to either wait out the 30-day window or buy something similar-but-not-identical instead, both of which carry some market-exposure risk during the interim.</p>
@@ -2295,11 +2026,6 @@
     <h2>The § 475(f) Mark-to-Market Election for Active Traders</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 475(f) — mark-to-market election for traders in securities or commodities</li>
-<li>Rev. Proc. 99-17 — procedures for making the § 475(f) election</li></ul>
-  </div>
   <p class="lede">A taxpayer (or a trading entity) that qualifies as a &quot;trader&quot; under the tax code — as distinguished from a mere &quot;investor&quot; — can elect mark-to-market accounting under IRC § 475(f), treating all open positions as if sold at year-end fair market value and simplifying the bookkeeping burden of tracking gain and loss on a very high volume of transactions, though the underlying character of the income is often unaffected for a trader whose activity was already short-term and ordinary in character.</p>
   <h3>What the Election Actually Does — and Does Not Do</h3>
 <p>Qualifying as a &quot;trader&quot; (rather than an &quot;investor&quot;) for tax purposes generally requires a level of activity, frequency, and continuity that most casual or even active-but-modest investors do not meet — courts and the IRS look at trading frequency, the substantiality of the activity, and whether the taxpayer’s intent is to catch short-term market movements rather than to hold for long-term appreciation. Someone conducting extremely high-volume, short-holding-period trading — hundreds or thousands of transactions across a year — has a much stronger case for trader status than a typical active retail investor.</p>
@@ -2328,11 +2054,6 @@
     <h2>The Heavy Vehicle (GVWR) Depreciation Exception</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 280F — limitations on depreciation for luxury automobiles and listed property</li>
-<li>Rev. Proc. 2019-26 (and successor guidance) — luxury-auto depreciation limits</li></ul>
-  </div>
   <p class="lede">The tax code imposes strict annual depreciation caps on passenger automobiles used for business — the so-called &quot;luxury auto&quot; limits — that can stretch the deduction for an expensive vehicle out over many years. Vehicles rated above a specific gross vehicle weight threshold are entirely exempt from these caps, making the manufacturer’s weight rating a simple, decisive fact that determines whether a vehicle purchase can be substantially or fully deducted in its first year.</p>
   <h3>Why a Vehicle’s Weight Rating Changes Everything</h3>
 <p>IRC § 280F limits the annual depreciation deduction for a &quot;passenger automobile&quot; used in a business to a set of statutory dollar caps, indexed for inflation, that apply regardless of the vehicle’s actual purchase price — an expensive passenger car is depreciated no faster than these caps allow, stretching out full cost recovery over many years even under otherwise-available bonus depreciation rules.</p>
@@ -2360,12 +2081,6 @@
     <h2>Real Estate Professional Status (REPS) to Deduct Rental Losses Against Other Income</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 469(c)(7) — real property trades or businesses</li>
-<li>Treas. Reg. § 1.469-9 — rules for real estate professionals</li>
-<li>Treas. Reg. § 1.469-5T — material participation tests</li></ul>
-  </div>
   <p class="lede">Rental real estate losses are ordinarily passive and trapped against passive income only, no matter how large the depreciation-driven loss is. A taxpayer who qualifies as a real estate professional under IRC § 469(c)(7) removes that automatic passive label from their rental activities, opening the door for large rental losses — including a first-year cost-segregation loss — to offset wages, business income, or any other active income, without needing the short-term-rental average-stay test or a business entity to lease through.</p>
   <h3>The Two-Part Test, and Why It Is Demanding</h3>
 <p>To qualify as a real estate professional, a taxpayer must satisfy two separate quantitative thresholds in the same year: more than 750 hours of personal services in real property trades or businesses (development, construction, acquisition, rental, management, operation, leasing, or brokerage), and more than half of all personal services performed in trades or businesses during the year must be in real property trades or businesses. For someone with a full-time job or another primary business, the second test is often the harder one to clear — it requires real property work to exceed literally all of their other combined working time for the year, not just be substantial in absolute terms.</p>
@@ -2395,11 +2110,6 @@
     <h2>The Specified Service Trade or Business (SSTB) Exclusion from the QBI Deduction</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 199A(d)(2) — specified service trades or businesses</li>
-<li>Treas. Reg. § 1.199A-5 — SSTB definitions and the income phase-out</li></ul>
-  </div>
   <p class="lede">The qualified business income (QBI) deduction is available to owners of most pass-through businesses, but a specific category of businesses — &quot;specified service trades or businesses,&quot; or SSTBs — loses the deduction entirely once the owner’s taxable income clears a statutory phase-out range, regardless of how much W-2 wages the business pays or how much depreciable property it owns.</p>
   <h3>What Counts as an SSTB, and Why the Phase-Out Is a Cliff</h3>
 <p>IRC § 199A(d)(2) and its regulations define SSTBs to include fields such as health, law, accounting, actuarial science, performing arts, consulting, athletics, financial services, brokerage services (in the investment-advisory sense, not real estate brokerage), and any trade or business where the principal asset is the reputation or skill of one or more of its employees or owners. A medical practice, a law firm, and a financial advisory business are common examples; a real estate brokerage, a restaurant, or a manufacturing business generally are not SSTBs, even though they may also depend heavily on the skill of specific people.</p>
@@ -2427,12 +2137,6 @@
     <h2>S-Corporation Shareholder Basis and the Excess-Distribution Trap (Form 7203)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1367 — adjustments to basis of stock and debt of S corporation shareholders</li>
-<li>IRC § 1368 — distributions from an S corporation</li>
-<li>Form 7203, S Corporation Shareholder Stock and Debt Basis Limitations</li></ul>
-  </div>
   <p class="lede">An S-corporation shareholder, like a partner in a partnership, can only receive distributions tax-free up to their basis in the corporation’s stock (and, separately, any loans they have personally made to the corporation). A shareholder who draws cash out of a fast-growing S corporation faster than their basis actually grows can cross into taxable territory without any obvious warning sign on the corporation’s own books, since a corporation can have plenty of cash on hand while a specific shareholder’s basis is comparatively low.</p>
   <h3>How Shareholder Basis Works, and Why It Needs Its Own Tracking</h3>
 <p>A shareholder’s stock basis starts with what they paid or contributed for their shares and is adjusted every year: increased by their share of the corporation’s taxable income (and certain tax-exempt income), and decreased by their share of losses, nondeductible expenses, and distributions received. Under IRC § 1368, a cash distribution is tax-free to the extent of the shareholder’s stock basis; any distribution beyond that basis is treated as gain from the sale of stock — typically capital gain, but real, taxable income nonetheless, triggered simply by having drawn out more than the basis account can absorb.</p>
@@ -2461,11 +2165,6 @@
     <h2>Avoiding Real-Estate Dealer (Ordinary Income) Classification on Property Flips</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1221 — definition of capital asset (excludes property held primarily for sale to customers)</li>
-<li>IRC § 1401 and § 1402 — self-employment tax on trade or business income</li></ul>
-  </div>
   <p class="lede">A property bought with the intent to renovate and quickly resell for a profit — a &quot;flip&quot; — is generally taxed very differently from a property held as a long-term rental investment. Getting this classification right before the property is acquired (not after it is sold) determines whether the profit is taxed as ordinary self-employment income or as capital gain, and whether depreciation deductions taken along the way will simply be recaptured on sale.</p>
   <h3>Dealer Property Versus Investment Property</h3>
 <p>IRC § 1221 excludes from the definition of a &quot;capital asset&quot; any property held primarily for sale to customers in the ordinary course of a trade or business — property meeting this description is often called &quot;dealer property,&quot; and a taxpayer who regularly buys, renovates, and resells properties for a profit is generally treated as a real estate dealer with respect to those properties. Gain on a dealer property sale is ordinary income, not capital gain, and — because the activity is treated as an active trade or business rather than a passive investment — it is also subject to self-employment tax if held individually or through a pass-through entity taxed as a sole proprietorship or general partnership.</p>
@@ -2494,11 +2193,6 @@
     <h2>The Self-Rental Trap When Renting Property to Your Own Business</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.469-2(f)(6) — the self-rental recharacterization rule</li>
-<li>IRC § 469 — passive activity losses</li></ul>
-  </div>
   <p class="lede">An owner who personally owns a building or other property and leases it to their own operating business is using a common and legitimate structure — but a specific rule flips the usual passive-activity treatment on its head for exactly this arrangement, in a way that surprises many owners the first time they encounter it, and it only works cleanly with a real, executed lease in place.</p>
   <h3>Why Self-Rental Income and Self-Rental Losses Are Treated Asymmetrically</h3>
 <p>Rental real estate is ordinarily passive, meaning rental losses are trapped against passive income only. The self-rental rule under Treas. Reg. § 1.469-2(f)(6) creates a special, one-directional exception: when a taxpayer rents property to a business in which they materially participate, net rental income from that property is recharacterized as non-passive — even though the same activity would otherwise be treated as passive rental real estate. This recharacterization only runs one direction: if the same self-rental arrangement instead produces a loss in a given year, the loss remains passive and stays subject to the usual passive-loss limitations. Income gets pulled out of the passive basket; losses do not.</p>
@@ -2527,12 +2221,6 @@
     <h2>The Research &amp; Development (R&amp;D) Tax Credit and the Payroll-Tax Offset Election</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 41 — credit for increasing research activities</li>
-<li>IRC § 41(h) — election for small businesses to apply the credit against payroll tax</li>
-<li>Treas. Reg. § 1.41-4 — the four-part test for qualified research</li></ul>
-  </div>
   <p class="lede">A business that develops software, tests new processes, or otherwise engages in technical experimentation can generate a meaningful federal tax credit for that work under IRC § 41 — and, importantly for a pre-revenue or early-stage company with no income tax liability to offset, a special election lets a qualifying small business apply the credit against payroll tax instead, turning it into real cash savings even before the business is profitable.</p>
   <h3>Qualifying Research and the Four-Part Test</h3>
 <p>To qualify as &quot;research&quot; for this credit, an activity generally must satisfy a four-part test: it must be intended to eliminate technical uncertainty about the development or improvement of a product or process; it must rely on a process of experimentation (evaluating alternatives, testing, iterating); it must be technological in nature (grounded in the hard sciences, engineering, or computer science); and it must relate to a permitted purpose (developing or improving functionality, performance, reliability, or quality). Software development, engineering iteration, and technical process improvement commonly qualify; routine data collection, market research, and work after a product is already commercially available generally do not.</p>
@@ -2560,11 +2248,6 @@
     <h2>The Foreign Earned Income Exclusion (§911) for Americans Working Abroad</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 911 — citizens or residents of the United States living abroad</li>
-<li>Treas. Reg. § 1.911-2 — the bona fide residence and physical presence tests</li></ul>
-  </div>
   <p class="lede">A U.S. citizen or resident who lives and works abroad can exclude a substantial amount of foreign earned income from U.S. federal income tax each year under IRC § 911 — a meaningful benefit for anyone relocating for work, but one that depends on meeting a specific residency or physical-presence test and applies only to earned income, not to investment income or income sourced from work performed while physically in the United States.</p>
   <h3>Qualifying for the Exclusion, and What It Does and Does Not Cover</h3>
 <p>The exclusion is available to a taxpayer who qualifies under either of two tests: the bona fide residence test (establishing genuine residency in a foreign country for an uninterrupted period that includes a full tax year, based on facts and circumstances like intent, family location, and community ties) or the physical presence test (being physically present in one or more foreign countries for at least 330 full days during any 12-consecutive-month period — a bright-line, easier-to-document mechanical test that does not require establishing genuine residency, only counting days). Many taxpayers who relocate abroad qualify under the physical-presence test first, since it depends only on a day count rather than a more subjective residency determination.</p>
@@ -2601,11 +2284,6 @@
     <h2>Aggregating Multiple Businesses for the QBI Wage Limitation (§ 1.199A-4)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.199A-4 — aggregation of trades or businesses</li>
-<li>IRC § 199A(b)(1) — the QBI wage and UBIA limitation</li></ul>
-  </div>
   <p class="lede">A taxpayer who owns interests in more than one pass-through business — for instance, an operating company with substantial W-2 wages, and a related business with little or no wage expense of its own — may be able to elect to treat the businesses as a single, combined activity for purposes of the QBI wage limitation, letting one business’s wages support QBI deduction on the combined group’s income rather than leaving the low-wage business’s share of the deduction stranded at zero.</p>
   <h3>Why Aggregation Can Rescue an Otherwise-Wasted QBI Deduction</h3>
 <p>The QBI wage limitation (discussed in the wage true-up strategy elsewhere in this guide) caps each business’s deduction based on that specific business’s own W-2 wages. A business that has no employees and pays no wages of its own — a passive-feeling sales or holding vehicle, for instance, whose work is genuinely performed by people employed at a related company — can find its entire QBI deduction capped at zero under the wage test, even though its owner’s overall combined income across all their businesses would otherwise support a large deduction.</p>
@@ -2634,11 +2312,6 @@
     <h2>The Foreign Tax Credit for Taxes Paid to a Foreign Government</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 901 and § 904 — foreign tax credit and the limitation</li>
-<li>Form 1116, Foreign Tax Credit</li></ul>
-  </div>
   <p class="lede">A U.S. taxpayer who pays income tax to a foreign country on income that is also taxed by the United States can generally claim a credit for the foreign tax paid, dollar for dollar (up to a limitation), rather than simply absorbing both taxes on the same income. For anyone with foreign business operations, foreign investment income, or wages earned abroad that are not fully excluded some other way, claiming this credit correctly is often a large and simply overlooked opportunity — many taxpayers under-claim it or fail to document it at all.</p>
   <h3>Why This Credit Is Easy to Leave on the Table</h3>
 <p>The United States taxes its citizens and residents on worldwide income, which creates the possibility of the same income being taxed twice — once by the country where it was earned, and again by the United States. IRC § 901 addresses this by allowing a credit (not merely a deduction) for foreign income taxes paid or accrued, which reduces U.S. tax liability dollar-for-dollar up to a calculated limitation under § 904 (broadly, the U.S. tax attributable to the foreign-source income, computed separately for different categories of income).</p>
@@ -2666,11 +2339,6 @@
     <h2>Borrowing Against Appreciated Securities Instead of Selling</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1001 — no gain or loss recognized until a taxable disposition occurs</li>
-<li>IRC § 163(d) — investment interest expense limitation</li></ul>
-  </div>
   <p class="lede">An investor who wants cash but is sitting on a large unrealized gain faces an obvious tension: selling raises cash but triggers capital gains tax, permanently shrinking the position. Borrowing against the position instead — using it as collateral for a loan, commonly through a margin or securities-backed line of credit — raises cash without triggering any taxable event at all, since a loan is not a sale.</p>
   <h3>Why a Loan Against Securities Is Not a Taxable Event</h3>
 <p>Under the basic realization principle of IRC § 1001, gain or loss is recognized only upon a sale or other taxable disposition of property — simply pledging appreciated securities as collateral for a loan is not a disposition, so no gain is recognized and no tax is owed, no matter how large the position’s embedded gain is. The investor retains the securities (continuing to participate in any further appreciation, dividends, and voting rights, subject to whatever the lender’s loan terms require), while also having cash in hand from the loan proceeds.</p>
@@ -2698,11 +2366,6 @@
     <h2>Timing Cash-Basis Income and Expenses to Manage Taxable Income</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.451-1 — when income is includible under the cash method</li>
-<li>Treas. Reg. § 1.263(a)-4(f) — the 12-month rule for prepaid expenses</li></ul>
-  </div>
   <p class="lede">A business reporting on the cash method of accounting recognizes income when payment is actually received (not when it is earned or invoiced) and deducts expenses when actually paid (not when the obligation arises). For a business with real control over when it bills clients and when it pays its own bills, this creates genuine, legal flexibility to shift a meaningful amount of taxable income from one year into the next, without changing the underlying economics of the business at all.</p>
   <h3>How the Cash Method Creates a Real Timing Lever</h3>
 <p>Under the cash method, income is includible in the year money is actually received, and most ordinary expenses are deductible in the year actually paid. A business nearing year-end with substantial uncollected accounts receivable and unbilled work has real discretion over when that income is recognized: delaying an invoice, or simply not pushing hard on collections until after year-end, keeps that revenue out of the current year’s taxable income entirely (it will simply be taxed the following year, when collected). Conversely, a business wanting to accelerate income into the current year (for instance, to use up an expiring deduction or a lower bracket) can push to invoice and collect before year-end instead.</p>
@@ -2730,11 +2393,6 @@
     <h2>QSEHRA: A Health Reimbursement Arrangement for Small Employers Without a Group Plan</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 9831(d) — qualified small employer health reimbursement arrangements</li>
-<li>IRS Notice 2017-67 — QSEHRA guidance</li></ul>
-  </div>
   <p class="lede">A small business that wants to help employees with health insurance costs, but does not want the expense and administrative complexity of sponsoring a traditional group health plan, has a purpose-built option: a Qualified Small Employer Health Reimbursement Arrangement (QSEHRA) lets the employer reimburse employees’ individually purchased health insurance and medical expenses, tax-free to the employee, up to an annual statutory cap, without maintaining a group plan at all.</p>
   <h3>How a QSEHRA Works and Who It Fits</h3>
 <p>A QSEHRA is available only to small employers — generally those with fewer than 50 full-time-equivalent employees — that do not offer any other group health plan to any employee. The employer sets a fixed reimbursement allowance (up to an annually adjusted statutory maximum, with a higher cap for family coverage than for self-only coverage) and reimburses employees, tax-free, for substantiated premiums on individually purchased health insurance (typically obtained through the individual marketplace) and, if the plan allows, other qualifying medical expenses. Unlike a traditional group plan, there is no insurance policy the employer itself administers — employees buy their own coverage, and the business simply reimburses the cost up to the set allowance.</p>
@@ -2762,12 +2420,6 @@
     <h2>The § 162(l) Self-Employed Health Insurance Deduction for &gt;2% S-Corp Shareholders</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 162(l) — special rules for health insurance costs of self-employed individuals</li>
-<li>IRC § 1372 — fringe benefit treatment for &gt;2% shareholders</li>
-<li>IRS Notice 2008-1</li></ul>
-  </div>
   <p class="lede">A shareholder who owns more than 2% of an S corporation cannot simply have the company pay their personal health insurance premiums and treat it as a tax-free employee fringe benefit — the tax code specifically excludes a &gt;2% shareholder from that treatment. Instead, a particular sequence of steps lets the same economic result (the business effectively bearing the cost of the shareholder’s health insurance) happen tax-efficiently, but only if each step is followed in the right order.</p>
   <h3>The Required Sequence: Wages First, Then the Personal Deduction</h3>
 <p>IRC § 1372 treats a more-than-2% S-corp shareholder as a partner (rather than as a regular employee) for purposes of most fringe-benefit exclusions, including the general rule that lets a corporation provide health insurance to an employee tax-free. This means a &gt;2% shareholder cannot receive employer-paid health insurance as a tax-free benefit the way a non-owner employee could — if the S-corp pays or reimburses the shareholder’s health insurance premiums, that amount must be included in the shareholder’s W-2 Box 1 taxable wages (though it is still exempt from FICA/Medicare withholding).</p>
@@ -2795,11 +2447,6 @@
     <h2>The Investment Interest Expense Deduction and Its Carryforward (Form 4952)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 163(d) — limitation on investment interest</li>
-<li>Form 4952, Investment Interest Expense Deduction</li></ul>
-  </div>
   <p class="lede">Interest paid on money borrowed to buy or carry investments — for instance, margin loan interest, or interest on a loan used to fund a brokerage account — is deductible, but only up to the amount of net investment income earned that year. An investor whose investment income is modest in a given year can end up with a real, banked deduction sitting unused, and actively planning around that carryforward — rather than letting it sit forgotten — can turn it into meaningful future tax savings.</p>
   <h3>How the Limitation and Carryforward Work</h3>
 <p>IRC § 163(d) allows a deduction for investment interest expense (interest on debt used to buy or carry property held for investment) only up to the taxpayer’s net investment income for the year — interest, non-qualified dividends, and, if elected, net capital gain or qualified dividends can be treated as investment income for this purpose, though electing to include capital gains or qualified dividends means giving up the preferential capital-gains rate on the amount so included. Any investment interest paid that exceeds that year’s net investment income is not lost — it carries forward indefinitely to future years, where it can be deducted against future investment income once it materializes.</p>
@@ -2827,12 +2474,6 @@
     <h2>Investing Through a Self-Directed Roth IRA in a Private Business</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 4975 — prohibited transactions</li>
-<li>IRC § 408 and § 408A — individual retirement accounts</li>
-<li>Rev. Rul. 2006-38 — disqualified persons and control</li></ul>
-  </div>
   <p class="lede">A Roth IRA can hold more than just public stocks and mutual funds — through a specialized &quot;self-directed&quot; custodian, it can own equity in a private business. Structured correctly, any appreciation on that equity grows and is eventually withdrawn completely tax-free, which is extraordinarily valuable for an investment expected to grow from a very small starting value to a large one. Structured incorrectly, it can trigger a &quot;prohibited transaction&quot; that disqualifies the entire IRA, an outcome severe enough that this strategy should never be attempted without specialized legal help.</p>
   <h3>The Core Constraint: No Self-Dealing With a Disqualified Person</h3>
 <p>IRC § 4975 prohibits an IRA from engaging in transactions with &quot;disqualified persons&quot; — which includes the IRA owner personally, and, critically, any entity the IRA owner controls (generally meaning more than 50% ownership, directly or through attribution rules). This means an IRA owner who controls a business cannot have their own IRA invest directly in that same business — doing so is a prohibited transaction that can disqualify the entire IRA, triggering immediate taxation of the account’s full value (plus penalties) as though it had been completely distributed.</p>
@@ -2861,12 +2502,6 @@
     <h2>Fixing the RSU Withholding Gap Through Form W-4</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 3402 — wage withholding rules</li>
-<li>Treas. Reg. § 1.409(a) supplemental wage rate rules</li>
-<li>IRS Form W-4 and its instructions</li></ul>
-  </div>
   <p class="lede">An employee who receives restricted stock units (RSUs) as part of compensation almost always has too little tax withheld when those units vest, because federal law requires a flat, mandatory withholding rate on &quot;supplemental wages&quot; like RSU income rather than a rate tailored to the employee's actual tax bracket. For anyone in a bracket above that flat rate, every vesting event quietly under-withholds, and the gap compounds silently all year until it surfaces as a large, unexpected balance due — and often an underpayment penalty on top of it — when the return is filed.</p>
   <h3>Why the Default Withholding Rate Is Too Low for High Earners</h3>
 <p>When an employer distributes supplemental wages such as RSU vesting income, bonuses, or commissions, it generally must withhold at a flat statutory rate for amounts up to $1 million in a calendar year (and a higher flat rate on any amount above $1 million), regardless of what the employee's actual marginal tax bracket is. That flat mandatory rate sits well below the top individual marginal rate. An employee whose marginal bracket is above the flat supplemental rate is guaranteed to be under-withheld on every vesting event, purely as a function of how the withholding rule is written — not because of any error by the employer or the employee.</p>
@@ -2896,13 +2531,6 @@
     <h2>Depreciation Recapture Is Not Deferred by an Installment Sale</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 453 — installment method</li>
-<li>IRC § 453(i) — recapture income treated as received in year of disposition</li>
-<li>IRC § 1245 — gain from dispositions of certain depreciable property</li>
-<li>IRS Form 8594 — asset acquisition statement</li></ul>
-  </div>
   <p class="lede">A business owner selling equipment, vehicles, or other depreciated business assets — whether alone or as part of selling an entire business — often assumes that structuring the sale as an installment sale (spreading payments, and therefore the tax on the gain, over several years) defers all of the resulting tax. It does not. Depreciation recapture on personal property is required to be reported in full in the year of sale no matter how the payments are structured, which means a seller who is financed by the buyer over time can owe a substantial tax bill in the year of closing before most of the sale proceeds have actually been received.</p>
   <h3>Why Recapture Is Carved Out of Installment-Sale Deferral</h3>
 <p>The installment-sale method normally lets a seller recognize gain proportionally as payments are actually received over the life of the note, rather than all at once in the year of sale — this is the mechanism most people mean when they talk about spreading out the tax on a sale. But the Internal Revenue Code specifically excludes depreciation recapture from that deferral: recapture income on depreciable personal property must be reported in full in the year of sale, regardless of how little cash actually changed hands that year. Only the remaining gain above the recapture amount — typically capital gain attributable to appreciation beyond original cost, or goodwill — is eligible to be spread over the installment period.</p>
@@ -2932,11 +2560,6 @@
     <h2>Current-Year Deduction of Domestic Research and Software Development Costs</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 174 and § 174A — treatment of research and experimental expenditures</li>
-<li>IRC § 41 — credit for increasing research activities</li></ul>
-  </div>
   <p class="lede">For several years, businesses were required to spread the deduction for research and software-development costs — including most in-house software builds — over multiple years instead of deducting them immediately, which was a major cash-flow drag for any company investing heavily in product development. That mandatory multi-year spread has since been reversed for costs attributable to research conducted in the United States, restoring the ability to deduct qualifying domestic research and experimental expenditures in the year they are incurred — a materially different, and separate, benefit from the research tax credit.</p>
   <h3>Immediate Expensing Versus the Research Credit — Two Different Benefits</h3>
 <p>It is easy to conflate current-year expensing of research costs with the separate research and development tax credit, but they operate independently and address different things. Immediate expensing is about the timing of a deduction — whether qualifying research and software-development costs reduce taxable income in the year spent, or must be capitalized and written off gradually over several years instead. The research credit, by contrast, is a dollar-for-dollar reduction in tax liability tied to the amount of qualifying research spending, calculated under its own separate rules. A business can be eligible for immediate expensing without separately qualifying for (or choosing to claim) the credit, and vice versa — the two should be evaluated on their own terms rather than assumed to travel together.</p>
@@ -2966,11 +2589,6 @@
     <h2>Paying Tuition or Medical Expenses Directly to Avoid Gift Tax</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 2503(e) — exclusion for certain transfers for educational or medical expenses</li>
-<li>IRC § 2503(b) — annual gift tax exclusion</li></ul>
-  </div>
   <p class="lede">A person who wants to help pay for a family member's tuition or medical care can do so in a way that does not use up any of their annual gift-tax exclusion and does not require filing a gift tax return at all — but only if the payment is made directly to the school or medical provider, never to the family member personally. Handing the same money to the family member first, even with an understanding that it will be used for tuition, forfeits this unlimited exclusion entirely and instead counts as an ordinary taxable gift subject to the usual annual limit.</p>
   <h3>The Direct-Payment Requirement Is Absolute</h3>
 <p>The tax code allows an unlimited exclusion, on top of and separate from the ordinary annual gift-tax exclusion, for amounts paid directly to an educational institution for tuition or directly to a medical provider for medical care on behalf of another person. There is no dollar cap on this exclusion at all — someone can pay an unlimited amount of another person's tuition or medical bills this way, for any number of people, in any given year, without touching their annual exclusion or their lifetime gift and estate tax exemption.</p>
@@ -3000,11 +2618,6 @@
     <h2>Deferring Gain on an Involuntary Conversion Under § 1033</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1033 — involuntary conversions</li>
-<li>Treas. Reg. § 1.1033(a)-1 — general rules for involuntary conversions</li></ul>
-  </div>
   <p class="lede">When business or investment property is destroyed, stolen, condemned, or otherwise involuntarily taken — and the owner receives insurance or condemnation proceeds that exceed the property's tax basis — that excess is normally a taxable gain in the year received, exactly as if the property had been voluntarily sold. A separate provision of the tax code allows that gain to be deferred, without any of the complex mechanics of a like-kind exchange, if the proceeds are reinvested into replacement property that is similar or related in service or use, within a set time window after the loss.</p>
   <h3>How Involuntary-Conversion Deferral Differs from an Ordinary Sale</h3>
 <p>An involuntary conversion happens when property is destroyed by casualty, stolen, condemned by a government authority, or disposed of under the threat of condemnation — situations where the owner did not choose to give up the property, unlike an ordinary sale. When the resulting insurance or condemnation payment exceeds the property's adjusted tax basis, the excess is realized gain, taxable in the ordinary course exactly like a sale gain — unless the owner elects to defer it under this provision by reinvesting in qualifying replacement property.</p>
@@ -3034,11 +2647,6 @@
     <h2>The § 530 Safe Harbor for Worker Classification</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Section 530 of the Revenue Act of 1978 (uncodified, as amended)</li>
-<li>IRS Publication 1976 — Do You Qualify for Relief Under Section 530?</li></ul>
-  </div>
   <p class="lede">A business that has consistently treated a category of workers as independent contractors, rather than employees, can have real exposure if the IRS later decides those workers should have been classified as employees — back payroll taxes, penalties, and interest can apply retroactively across every year the misclassification occurred. A long-standing statutory safe harbor can eliminate that federal employment-tax exposure entirely, even if the underlying worker-classification determination would otherwise have gone the other way, provided the business meets a specific set of consistency and reporting conditions.</p>
   <h3>What the Safe Harbor Actually Protects, and What It Does Not</h3>
 <p>This relief provision does not ask whether a worker was correctly classified as an independent contractor under the common-law employment test — it operates as a separate safe harbor that can protect a business from federal employment-tax liability even where the underlying classification was, in fact, wrong. To qualify, the business generally must show three things: it has consistently treated the worker (and any similarly situated workers) as a non-employee; it has consistently filed all federal returns and information returns (such as Form 1099s) required for the worker on that non-employee basis; and it had some &quot;reasonable basis&quot; for treating the worker as a non-employee in the first place — which can include reliance on a long-standing recognized industry practice, prior IRS audit results that did not challenge the classification, or advice from a qualified professional, among other recognized bases.</p>
@@ -3068,12 +2676,6 @@
     <h2>The Work Opportunity Tax Credit for Hiring From Targeted Groups</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 51 — work opportunity credit</li>
-<li>IRS Form 8850 — pre-screening notice and certification request</li>
-<li>IRS Form 5884 — work opportunity credit</li></ul>
-  </div>
   <p class="lede">A business that is hiring — especially one adding several employees at once — can claim a federal income tax credit worth a meaningful percentage of first-year wages for each new hire who belongs to one of several federally defined targeted groups, such as long-term unemployment recipients, veterans, or people receiving certain public assistance. The credit is entirely lost, permanently and with no exceptions, if a specific pre-screening form is not submitted within a short window that starts on the employee's very first day of work — making this a strategy that has to be built into the hiring process itself, not something that can be claimed retroactively after the fact.</p>
   <h3>A Credit That Is Won or Lost at the Hiring Stage</h3>
 <p>The work opportunity credit rewards hiring from a specific list of targeted groups defined by statute — categories that have historically included qualified veterans, long-term unemployment recipients, recipients of certain public-assistance programs, ex-felons, and several other specifically enumerated groups. The credit amount is generally calculated as a percentage of the new employee's qualified first-year wages, up to a wage cap that can vary by target group, with certain veteran categories eligible for a higher cap.</p>
@@ -3103,11 +2705,6 @@
     <h2>Investing for Federal Tax Credits Through Low-Income Housing Syndication</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 42 — low-income housing credit</li>
-<li>Treas. Reg. § 1.42 series — compliance and recapture rules</li></ul>
-  </div>
   <p class="lede">Rather than developing or operating a property directly, an investor can put capital into a professionally managed syndication that owns and operates qualifying low-income rental housing, in exchange for an allocated share of a federal tax credit that is claimed annually over a multi-year credit period. This is a passive, credit-driven investment — the return comes substantially from the tax credit itself, not primarily from rental cash flow or eventual appreciation, which makes it a fundamentally different kind of real estate investment than buying and operating rental property directly.</p>
   <h3>A Credit-Driven, Not Cash-Flow-Driven, Investment</h3>
 <p>This federal credit is awarded, through state housing agencies, to properties that commit to renting a defined portion of their units to lower-income tenants at restricted rents, for an extended compliance period that typically runs well over a decade. Because most investors are not in the business of developing or operating affordable housing themselves, the credit is usually accessed by investing as a limited partner (or a similar passive investor role) in a syndicated fund that pools capital across one or multiple qualifying properties, with a sponsor handling development, management, and compliance.</p>
@@ -3137,11 +2734,6 @@
     <h2>Energy-Efficient Building Deductions and Credits for New Construction</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 179D — energy-efficient commercial buildings deduction</li>
-<li>IRC § 45L — new energy-efficient home credit</li></ul>
-  </div>
   <p class="lede">A developer or owner constructing or substantially renovating a commercial building, or building qualifying energy-efficient residential units, may be entitled to a federal deduction or credit tied specifically to the property's energy performance — benefits that are frequently missed simply because they require an engineering certification most general contractors and accountants are not routinely thinking to obtain, rather than because the underlying construction failed to qualify.</p>
   <h3>Two Separate Incentives, Both Requiring Technical Certification</h3>
 <p>One provision offers a per-square-foot deduction for the cost of installing energy-efficient systems — lighting, HVAC, and building envelope improvements, among others — in a new or substantially renovated commercial building that meets defined energy-efficiency thresholds relative to a reference standard. A separate, distinct provision offers a per-unit credit for the construction of new energy-efficient residential dwelling units — including qualifying multifamily projects — that meet applicable energy-efficiency standards, with unit-level requirements that can vary depending on the type of project and whether certain wage requirements are met.</p>
@@ -3171,11 +2763,6 @@
     <h2>The Federal Excise Tax Credit for Off-Highway Business Fuel Use</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6427 — fuel tax credits and refunds</li>
-<li>IRS Form 4136 — credit for federal tax paid on fuels</li></ul>
-  </div>
   <p class="lede">Federal excise taxes on gasoline and diesel are built into the price at the pump specifically to fund highway infrastructure — which means a business that uses taxed fuel for purposes that never touch a public highway, such as boats, off-road equipment, farm machinery, or fuel used in certain stationary engines, is generally entitled to a refundable federal credit for that embedded tax. This is a genuinely recurring credit rather than a one-time item, yet it is very commonly never claimed simply because the business does not realize the fuel it is already buying carries a refundable tax component at all.</p>
   <h3>A Credit Hiding Inside an Expense Already Being Paid</h3>
 <p>The federal fuel excise tax is designed around a simple premise: it funds the highway trust fund, so it should only be borne by fuel actually used on the highway. Fuel used for off-highway business purposes — a category that includes marine and boat use, off-road construction and farm equipment, certain stationary engines, and other qualifying non-highway business uses — was never supposed to bear that tax in the first place, so the law provides a mechanism to recover it after the fact, generally as a credit against income tax liability or, in some cases, a direct refund.</p>
@@ -3205,12 +2792,6 @@
     <h2>Safe Harbor 401(k) with Cross-Tested Profit Sharing to Maximize Owner Contributions</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 401(k)(12) and (13) — safe harbor 401(k) plans</li>
-<li>IRC § 401(a)(4) — nondiscrimination requirements and cross-testing</li>
-<li>Treas. Reg. § 1.401(a)(4)-8 — cross-testing rules for defined contribution plans</li></ul>
-  </div>
   <p class="lede">A conventional 401(k) plan that lets owners defer the maximum amount can fail annual nondiscrimination testing if rank-and-file employees do not participate at a comparable rate — forcing refunds to the very owners the plan was meant to benefit. A safe harbor 401(k) design, paired with a cross-tested (sometimes called &quot;new comparability&quot;) profit-sharing formula, can eliminate that testing failure entirely while still concentrating the largest employer contributions on the owners, often at a fraction of the cost of covering every employee at the same percentage of pay.</p>
   <h3>How Safe Harbor Status and Cross-Testing Work Together</h3>
 <p>A standard 401(k) plan is subject to annual actual-deferral-percentage and actual-contribution-percentage nondiscrimination tests, comparing how much highly compensated employees (typically owners and top earners) defer or receive in matching contributions against how much everyone else defers. If rank-and-file participation is thin, these tests can fail, forcing corrective distributions back to the highly compensated group — refunding money they had already planned to shelter. A safe harbor design sidesteps this testing entirely by committing the employer to a specified minimum contribution for all eligible employees (commonly either a matching formula or a flat non-elective contribution, sometimes structured as a &quot;3% QNEC&quot; — a qualified non-elective contribution made to all eligible employees regardless of whether they defer anything themselves), in exchange for which the plan is deemed to automatically satisfy the nondiscrimination tests for elective deferrals.</p>
@@ -3240,12 +2821,6 @@
     <h2>Small-Employer Retirement Plan Startup and Auto-Enrollment Tax Credits</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 45E — small employer pension plan startup cost credit</li>
-<li>IRC § 45T — auto-enrollment credit</li>
-<li>IRS Form 8881 — credit for small employer pension plan startup costs</li></ul>
-  </div>
   <p class="lede">A small business that establishes a new retirement plan — a 401(k), SIMPLE, SEP, or similar arrangement — can claim a federal tax credit covering a substantial portion of the plan's administrative startup costs for its first several years, plus a separate, additional credit simply for including an automatic-enrollment feature. These credits are commonly overlooked entirely, treated as if adopting a retirement plan were a pure cost rather than a partially subsidized one.</p>
   <h3>Two Stackable Credits for a New Plan</h3>
 <p>The startup-cost credit covers a defined percentage of the ordinary and necessary costs of establishing and administering a new qualified retirement plan — expenses like plan design, administration, and employee education — for each of the first several years the plan is in effect, up to an annual dollar cap that scales with the number of non-highly-compensated employees covered. Because the credit is calculated as a percentage of actual startup costs (subject to the cap), a very small employer with modest administrative fees may find the credit covers all or nearly all of what it is paying a third-party administrator in the plan's early years.</p>
@@ -3275,12 +2850,6 @@
     <h2>Curing a Late or Defective S-Corporation Election</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Rev. Proc. 2013-30 — simplified late-election relief for S corporations</li>
-<li>IRC § 1362 — election, revocation, and termination of S-corporation status</li>
-<li>IRS Form 2553 — election by a small business corporation</li></ul>
-  </div>
   <p class="lede">A business that intended to operate as an S-corporation from a specific date, but either never filed the election form or filed one that was defective (commonly missing a required shareholder consent signature), is not automatically stuck operating as whatever entity it defaulted to. A well-established simplified relief procedure allows an eligible business to file a late S-election and have it treated as effective from the originally intended date, provided the business can show it otherwise qualified, has been consistently treating itself as an S-corporation, and had a reasonable cause for the delay — all without the expense and uncertainty of requesting a private letter ruling.</p>
   <h3>What the Simplified Relief Procedure Actually Requires</h3>
 <p>An S-election is generally required to be filed within a defined window relative to the intended effective date, and a business that misses that window, or whose original filing is rejected by the IRS for a technical defect — most commonly a missing shareholder consent statement, which every shareholder as of the intended effective date must sign — nominally reverts to being taxed under its default classification (a C-corporation or a partnership, depending on entity type) instead of as an S-corporation. Historically, fixing this required an expensive private ruling request; a simplified procedure now lets an eligible business instead file the late or corrected election directly, along with specific supporting statements, without that ruling request.</p>
@@ -3310,12 +2879,6 @@
     <h2>The Clean Vehicle Tax Credit for Business-Use Electric Vehicles</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 30D — clean vehicle credit</li>
-<li>IRC § 45W — qualified commercial clean vehicle credit</li>
-<li>IRS Form 8936 — clean vehicle credits</li></ul>
-  </div>
   <p class="lede">A business that purchases a qualifying electric or plug-in hybrid vehicle for business use may be entitled to a federal tax credit on top of, and completely independent from, whatever depreciation deduction the vehicle separately generates. Because the credit and the depreciation deduction operate under entirely different sets of rules, a vehicle purchase can be evaluated for both benefits at once — but each has its own eligibility requirements that must be separately confirmed, and neither one's applicability should be assumed from the other.</p>
   <h3>A Credit Layered on Top of, Not Instead of, Depreciation</h3>
 <p>The clean vehicle credit rewards the purchase of a qualifying new electric or plug-in hybrid vehicle meeting specific manufacturing, battery-component, and price-cap requirements that can change from year to year and by vehicle model — eligibility is not simply a function of the vehicle being electric, and a specific make and model that qualified in one year is not guaranteed to still qualify in a later year as sourcing and assembly requirements are phased in. A separate, similarly structured credit applies specifically to vehicles used for business purposes, with its own set of qualifying criteria that can differ from the consumer-facing version of the credit.</p>
@@ -3345,11 +2908,6 @@
     <h2>Modeling State Decoupling Before Committing to a Bonus Depreciation Strategy</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="real-estate">Real Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>State conformity statutes for bonus depreciation and § 179 (varies by state)</li>
-<li>IRC § 168(k) — additional first-year depreciation deduction</li></ul>
-  </div>
   <p class="lede">A cost-segregation study, a large equipment purchase, or a new-vehicle acquisition can generate a very large first-year federal depreciation deduction — but a meaningful number of states do not conform to federal bonus depreciation rules, and some cap or disallow § 179 expensing as well. A business that quotes or plans around the federal tax savings from an acceleration strategy without checking state conformity can be caught off guard by a large state-level addback that erases much of the state-tax benefit the federal number implied.</p>
   <h3>Why the Same Deduction Can Land Very Differently at the State Level</h3>
 <p>Federal bonus depreciation allows a large percentage (varying by law and placed-in-service date) of the cost of qualifying property to be deducted immediately rather than depreciated over its normal recovery period. A number of states, however, do not automatically adopt this accelerated federal treatment into their own tax codes — some states require an add-back of some or all of the bonus depreciation claimed federally, spreading the actual state-level deduction back out over the asset's regular depreciation schedule instead. A similar decoupling can apply to § 179 expensing, where a state imposes its own, often much lower, dollar cap than the federal limit.</p>
@@ -3379,11 +2937,6 @@
     <h2>Managing the Built-In Gains Tax When Converting a C-Corporation to an S-Corporation</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1374 — tax imposed on certain built-in gains</li>
-<li>Treas. Reg. § 1.1374-1 through -10</li></ul>
-  </div>
   <p class="lede">A C-corporation that converts to S-corporation status does not automatically escape corporate-level tax on appreciation that built up before the conversion. A separate entity-level tax applies to any gain &quot;built in&quot; as of the conversion date — meaning appreciation in the corporation's assets, or income the corporation had already economically earned but not yet recognized for tax purposes — if that gain is actually recognized (through a sale, or through other triggering events) within a fixed recognition period after the S-election takes effect. Understanding what counts as built-in gain, and how long the exposure period runs, is essential before assuming a C-to-S conversion produces an immediate, clean switch to single-layer taxation.</p>
   <h3>What Triggers the Tax, and How Long the Exposure Lasts</h3>
 <p>The built-in gains tax exists to prevent a C-corporation from using an S-election to avoid the corporate-level tax that would otherwise apply if it simply sold its appreciated assets while still a C-corporation. It applies a corporate-level tax, generally at the highest corporate rate, to the portion of any gain recognized during a fixed recognition period after conversion (commonly five years) that is attributable to built-in appreciation or built-in income that existed as of the conversion date — essentially treating the corporation, for this narrow purpose, as though it were still a C-corporation with respect to that specific pre-conversion value, even though it is now taxed as an S-corporation for everything else.</p>
@@ -3413,12 +2966,6 @@
     <h2>Complete Termination Stock Redemptions for Capital-Gain Buyout Treatment</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="c-corporation">C-Corporation</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 302 — distributions in redemption of stock</li>
-<li>IRC § 302(b)(3) — complete termination of a shareholder's interest</li>
-<li>IRC § 318 — constructive ownership of stock (attribution rules)</li></ul>
-  </div>
   <p class="lede">When a corporation buys out a departing shareholder's entire ownership stake, how that payment is structured determines whether the shareholder is taxed favorably, at capital-gain rates on the gain over their basis, or unfavorably, as if the entire payment were an ordinary dividend. A redemption that completely terminates the departing shareholder's interest — including any interest attributed to them through family ownership — is one of the most reliable ways to secure capital-gain treatment, but the family-attribution rules that can defeat it are easy to overlook when the buyer and the remaining owners are relatives.</p>
   <h3>Why &quot;Complete&quot; Termination Is the Operative Word</h3>
 <p>When a corporation redeems (buys back) a shareholder's stock, the default tax treatment is not automatically capital gain — a redemption is taxed as a dividend (ordinary income, with no offset for the shareholder's basis in the stock) unless it fits into one of several specific exceptions. One of the most useful of those exceptions applies when the redemption completely terminates the shareholder's entire interest in the corporation — not just a majority of it, not just their voting control, but their entire ownership interest, with no stock and generally no other prohibited continuing relationship (such as remaining as an officer, director, or employee) retained afterward.</p>
@@ -3448,11 +2995,6 @@
     <h2>Trump Accounts for Tax-Deferred Savings on Behalf of a Child</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 530A (Trump Accounts, as enacted) — tax-favored savings accounts for minors</li>
-<li>IRS Form 4547 and related guidance for Trump Account elections</li></ul>
-  </div>
   <p class="lede">A newer tax-favored savings vehicle allows a parent, other family member, or even an employer to contribute funds on behalf of a child into an account that grows tax-deferred, in some cases with a government contribution seeding the account for eligible children — a distinct vehicle from a traditional 529 education plan or a custodial account, worth understanding on its own terms as one more lever in funding a child's future.</p>
   <h3>How This Vehicle Differs From a 529 Plan or a Custodial Account</h3>
 <p>This account type is established for the benefit of a minor and permits contributions from multiple sources — a parent or other individual, and in some cases an employer on behalf of an employee's child — up to specified annual limits, with the funds growing on a tax-deferred basis inside the account. Unlike a 529 plan, which is generally most tax-efficient when the funds are ultimately used for qualifying education expenses, this account type is not restricted to an education-specific use, making it a more general-purpose savings vehicle for a child's benefit, subject to its own distribution and taxation rules once the child reaches the applicable age or takes a distribution.</p>
@@ -3482,11 +3024,6 @@
     <h2>Modeling the QBI Cost Before Raising S-Corp Wages to Fund a Retirement Plan</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 199A — qualified business income deduction</li>
-<li>Treas. Reg. § 1.199A-1 through -6</li></ul>
-  </div>
   <p class="lede">Increasing an S-corporation owner's W-2 salary is often necessary to unlock a larger retirement-plan contribution, since many plan contribution limits are calculated as a percentage of the recipient's own compensation. But for a profitable non-specified-service business, raising that same salary can simultaneously shrink the owner's qualified business income (QBI) deduction dollar-for-dollar, because wages paid to an owner are subtracted from the pass-through business income that the 20% deduction is calculated against in the first place — a cost that is easy to overlook if only the retirement benefit is modeled.</p>
   <h3>Two Separate Mechanisms Pulling in Opposite Directions</h3>
 <p>The QBI deduction generally equals 20% of a taxpayer's qualified business income, subject (above an income threshold) to a limitation tied to the W-2 wages the business pays. Many owners understand this wage-limitation test only as a floor to clear — pay enough in W-2 wages, and the 20% deduction is no longer capped. What is less often modeled is that the wages themselves are excluded from qualified business income at the entity level in the first place: an S-corporation's ordinary business income, which flows through to the shareholder as the QBI base, is already computed net of officer compensation. Raising an owner's salary by a given dollar amount does not just help clear the wage-limitation test — it can directly reduce the qualified business income base itself by that same dollar amount, cutting the 20% deduction by roughly 20 cents for every dollar of additional wages, even for a business that was never at risk of failing the wage-limitation test to begin with.</p>
@@ -3516,11 +3053,6 @@
     <h2>The Disabled Access Credit for Small Business Accessibility Improvements</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 44 — expenditures to provide access to disabled individuals</li>
-<li>IRS Form 8826 — disabled access credit</li></ul>
-  </div>
   <p class="lede">A small business that spends money to make its facilities, equipment, or services more accessible to people with disabilities can claim a federal tax credit for a portion of that spending — on top of, and calculated differently from, any ordinary deduction the same expenditure might otherwise generate. This credit is narrowly available only to businesses under a specific size threshold, but for an eligible business it converts what would otherwise be a routine cost of doing business into a partially subsidized one.</p>
   <h3>A Credit, Not Just a Deduction, for Eligible Access Expenditures</h3>
 <p>This credit covers a percentage of &quot;eligible access expenditures&quot; — reasonable and necessary amounts paid or incurred to remove barriers that prevent a business from being accessible to or usable by individuals with disabilities, to provide qualified interpreters or other methods of making audio materials available to people with hearing impairments, to provide qualified readers or other methods of making visual materials available to people with visual impairments, or to acquire or modify equipment for individuals with disabilities — a fairly broad category covering both physical facility modifications and non-physical accommodations.</p>
@@ -3550,12 +3082,6 @@
     <h2>Employing Your Own Minor Children in the Family Business</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 3121(b)(3)(A) — FICA exemption for a child employed by a parent</li>
-<li>IRC § 3306(c)(5) — FUTA exemption for a child employed by a parent</li>
-<li>IRC § 1(g) — the &quot;kiddie tax&quot; on unearned income</li></ul>
-  </div>
   <p class="lede">A business owner with minor children can hire them for genuine work in the business, shifting income from the owner's higher tax bracket to the child's much lower one, and — if the business is structured the right way — avoiding Social Security, Medicare, and unemployment payroll taxes on those wages entirely. The tax benefit depends heavily on how the business itself is organized, since a special payroll-tax exemption for a parent employing their own child applies only when the employing business is a sole proprietorship or certain family partnerships, not when it is a corporation of any kind, including an S-corporation.</p>
   <h3>Why the Business's Entity Type Determines the Payroll-Tax Benefit</h3>
 <p>Wages paid to a child under a specified age, employed by a parent, are exempt from Social Security and Medicare (FICA) tax and from federal unemployment (FUTA) tax — but only when the employing trade or business is a sole proprietorship owned by the parent, or a partnership where each partner is a parent of the child. This exemption does not extend to a corporation, including an S-corporation, even one wholly owned by the parents — wages paid by a corporation to an owner's minor child are subject to ordinary FICA and FUTA withholding just like wages paid to any other employee, regardless of the family relationship.</p>
@@ -3585,11 +3111,6 @@
     <h2>The De Minimis Safe Harbor Election for Immediately Expensing Low-Cost Purchases</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>Treas. Reg. § 1.263(a)-1(f) — de minimis safe harbor election</li>
-<li>IRC § 263(a) — capital expenditures</li></ul>
-  </div>
   <p class="lede">Ordinarily, a business purchase that benefits the business for more than one year has to be capitalized and depreciated gradually rather than deducted immediately. A specific safe-harbor election lets a business currently deduct the cost of many lower-priced items outright in the year purchased — computers, tools, small equipment, and similar purchases below a defined per-item or per-invoice dollar threshold — without needing to separately justify each purchase's useful life or apply formal depreciation to it, provided the election is made and consistently applied.</p>
   <h3>A Simpler Alternative to Depreciating Every Small Purchase</h3>
 <p>Without this election, a business purchasing a laptop, a piece of shop equipment, or similar tangible property that will be used for more than a year is generally required to capitalize the cost and recover it gradually over the asset's depreciable life, or separately elect a mechanism like § 179 or bonus depreciation to accelerate the deduction — both of which require tracking the item on a formal depreciation schedule. The de minimis safe harbor offers a simpler alternative for lower-cost items specifically: a business with, generally, an applicable financial statement or a written capitalization policy in place at the start of the year can elect to currently deduct amounts paid for tangible property up to a defined per-item or per-invoice dollar threshold, treating the cost the same way it would treat an ordinary supply expense, with no depreciation schedule required.</p>
@@ -3619,11 +3140,6 @@
     <h2>The ABLE Account for a Disabled Family Member's Tax-Advantaged Savings</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 529A — qualified ABLE programs</li>
-<li>IRS Publication 907 — tax highlights for persons with disabilities</li></ul>
-  </div>
   <p class="lede">A family with a disabled child or other disabled family member can set up a specialized tax-advantaged savings account — distinct from and structured differently than a 529 education plan — that allows funds to grow tax-free for the beneficiary's qualifying disability-related expenses, generally without the balance counting against the strict asset limits that would otherwise jeopardize the beneficiary's eligibility for means-tested government benefits like Supplemental Security Income and Medicaid.</p>
   <h3>Why This Vehicle Solves a Problem 529 Plans and Ordinary Savings Cannot</h3>
 <p>Many government benefit programs available to individuals with disabilities are means-tested, generally capping the total assets a beneficiary can hold in their own name before losing eligibility — a threshold so low that even modest ordinary savings in the beneficiary's own name can disqualify them from benefits they otherwise need. This specialized account type exists specifically to let a qualifying disabled individual accumulate savings, up to a certain balance, without that balance being counted toward those asset limits for purposes of federal means-tested benefit programs, addressing a problem that neither an ordinary savings account nor even a standard 529 education plan in the beneficiary's own name would solve.</p>
@@ -3653,11 +3169,6 @@
     <h2>Timing Income and Gains Before a Move to a Higher-Tax State</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>State residency and domicile rules (vary by state)</li>
-<li>State conformity to federal capital-gains treatment (varies by state)</li></ul>
-  </div>
   <p class="lede">State income tax generally applies based on residency, and most states — unlike the federal system — do not offer any reduced rate for long-term capital gains, taxing them as ordinary income at the same rate as wages. A person planning a move from a low- or no-income-tax state to a high-tax state has a real, time-limited opportunity to accelerate income, sell appreciated positions, or trigger other recognition events before the move takes effect, taxing that income only once at the old state's (often lower or zero) rate instead of the new state's higher one.</p>
   <h3>Why the Timing of the Move, Not Just the Move Itself, Is the Lever</h3>
 <p>Residency for state tax purposes is generally established on a specific date — determined by where a person maintains their permanent home, where they spend the majority of their time, and similar facts — and once residency shifts to a new state, that state generally taxes the resident's income going forward (and, in some cases, worldwide income, not just income sourced to that state). Income or gains recognized before the residency change are generally sourced to and taxed by the prior state under its own rules, while anything recognized afterward falls under the new state's rules instead. This creates a real, if time-limited, planning window: a taxpayer who knows a move to a materially higher-tax state is coming can choose to accelerate the recognition of income or gains into the period before the move, locking in the more favorable prior-state tax treatment for that income.</p>
@@ -3687,11 +3198,6 @@
     <h2>Using the Annualized Income Installment Method for Lumpy Income</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6654(d)(2) — annualized income installment method</li>
-<li>IRS Form 2210, Schedule AI — annualized income installment worksheet</li></ul>
-  </div>
   <p class="lede">The standard underpayment-penalty safe harbor assumes income arrives evenly across the year, requiring roughly equal estimated payments each quarter. A taxpayer or business whose income is genuinely lumpy — a large settlement, bonus, or sale that lands mostly in one quarter — can instead use the annualized income installment method, calculating each quarter's required payment based only on income actually earned through that point in the year, which can eliminate an underpayment penalty that the standard even-quarters method would otherwise impose even though the taxpayer eventually pays the full safe-harbor amount on time.</p>
   <h3>Why Even-Quarters Math Penalizes Uneven Income</h3>
 <p>The default underpayment-penalty calculation divides the required annual safe-harbor amount (generally the lesser of a percentage of current-year tax or a percentage of prior-year tax) into four equal quarterly installments, and checks whether the taxpayer paid at least that even quarterly share by each due date. This works fine for someone with steady, predictable income throughout the year, but it can generate a penalty for someone whose income is genuinely concentrated later in the year — a business owner whose revenue is seasonal, an individual who receives a large settlement or bonus in the third quarter, or anyone whose income simply does not arrive in four equal chunks — even if that person's total payments by year-end fully satisfy the safe harbor amount.</p>
@@ -3721,11 +3227,6 @@
     <h2>Claiming the Excess Social Security Tax Credit With Multiple Employers</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 31(b) — credit for excess Social Security tax withheld</li>
-<li>IRS Schedule 3 (Form 1040) — excess Social Security and RRTA tax withheld</li></ul>
-  </div>
   <p class="lede">Social Security tax is only owed on wages up to an annual wage base — but each employer withholds it independently, without any visibility into what an employee's other employers have already withheld. An employee who works for two or more employers in the same year, and whose combined wages from those employers exceed the annual wage base, ends up with more Social Security tax withheld in total than the law actually requires — and that excess is a straightforward, fully refundable credit claimed directly on the individual return.</p>
   <h3>Why This Happens, and Why It Is Easy to Miss</h3>
 <p>Social Security tax is withheld from wages up to a specific annual wage-base limit — once an employee's wages from a single employer reach that limit, that employer correctly stops withholding for the rest of the year. The problem arises specifically when an employee has two or more employers in the same calendar year, each of which withholds Social Security tax independently based only on the wages that employer itself paid. Neither employer has any way of knowing what the other employer already withheld, so each one withholds up to the full wage base on its own payroll — meaning an employee who changes jobs, holds a second job, or receives severance or transaction-related payments from a second payroll source in the same year that separately restarts Social Security withholding can end up with meaningfully more than the statutory maximum withheld in total.</p>
@@ -3755,12 +3256,6 @@
     <h2>Separating Non-SSTB Revenue Into a New Entity to Preserve the QBI Deduction</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 199A(d)(2) — specified service trades or businesses</li>
-<li>Treas. Reg. § 1.199A-5(c)(1) — the 10% de minimis rule for incidental SSTB activity</li>
-<li>Treas. Reg. § 1.199A-5(c)(2) — anti-abuse rule for businesses providing property or services to a related SSTB</li></ul>
-  </div>
   <p class="lede">A single business that generates both specified-service-trade-or-business (SSTB) income and genuinely separate, non-SSTB income can find its entire revenue stream tainted as an SSTB — losing the QBI deduction on all of it, including the portion that would otherwise clearly qualify — once the SSTB-type revenue exceeds a narrow threshold within that same entity. Splitting the non-SSTB activity out into a separate, genuinely distinct entity before that threshold is crossed can rescue the QBI deduction on the non-SSTB revenue going forward, but only if the split is real and substantive, not a paper rearrangement of what is functionally still one business.</p>
   <h3>The 10% Trap, and What a Legitimate Split Actually Requires</h3>
 <p>A single trade or business is treated as an SSTB in its entirety — not just proportionally — if a defined, narrow percentage of its gross receipts (a de minimis threshold, generally around 10% for smaller businesses and a lower percentage for larger ones) comes from providing services or products in a specified service field. This means a single entity that clearly conducts two economically distinct activities — for example, a genuinely non-SSTB activity like education, presentations, product sales, or consulting outside a listed field, alongside a smaller but real SSTB activity like health, legal, or financial services — can find its entire QBI deduction eliminated once the SSTB-type revenue crosses that narrow threshold, even though the SSTB portion is a minority of total revenue and the majority activity, standing alone, would clearly qualify.</p>
@@ -3790,11 +3285,6 @@
     <h2>A Special Needs Trust to Provide for a Disabled Family Member</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="charitable-estate">Charitable &amp; Estate</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>42 U.S.C. § 1396p(d)(4) — special needs trust exceptions to Medicaid trust rules</li>
-<li>IRC § 641 et seq. — taxation of trusts</li></ul>
-  </div>
   <p class="lede">A family that wants to leave a meaningful inheritance, or make ongoing gifts, to a disabled family member faces a structural problem: many government benefit programs the disabled person may rely on are means-tested, and a direct gift or bequest in that person's own name can disqualify them from those benefits entirely. A properly drafted special needs trust lets the family provide substantial supplemental support — with no dollar cap on what it can hold, unlike some smaller tax-favored accounts — without the trust assets counting against the beneficiary's own means-tested eligibility, provided the trust is drafted and administered correctly from the outset.</p>
   <h3>How a Properly Drafted Trust Avoids Disqualifying the Beneficiary</h3>
 <p>Government benefit programs that are means-tested generally require the beneficiary to have very limited personal assets and income to qualify — a threshold low enough that even a modest direct inheritance or a well-meaning family gift, held in the disabled person's own name, can immediately disqualify them from benefits they may depend on for basic care. A special needs trust addresses this by having the trust itself, not the beneficiary personally, own and control the assets: the trustee (a family member, a professional trustee, or both) has discretion to use trust funds for the beneficiary's supplemental needs — things not covered by government benefits, such as additional therapies, specialized equipment, travel, education, or quality-of-life expenses — without ever distributing assets directly and unrestricted to the beneficiary in a way that would count against the means test.</p>
@@ -3824,11 +3314,6 @@
     <h2>The Employer-Provided Child Care Credit</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 45F — employer-provided child care credit</li>
-<li>IRS Form 8882 — credit for employer-provided child care facilities and services</li></ul>
-  </div>
   <p class="lede">A business that builds, acquires, or operates a qualified child-care facility for its employees' children — or that contracts with a third-party child-care provider on its employees' behalf — can claim a federal tax credit covering a substantial share of those costs, on top of any ordinary business-expense deduction. This credit rewards employers for expanding access to child care specifically, rather than simply subsidizing wages generally, and can be a meaningful offset against a real construction or contracting cost the business was already considering for employee-retention reasons.</p>
   <h3>Two Distinct Paths to Qualify: Building It or Contracting for It</h3>
 <p>This credit is available through two different mechanisms, and a business does not need to operate its own facility to benefit. The first path covers a portion of &quot;qualified child care expenditures&quot; — costs to acquire, construct, rehabilitate, or expand property used as part of a qualified child-care facility, plus operating costs of running that facility (including costs of training providers, scholarship programs for employees, and increased compensation for more highly qualified child-care staff) — generally available up to a defined annual dollar cap. The second path covers a portion of &quot;qualified child care resource and referral expenditures&quot; — amounts paid under a contract with a third-party child-care provider to make care available to the business's own employees, without the business needing to build or operate anything itself.</p>
@@ -3858,11 +3343,6 @@
     <h2>Net Operating Loss Carryforwards and Why They Don't Reduce Self-Employment Tax</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="schedule-c-sole-proprietor">Schedule C / Sole Proprietor</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 172 — net operating loss deduction</li>
-<li>IRC § 172(a)(2) — the 80%-of-taxable-income limitation</li></ul>
-  </div>
   <p class="lede">A business or self-employed individual with a loss year generally does not simply lose that loss — it carries forward as a net operating loss (NOL) that can shelter a meaningful share of future years' taxable income, indefinitely, until fully used. But an NOL carryforward is subject to an important limitation on how much income it can shelter in any single year, and — critically for a self-employed taxpayer — it reduces only regular income tax, never self-employment tax, which means a profitable year can still carry a substantial tax bill even while a large NOL sits unused on the books.</p>
   <h3>What an NOL Actually Shelters, and What It Cannot Touch</h3>
 <p>When deductible business losses exceed income in a given year, the excess generally becomes a net operating loss that carries forward to offset taxable income in future profitable years, with no expiration — it remains available until it is fully absorbed, no matter how many years that takes. This makes an NOL a genuinely durable planning asset: a taxpayer sitting on a large NOL from a prior loss year has real, ongoing tax-shelter capacity for future profit, without needing to generate new deductions each year to manage taxable income.</p>
@@ -3892,11 +3372,6 @@
     <h2>Filing a Superseding Return Instead of an Amended Return</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 6081 — extension of time for filing returns</li>
-<li>Rev. Rul. 78-256 — superseding returns</li></ul>
-  </div>
   <p class="lede">A business or individual that discovers an error or an omitted deduction after already filing a return — but before that return's extended due date has passed — does not have to file a formal amended return to fix it. A &quot;superseding return&quot; filed within the original extension window simply replaces the earlier filing entirely, as though the first version had never been submitted, and is generally treated more cleanly by the IRS than an amendment filed after the deadline.</p>
   <h3>Why Timing the Correction Before the Extended Deadline Matters</h3>
 <p>When a taxpayer requests and receives an extension of time to file, the extended due date is the actual deadline for the return, not the original one — a return filed early, before that extended deadline, and then corrected again before the same extended deadline passes, can be replaced outright by the corrected version. This corrected version is called a superseding return, and it supersedes the earlier filing for all purposes: it is the return, not a modification of one that came before it.</p>
@@ -3926,11 +3401,6 @@
     <h2>The §267 Related-Party Timing Rule and Retroactive Wage Deductions</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 267(a)(2) — matching of deduction and inclusion for related-party payments</li>
-<li>Treas. Reg. § 1.267(a)-1</li></ul>
-  </div>
   <p class="lede">A business owner who discovers, after a tax year has already ended, that they should have been paying themselves W-2 wages during that year cannot simply create those wages retroactively and deduct them on the closed year's return. A specific related-party timing rule permanently defers the deduction for compensation owed to a more-than-50%-related shareholder or partner until the year the compensation is actually paid — meaning a wage never actually paid during the year it supposedly covers generates no deduction for that year at all, no matter how the paperwork is later structured.</p>
   <h3>Why &quot;Actually Paid&quot; Is the Entire Test</h3>
 <p>Ordinarily, a business using the accrual method can deduct an expense in the year it becomes fixed and determinable, even if actual payment happens somewhat later. This general rule is overridden for payments owed to certain related parties — most relevantly, a shareholder who owns more than 50% of a corporation's stock, or an analogous relationship for a partnership — where the deduction is not allowed until the year the related party actually receives (and must include in income) the payment. For a cash-basis individual owner, that means the corresponding deduction to the business cannot be taken any earlier than the calendar year the cash actually reaches the owner's hands.</p>
@@ -3960,12 +3430,6 @@
     <h2>Controlled Group and Affiliated Service Group Rules for Multi-Entity Retirement Plans</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="retirement-planning">Retirement Planning</span><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1563 — controlled group definitions and attribution rules</li>
-<li>IRC § 414(m) — affiliated service groups</li>
-<li>IRC § 414(b) and (c) — controlled group aggregation for qualified plan purposes</li></ul>
-  </div>
   <p class="lede">A business owner who also holds interests in one or more other businesses cannot simply design a retirement plan around the one entity that employs the fewest people. Two separate sets of federal rules — the controlled-group rules and the affiliated-service-group rules — can force related businesses to be treated as a single employer for retirement-plan coverage and nondiscrimination testing purposes, meaning an &quot;owner-only&quot; plan design at one entity can unexpectedly have to cover employees at an entirely different, commonly related business.</p>
   <h3>Two Independent Tests, Either One of Which Can Force Aggregation</h3>
 <p>The controlled-group rules aggregate businesses under common ownership using specific mathematical thresholds — generally requiring that the same five or fewer people own more than 80% of each business, with more than 50% identical ownership across the businesses being tested. Family attribution rules can pull a spouse's or a minor child's ownership into an individual's own ownership percentage for this test, though attribution to or from other relatives (parents, adult children, siblings, in-laws) follows its own more limited rules and does not automatically combine every family member's interests. Two businesses can look completely unrelated on paper and still fail this test once the right ownership percentages and attribution rules are applied — and, just as importantly, two businesses that do look related can sometimes clear the test if the ownership percentages fall just outside the thresholds.</p>
@@ -3995,11 +3459,6 @@
     <h2>Partnership Loss Limitations Under §704(d) and Restoring Basis to Free Suspended Losses</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="partnership-llc">Partnership / LLC</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 704(d) — limitation on allowance of partner's share of loss</li>
-<li>IRC § 705 — determination of basis of partner's interest</li></ul>
-  </div>
   <p class="lede">A partner or LLC member cannot deduct their full allocated share of a partnership loss if it exceeds their &quot;outside basis&quot; in the partnership interest — the excess is not lost permanently, but it is suspended, carrying forward indefinitely until basis is restored, and it can be forfeited entirely if the partner disposes of or liquidates their interest while basis remains at zero. A partner facing this limitation has a straightforward, low-cost fix available: contributing additional capital before a loss-generating event, or before winding up the partnership, restores basis and frees the suspended loss that would otherwise simply disappear.</p>
   <h3>How Basis Governs What a Partner Can Actually Deduct</h3>
 <p>A partner's outside basis starts with their capital contributions and is adjusted upward for their share of partnership income and additional contributions, and downward for distributions received and their share of partnership losses already deducted. A partner can deduct their allocated share of a partnership loss only to the extent they have positive outside basis to absorb it — any loss in excess of available basis is suspended, not disallowed permanently, and carries forward to be deducted in a future year once basis is restored (typically through additional capital contributions or a subsequent allocation of partnership income).</p>
@@ -4029,11 +3488,6 @@
     <h2>Claiming a Credit for Taxes Paid to Another State to Avoid Double Taxation</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>State resident-credit statutes for taxes paid to other states (varies by state)</li>
-<li>Multistate Tax Compact and reciprocity agreements (where applicable)</li></ul>
-  </div>
   <p class="lede">A taxpayer who lives in one state but earns income sourced to another — through a job, a pass-through business interest, or rental property — can end up with both states claiming the right to tax the same dollar of income. Most states address this through a resident credit: the taxpayer's home state gives a credit against its own tax for the tax actually paid to the other, nonresident state on the same income, preventing the same dollar from being taxed twice at the state level.</p>
   <h3>How the Credit Prevents Double State Taxation</h3>
 <p>A state generally taxes its own residents on all of their income regardless of where it was earned, while taxing nonresidents only on income actually sourced to that state (wages for work performed there, income from a business operating there, or gain from property located there). This overlapping structure means a taxpayer who is a resident of one state but earns income sourced to a second, nonresident state can technically owe tax to both states on the identical income — the resident state because it taxes worldwide income, and the nonresident state because the income is sourced there.</p>
@@ -4063,11 +3517,6 @@
     <h2>Imputing AFR Interest on Below-Market Related-Party Loans</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 7872 — treatment of loans with below-market interest rates</li>
-<li>IRS Applicable Federal Rates (AFR), published monthly</li></ul>
-  </div>
   <p class="lede">A loan between related parties — a business and its owner, or between family members — that charges no interest, or interest below the IRS's published minimum rate, is not simply a favor with no tax consequence. A specific provision recharacterizes the &quot;foregone&quot; interest on such a loan as if it had actually been paid and received, creating phantom income and, depending on the loan's purpose, potentially a taxable gift as well — all avoidable by simply charging interest at or above the applicable federal rate in the first place.</p>
   <h3>Why an Interest-Free Loan Is Rarely Actually Free</h3>
 <p>The IRS publishes a set of minimum interest rates each month — the Applicable Federal Rates, varying by loan term (short-term, mid-term, long-term) — that serve as the floor below which a loan between related parties is treated as &quot;below-market&quot; for tax purposes. When a related-party loan charges interest below the applicable rate (including a loan that charges no interest at all), the tax code treats the difference between what should have been charged and what was actually charged as if it had been paid anyway: the lender is deemed to have received that foregone interest as taxable income, and, depending on the relationship and the nature of the loan, the borrower may be deemed to have received a matching amount as a gift, additional compensation, or a corporate distribution.</p>
@@ -4097,12 +3546,6 @@
     <h2>Related-Party Property Purchases Disqualify Bonus Depreciation and §179, Even Through an LLC Wrapper</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="real-estate">Real Estate</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 267 — losses, expenses, and interest with respect to transactions between related taxpayers</li>
-<li>IRC § 168(k) — bonus depreciation eligibility requirements (the &quot;acquired from an unrelated party&quot; test)</li>
-<li>IRC § 179 — election to expense certain depreciable business assets</li></ul>
-  </div>
   <p class="lede">Bonus depreciation and the §179 expensing election are among the most powerful tools for accelerating deductions on newly acquired business or rental property, but both come with a condition that is easy to overlook: the property generally must be acquired from a party the buyer is not related to. When a taxpayer buys real estate or equipment from a parent, sibling, child, or other closely related person or entity, that condition fails — and no amount of restructuring the purchase through an LLC or other entity changes the outcome, because the related-party test looks through the entity to the people who actually control it.</p>
   <h3>Why the Relationship of the Parties, Not the Entity on the Deed, Controls</h3>
 <p>The related-party rules were written to prevent a taxpayer from generating an artificial depreciation benefit by shuffling an asset within a family or a closely held group without any real change in economic ownership. The test asks whether the buyer and the seller are related under a specific definition — which reaches lineal ancestors and descendants, siblings, and entities that are majority-owned or controlled by the same person or family — not simply whether the two sides signed a purchase agreement as separate legal names.</p>
@@ -4132,12 +3575,6 @@
     <h2>Why an S-Corporation Owner-Employee Must Be Paid on a W-2, Not as a 1099 Contractor</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="s-corporation">S-Corporation</span><span class="cat-tag" data-cat="irs-compliance-risk-management">IRS Compliance &amp; Risk Management</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1366 and § 1372 — S corporation shareholder compensation treatment</li>
-<li>IRS reasonable compensation guidance for S corporation officers</li>
-<li>IRC § 1401 — self-employment tax</li></ul>
-  </div>
   <p class="lede">An S-corporation's entire payroll-tax advantage rests on a simple mechanical requirement: the owner who works in the business must be paid as a W-2 employee, with payroll taxes withheld and remitted, before any residual profit can be taken as a distribution free of employment tax. When an S-corporation instead pays its owner-operator through the 1099 contractor system — treating the owner's pay as outside contract labor rather than officer wages — it does not merely fail to reap the S-corp benefit; it actively creates a worse tax outcome than not electing S status at all, because the owner ends up personally exposed to self-employment tax on income the corporation has already deducted as a business expense.</p>
   <h3>The Double Exposure Created by Paying an Owner as a Contractor</h3>
 <p>An S-corporation shareholder who performs services for the business is legally required to be treated as an employee for that work and paid reasonable compensation through payroll, with the corporation withholding federal income tax, Social Security, and Medicare, and paying the employer share of FICA. Only profit remaining after that reasonable salary can be distributed to the shareholder as a distribution, which is not subject to FICA or self-employment tax — that gap between W-2 wages and untaxed distributions is the entire reason an active owner elects S-corporation status in the first place.</p>
@@ -4167,11 +3604,6 @@
     <h2>The Combined 401(k) Employee Deferral Limit Applies Across Traditional and Roth Contributions</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 402(g) — limitation on exclusion for elective deferrals</li>
-<li>IRS annual retirement plan contribution limit notices</li></ul>
-  </div>
   <p class="lede">A 401(k) plan that offers both a traditional (pre-tax) and a Roth (after-tax) deferral option can create a natural but costly misunderstanding: the annual employee elective-deferral limit is a single combined cap across both types of contribution, not a separate limit for each. A participant who defers up to the limit on the traditional side and then deferred up to the same limit again on the Roth side has not doubled their tax-advantaged savings — they have created an excess deferral that carries its own correction requirements and, left uncorrected, an excise tax.</p>
   <h3>One Shared Cap, Not Two Separate Ones</h3>
 <p>The annual limit on what an employee may elect to defer from their own paycheck into a 401(k) plan is set once per year by the IRS and applies to the total of all elective deferrals the employee makes to that plan (and, generally, to any other 401(k) or similar plan the same person contributes to in the same year), regardless of whether those deferrals are directed to the traditional pre-tax bucket, the Roth after-tax bucket, or split between the two. Splitting contributions between traditional and Roth changes the tax character of the money going in and coming out later — it does not create a second, independent limit.</p>
@@ -4201,12 +3633,6 @@
     <h2>Negotiating the Purchase-Price Allocation (Form 8594) to Maximize Capital-Gain Treatment on a Business Sale</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>IRC § 1060 — special allocation rules for certain asset acquisitions</li>
-<li>Form 8594 — Asset Acquisition Statement Under Section 1060</li>
-<li>IRC § 1221 and § 1231 — capital asset and business-property gain characterization</li></ul>
-  </div>
   <p class="lede">When a business is sold as an asset sale rather than a sale of stock or a membership interest, the total sale price is not taxed as a single lump sum — it must be allocated across specific categories of assets, each of which carries its own tax character. A dollar allocated to inventory or to certain ordinary-income assets is taxed very differently than a dollar allocated to goodwill, which generally qualifies for favorable long-term capital-gain treatment. Because the buyer and seller are required to report a consistent allocation to the IRS on Form 8594, and because the two sides often have opposing incentives on how that allocation is drawn, the negotiation over this allocation is frequently the single highest-value item in the entire transaction — often larger than any other deduction or credit available to the seller that year.</p>
   <h3>Why the Allocation, Not Just the Price, Determines the Tax Bill</h3>
 <p>An asset sale requires the purchase price to be assigned across the standard categories the IRS uses for this purpose — cash and cash-equivalents, securities, accounts receivable, inventory, tangible depreciable property, intangibles, and finally goodwill and going-concern value as a residual category. Gain attributable to inventory and to depreciation recapture on tangible property is generally ordinary income, while gain attributable to goodwill is generally capital gain, taxed at the more favorable long-term capital gains rate for a seller who has held the underlying business for more than a year. The same total sale price can produce a dramatically different tax bill for the seller depending purely on how that price is distributed across these categories.</p>
@@ -4236,11 +3662,6 @@
     <h2>Adopting a Retroactive Retirement Plan by the Extended Filing Deadline (SECURE 2.0)</h2>
   </header>
   <div class="cat-tags"><span class="cat-tag" data-cat="cross-entity-general-business">Cross-Entity / General Business</span><span class="cat-tag" data-cat="individual-investment">Individual / Investment</span></div>
-  <div class="refs">
-    <span class="refs__label">Key Code References</span>
-    <ul class="refs__list"><li>SECURE 2.0 Act of 2022, § 201 — retroactive first-year employer retirement plan election</li>
-<li>IRC § 401(b) — employer plan adoption deadline rules</li></ul>
-  </div>
   <p class="lede">A business that reaches its tax filing deadline without having adopted a retirement plan has not necessarily lost the opportunity to generate a retirement-plan deduction for the year that just ended. A provision enacted as part of the SECURE 2.0 Act allows certain employer retirement plans to be adopted after the close of the tax year — as late as the extended due date of the business's tax return — and still be treated, for deduction purposes, as if the plan had been in effect on the last day of that prior year. This turns a retirement plan from something that must be decided and running before December 31 into a lever that can still be pulled well into the following year, as long as the business is on extension.</p>
   <h3>How the Lookback Election Works</h3>
 <p>Under the traditional rule, an employer retirement plan generally had to be adopted by the last day of the tax year it was meant to cover in order to generate a deduction for that year — a business that decided in February that it wanted a retirement-plan deduction for the prior year was simply out of luck, because the plan did not exist during the year in question. The SECURE 2.0 provision changes this for certain types of employer plans by allowing the plan to be adopted after year-end, up through the extended due date of the employer's tax return, while still being treated as adopted on the last day of the prior tax year for purposes of the employer contribution deduction.</p>
