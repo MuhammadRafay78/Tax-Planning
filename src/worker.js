@@ -177,10 +177,21 @@ async function handleChat(request, env) {
   const currentStrategyTitle = typeof payload.currentStrategyTitle === 'string' ? payload.currentStrategyTitle.trim() : '';
   const pinnedStrategy = currentStrategyTitle ? strategies.find((s) => s.title === currentStrategyTitle) : null;
 
+  // A message that names one or more strategies by position number (e.g.
+  // "strategy 33", "#33 and #47", "number 33", "compare 33 and 47") won't
+  // match anything by keyword — the number itself isn't in the strategy's
+  // text — so resolve each one directly by index instead.
+  const numberedStrategies = [];
+  const numberRefPattern = /(?:strategy|number|#)\s*#?\s*(\d{1,3})\b/gi;
+  let numberRefMatch;
+  while ((numberRefMatch = numberRefPattern.exec(message)) && numberedStrategies.length < 4) {
+    const idx = parseInt(numberRefMatch[1], 10) - 1;
+    if (idx >= 0 && idx < strategies.length) numberedStrategies.push(strategies[idx]);
+  }
+
   const retrieved = retrieve(message, RETRIEVAL_TOP_N);
-  const matches = pinnedStrategy && !retrieved.includes(pinnedStrategy)
-    ? [pinnedStrategy, ...retrieved]
-    : retrieved;
+  const pinned = [...numberedStrategies, pinnedStrategy].filter((s, idx, arr) => s && arr.indexOf(s) === idx);
+  const matches = [...pinned, ...retrieved.filter((s) => !pinned.includes(s))];
 
   const context = matches.length
     ? matches.map(strategyFullText).join('\n\n---\n\n')
