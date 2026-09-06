@@ -352,6 +352,19 @@ export default {
       return jsonResponse({ error: 'Use GET or POST.' }, 405);
     }
 
+    if (url.pathname === '/api/admin/models') {
+      const apiKey = env.GEMINI_API_KEY;
+      if (!apiKey) return jsonResponse({ error: 'no key' }, 503);
+      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models', {
+        headers: { 'x-goog-api-key': apiKey },
+      });
+      const data = await res.json();
+      const models = (data.models || [])
+        .filter((m) => (m.supportedGenerationMethods || []).some((meth) => meth.toLowerCase().includes('embed')))
+        .map((m) => ({ name: m.name, methods: m.supportedGenerationMethods }));
+      return jsonResponse({ embeddingModels: models });
+    }
+
     return env.ASSETS.fetch(request);
   },
 };

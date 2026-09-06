@@ -11,6 +11,10 @@
     {
       "binding": "PROGRESS_KV",
       "id": "36fba8773195435a99d544ab146652df"
+    },
+    {
+      "binding": "EMBEDDINGS_KV",
+      "id": "edaea6a811ed4eb7a0c756a93b706693"
     }
   ]
 }
