@@ -234,7 +234,11 @@ async function handleAdminBuildEmbeddings(request, env) {
   cachedEmbeddingsIndex = { model: EMBEDDING_MODEL, dimensions: EMBEDDING_DIMENSIONS, builtAt: Date.now(), vectors: results };
   await env.EMBEDDINGS_KV.put('all', JSON.stringify(cachedEmbeddingsIndex));
 
-  return jsonResponse({ count: results.length, failed: failed.length, failedTitles: failed.map((f) => f.title) });
+  return jsonResponse({
+    count: results.length,
+    failed: failed.length,
+    failedSample: failed.slice(0, 5).map((f) => ({ title: f.title, error: f.error })),
+  });
 }
 
 function jsonResponse(body, status = 200) {
