@@ -1,6 +1,8 @@
 import strategies from './strategies-data.generated.js';
 
 const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-pro-latest'];
+const EMBEDDING_MODEL = 'gemini-embedding-001';
+const EMBEDDING_DIMENSIONS = 768;
 const MAX_MESSAGE_LENGTH = 1500;
 const MAX_HISTORY_TURNS = 6;
 const RETRIEVAL_TOP_N = 5;
@@ -139,6 +141,102 @@ function retrieve(query, topN) {
     .map((x) => x.s);
 }
 
+// ---- Semantic (embeddings) retrieval, layered on top of BM25 ----
+// Precomputed strategy embeddings live in EMBEDDINGS_KV (built by the
+// /api/admin/build-embeddings route). At request time we embed only the
+// user's query (one fast call) and rank by cosine similarity, which
+// catches paraphrased/conceptual questions that share no real keywords
+// with the guide's own wording. Falls back to BM25 if anything here is
+// unavailable or fails.
+let cachedEmbeddingsIndex = null;
+
+async function embedText(apiKey, text) {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:embedContent`, {
+    method: 'POST',
+    headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      content: { parts: [{ text }] },
+      outputDimensionality: EMBEDDING_DIMENSIONS,
+    }),
+  });
+  if (!res.ok) throw new Error(`embed failed: ${res.status}`);
+  const data = await res.json();
+  const values = data.embedding && data.embedding.values;
+  if (!Array.isArray(values)) throw new Error('embed response missing values');
+  return values;
+}
+
+function cosineSimilarity(a, b) {
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  const denom = Math.sqrt(na) * Math.sqrt(nb);
+  return denom ? dot / denom : 0;
+}
+
+async function getEmbeddingsIndex(env) {
+  if (cachedEmbeddingsIndex) return cachedEmbeddingsIndex;
+  if (!env.EMBEDDINGS_KV) return null;
+  const raw = await env.EMBEDDINGS_KV.get('all');
+  if (!raw) return null;
+  try {
+    cachedEmbeddingsIndex = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  return cachedEmbeddingsIndex;
+}
+
+async function retrieveSemantic(env, apiKey, query, topN) {
+  const index = await getEmbeddingsIndex(env);
+  if (!index || !Array.isArray(index.vectors) || !index.vectors.length) return null;
+
+  const queryVector = await embedText(apiKey, query);
+  const titleToStrategy = new Map(strategies.map((s) => [s.title, s]));
+
+  const scored = index.vectors
+    .filter((v) => Array.isArray(v.vector) && titleToStrategy.has(v.title))
+    .map((v) => ({ s: titleToStrategy.get(v.title), score: cosineSimilarity(queryVector, v.vector) }));
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, topN).map((x) => x.s);
+}
+
+async function handleAdminBuildEmbeddings(request, env) {
+  const apiKey = env.GEMINI_API_KEY;
+  if (!apiKey) return jsonResponse({ error: 'no key' }, 503);
+
+  const results = new Array(strategies.length);
+  const CONCURRENCY = 8;
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < strategies.length) {
+      const i = nextIndex++;
+      const strat = strategies[i];
+      try {
+        const vector = await embedText(apiKey, strategyFullText(strat));
+        results[i] = { title: strat.title, vector };
+      } catch (e) {
+        results[i] = { title: strat.title, vector: null, error: String(e && e.message) };
+      }
+    }
+  }
+
+  await Promise.all(new Array(CONCURRENCY).fill(0).map(() => worker()));
+
+  const failed = results.filter((r) => !r.vector);
+  cachedEmbeddingsIndex = { model: EMBEDDING_MODEL, dimensions: EMBEDDING_DIMENSIONS, builtAt: Date.now(), vectors: results };
+  await env.EMBEDDINGS_KV.put('all', JSON.stringify(cachedEmbeddingsIndex));
+
+  return jsonResponse({ count: results.length, failed: failed.length, failedTitles: failed.map((f) => f.title) });
+}
+
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -189,7 +287,14 @@ async function handleChat(request, env) {
     if (idx >= 0 && idx < strategies.length) numberedStrategies.push(strategies[idx]);
   }
 
-  const retrieved = retrieve(message, RETRIEVAL_TOP_N);
+  let retrieved;
+  try {
+    retrieved = await retrieveSemantic(env, apiKey, message, RETRIEVAL_TOP_N);
+  } catch {
+    retrieved = null;
+  }
+  if (!retrieved) retrieved = retrieve(message, RETRIEVAL_TOP_N);
+
   const pinned = [...numberedStrategies, pinnedStrategy].filter((s, idx, arr) => s && arr.indexOf(s) === idx);
   const matches = [...pinned, ...retrieved.filter((s) => !pinned.includes(s))];
 
@@ -205,7 +310,7 @@ async function handleChat(request, env) {
 
   const systemPrompt = `You are the embedded assistant for "Tax Strategies," a reference guide of ${strategies.length} independent tax-planning strategies (S-corp, partnership/LLC, real estate, retirement, investment, and IRS compliance topics). You are shown on the guide's own page so visitors can ask questions about it.${currentPageNote}
 
-Ground every answer in the retrieved excerpts below — they are pulled from the guide by keyword match against the user's question (plus the strategy currently on screen, if any, noted above). Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
+Ground every answer in the retrieved excerpts below — they are pulled from the guide by semantic similarity to the user's question (plus the strategy currently on screen, if any, noted above, and any strategy referenced directly by number). Do not invent tax rules, dollar figures, or thresholds beyond what the guide states. If the excerpts don't actually answer the question, say plainly that this guide doesn't cover it, and suggest the closest-sounding titles from the full list below instead of guessing.
 
 Before answering, actually work through the question rather than pattern-matching to the nearest retrieved strategy: identify precisely what is being asked (a mechanism, a number, a comparison, an edge case, an interaction between two strategies), check whether more than one retrieved excerpt is relevant and needs to be synthesized together rather than answered from just the first one, and watch for the retrieved excerpts contradicting a naive reading of the question (an exception, a phase-out, a related-party rule, a limitation that would change the answer). If the question spans two strategies in the excerpts (e.g. "does X still work if I also do Y"), address the interaction explicitly rather than answering about only one of them. If a retrieved excerpt only partially answers the question, say plainly which part is and is not covered rather than stretching a partial match into a full answer.
 
@@ -363,6 +468,11 @@ export default {
         .filter((m) => (m.supportedGenerationMethods || []).some((meth) => meth.toLowerCase().includes('embed')))
         .map((m) => ({ name: m.name, methods: m.supportedGenerationMethods }));
       return jsonResponse({ embeddingModels: models });
+    }
+
+    if (url.pathname === '/api/admin/build-embeddings') {
+      if (request.method !== 'POST') return jsonResponse({ error: 'Use POST.' }, 405);
+      return handleAdminBuildEmbeddings(request, env);
     }
 
     return env.ASSETS.fetch(request);
