@@ -211,14 +211,22 @@ async function handleAdminBuildEmbeddings(request, env) {
   const apiKey = env.GEMINI_API_KEY;
   if (!apiKey) return jsonResponse({ error: 'no key' }, 503);
 
-  const results = new Array(strategies.length);
-  const CONCURRENCY = 8;
+  // Cloudflare Workers cap outbound subrequests per invocation (commonly 50),
+  // so a full 101-strategy build has to run in batches across several calls
+  // rather than one big Promise.all. offset/limit let the caller page through.
+  const url = new URL(request.url);
+  const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10) || 0);
+  const limit = Math.min(40, Math.max(1, parseInt(url.searchParams.get('limit') || '40', 10) || 40));
+  const slice = strategies.slice(offset, offset + limit);
+
+  const results = new Array(slice.length);
+  const CONCURRENCY = 6;
   let nextIndex = 0;
 
   async function worker() {
-    while (nextIndex < strategies.length) {
+    while (nextIndex < slice.length) {
       const i = nextIndex++;
-      const strat = strategies[i];
+      const strat = slice[i];
       try {
         const vector = await embedText(apiKey, strategyFullText(strat));
         results[i] = { title: strat.title, vector };
@@ -230,14 +238,32 @@ async function handleAdminBuildEmbeddings(request, env) {
 
   await Promise.all(new Array(CONCURRENCY).fill(0).map(() => worker()));
 
-  const failed = results.filter((r) => !r.vector);
-  cachedEmbeddingsIndex = { model: EMBEDDING_MODEL, dimensions: EMBEDDING_DIMENSIONS, builtAt: Date.now(), vectors: results };
-  await env.EMBEDDINGS_KV.put('all', JSON.stringify(cachedEmbeddingsIndex));
+  // Merge into whatever's already stored (from earlier batches), keyed by title.
+  const existingRaw = await env.EMBEDDINGS_KV.get('all');
+  let existing = null;
+  try {
+    existing = existingRaw ? JSON.parse(existingRaw) : null;
+  } catch {
+    existing = null;
+  }
+  const byTitle = new Map((existing && existing.vectors ? existing.vectors : []).map((v) => [v.title, v]));
+  results.forEach((r) => byTitle.set(r.title, r));
 
+  const merged = {
+    model: EMBEDDING_MODEL,
+    dimensions: EMBEDDING_DIMENSIONS,
+    builtAt: Date.now(),
+    vectors: strategies.map((s) => byTitle.get(s.title) || { title: s.title, vector: null }),
+  };
+  cachedEmbeddingsIndex = merged;
+  await env.EMBEDDINGS_KV.put('all', JSON.stringify(merged));
+
+  const failed = results.filter((r) => !r.vector);
+  const totalFailed = merged.vectors.filter((v) => !v.vector);
   return jsonResponse({
-    count: results.length,
-    failed: failed.length,
+    batch: { offset, limit, count: slice.length, failed: failed.length },
     failedSample: failed.slice(0, 5).map((f) => ({ title: f.title, error: f.error })),
+    overall: { total: merged.vectors.length, totalFailed: totalFailed.length },
   });
 }
 
