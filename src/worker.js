@@ -472,6 +472,36 @@ async function handlePostProgress(request, env) {
   return jsonResponse({ user, completed: updated });
 }
 
+// Flagged strategies are shared, not per-user: either Talha or Rafay can flag
+// one as needing a deeper explanation, and both see the same flagged list.
+async function handleGetFlags(request, env) {
+  const raw = await env.PROGRESS_KV.get('flagged:all');
+  const flagged = raw ? JSON.parse(raw) : [];
+  return jsonResponse({ flagged });
+}
+
+async function handlePostFlags(request, env) {
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid JSON body.' }, 400);
+  }
+
+  const id = typeof payload.id === 'string' ? payload.id : '';
+  const flagged = !!payload.flagged;
+  if (!id) return jsonResponse({ error: 'A strategy "id" string is required.' }, 400);
+
+  const raw = await env.PROGRESS_KV.get('flagged:all');
+  const current = new Set(raw ? JSON.parse(raw) : []);
+  if (flagged) current.add(id);
+  else current.delete(id);
+
+  const updated = Array.from(current);
+  await env.PROGRESS_KV.put('flagged:all', JSON.stringify(updated));
+  return jsonResponse({ flagged: updated });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -484,6 +514,12 @@ export default {
     if (url.pathname === '/api/progress') {
       if (request.method === 'GET') return handleGetProgress(request, env);
       if (request.method === 'POST') return handlePostProgress(request, env);
+      return jsonResponse({ error: 'Use GET or POST.' }, 405);
+    }
+
+    if (url.pathname === '/api/flags') {
+      if (request.method === 'GET') return handleGetFlags(request, env);
+      if (request.method === 'POST') return handlePostFlags(request, env);
       return jsonResponse({ error: 'Use GET or POST.' }, 405);
     }
 
