@@ -755,7 +755,7 @@
     color: var(--ink-faint);
     margin-top: 0.15rem;
   }
-  .chat-panel__close {
+  .chat-panel__close, .chat-panel__expand {
     background: none;
     border: none;
     color: var(--ink-faint);
@@ -764,7 +764,9 @@
     cursor: pointer;
     padding: 0.3rem;
   }
-  .chat-panel__close:hover { color: var(--ink); }
+  .chat-panel__close:hover, .chat-panel__expand:hover { color: var(--ink); }
+  .chat-panel__expand { font-size: 1rem; }
+  .chat-panel__expand[aria-pressed="true"] { color: var(--accent-strong); }
 
   .chat-panel__body {
     flex: 1;
@@ -5051,6 +5053,7 @@
       <div class="chat-panel__title">Ask the guide</div>
       <span class="chat-panel__subtitle">Answers grounded in the 101 strategies above</span>
     </div>
+    <button type="button" class="chat-panel__expand" id="chatExpand" aria-label="Enlarge chat" aria-pressed="false" title="Enlarge chat">&#10530;</button>
     <button type="button" class="chat-panel__close" id="chatClose" aria-label="Close chat">&times;</button>
   </div>
   <div class="chat-panel__body" id="chatBody">
@@ -5376,7 +5379,31 @@
     if (headEl) {
       headEl.addEventListener('click', function (e) {
         if (closeBtn && (e.target === closeBtn || closeBtn.contains(e.target))) return;
+        if (expandBtn && (e.target === expandBtn || expandBtn.contains(e.target))) return;
         toggleMinimize();
+      });
+    }
+
+    var expandBtn = document.getElementById('chatExpand');
+    var isExpanded = false;
+    var savedPanelSize = null;
+    if (expandBtn) {
+      expandBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        isExpanded = !isExpanded;
+        if (isExpanded) {
+          panel.classList.remove('is-minimized');
+          savedPanelSize = { width: panel.style.width, height: panel.style.height };
+          var targetW = Math.min(window.innerWidth - 40, 760);
+          var targetH = Math.min(window.innerHeight - 40, 900);
+          panel.style.width = targetW + 'px';
+          panel.style.height = targetH + 'px';
+        } else if (savedPanelSize) {
+          panel.style.width = savedPanelSize.width;
+          panel.style.height = savedPanelSize.height;
+        }
+        expandBtn.setAttribute('aria-pressed', isExpanded ? 'true' : 'false');
+        expandBtn.setAttribute('title', isExpanded ? 'Shrink chat' : 'Enlarge chat');
       });
     }
 
