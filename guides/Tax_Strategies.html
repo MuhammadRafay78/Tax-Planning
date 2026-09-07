@@ -6468,7 +6468,8 @@
           qEl.classList.add('is-answered');
           options.forEach(function (o) {
             var oInput = o.querySelector('input');
-            o.classList.add(oInput.value === correctIdx ? 'is-correct' : (oInput === input ? 'is-incorrect' : ''));
+            if (oInput.value === correctIdx) o.classList.add('is-correct');
+            else if (oInput === input) o.classList.add('is-incorrect');
             oInput.disabled = true;
           });
           if (explanation) explanation.hidden = false;
