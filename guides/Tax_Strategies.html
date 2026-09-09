@@ -5816,7 +5816,26 @@
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
+    function stripMathNotation(s) {
+      // Defense in depth: the model is instructed not to use LaTeX/math-mode
+      // notation, but if it slips through, unwrap it into plain text rather
+      // than showing raw dollar-delimited or backslash-escaped math source.
+      // Escaped dollars ($100,000) are protected first -- otherwise two
+      // independent escaped currency amounts on one line look like a matched
+      // $...$ delimiter pair and both dollar signs get silently swallowed.
+      s = s.replace(/\\\$/g, '@@DOLLARESC@@');
+      s = s.replace(/\$\$([\s\S]+?)\$\$/g, function (m, inner) { return inner; });
+      s = s.replace(/\$([^$\n]+?)\$/g, function (m, inner) { return inner; });
+      s = s.replace(/\\times/g, '×');
+      s = s.replace(/\\div/g, '÷');
+      s = s.replace(/\\cdot/g, '·');
+      s = s.replace(/\\%/g, '%');
+      s = s.split('@@DOLLARESC@@').join('$');
+      return s;
+    }
+
     function formatBotText(text) {
+      text = stripMathNotation(text);
       var lines = text.replace(/\r\n/g, '\n').split('\n');
       var html = '';
       var listItems = null;
