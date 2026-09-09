@@ -230,6 +230,7 @@
     border: 1.5px solid var(--line-strong);
     margin-right: 0.15rem;
     position: relative;
+    cursor: pointer;
   }
   .toc__check.is-complete {
     background: var(--accent-strong);
@@ -713,6 +714,20 @@
     .sidebar__collapsible { display: block; padding-top: 0; }
     .toc { padding-top: 0.5rem; }
     .toc a { min-height: 44px; padding: 0.6rem 0.5rem; font-size: 0.92rem; }
+    .toc__check::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+    }
+
+    /* Bigger tap targets for the theme/user pickers and search/filter controls */
+    .theme-switch button, .user-picker__buttons button { min-height: 44px; }
+    .search-field input, .filter-field select { font-size: 16px; min-height: 44px; }
+    .search-field__clear { min-width: 44px; min-height: 44px; }
+
+    /* Bigger tap targets for the per-strategy controls */
+    .complete-toggle, .flag-toggle { min-height: 44px; padding: 0.3rem 0; }
+    .strategy-controls { gap: 0.2rem 1.1rem; }
 
     main { padding: 4.6rem 1.4rem 6.5rem; }
     .strategy { scroll-margin-top: 4.6rem; }
@@ -5512,6 +5527,11 @@
     tocLinks.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
+        var checkEl = e.target.closest ? e.target.closest('.toc__check') : null;
+        if (checkEl) {
+          toggleCompletion(checkEl.getAttribute('data-check-id'));
+          return;
+        }
         showStrategy(link.getAttribute('data-target'));
       });
     });
@@ -5632,11 +5652,8 @@
       });
     });
 
-    document.addEventListener('change', function (e) {
-      if (!e.target.classList || !e.target.classList.contains('complete-toggle__input')) return;
+    function setCompletion(id, checked) {
       if (!currentUser) return;
-      var id = e.target.getAttribute('data-strategy-id');
-      var checked = e.target.checked;
       completedSet[id] = checked || undefined;
       if (!checked) delete completedSet[id];
       renderCompletedUI();
@@ -5645,6 +5662,15 @@
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ user: currentUser, id: id, completed: checked }),
       }).catch(function () {});
+    }
+
+    function toggleCompletion(id) {
+      setCompletion(id, !completedSet[id]);
+    }
+
+    document.addEventListener('change', function (e) {
+      if (!e.target.classList || !e.target.classList.contains('complete-toggle__input')) return;
+      setCompletion(e.target.getAttribute('data-strategy-id'), e.target.checked);
     });
 
     var savedUser = null;
