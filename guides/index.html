@@ -643,34 +643,110 @@
     font-size: 0.82rem;
   }
 
+  /* ---- Mobile floating "Contents" button + backdrop (drawer trigger) ---- */
+  .mobile-nav-toggle { display: none; }
+  .sidebar-backdrop { display: none; }
+
   @media (max-width: 900px) {
     .page { grid-template-columns: 1fr; }
-    .sidebar {
-      position: relative;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid var(--line);
-      padding: 1.25rem 1.5rem;
-    }
-    .sidebar__sub { display: none; }
-    .sidebar-toggle {
-      display: block;
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
+
+    .mobile-nav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      position: fixed;
+      top: 0.9rem;
+      left: 0.9rem;
+      z-index: 45;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--ink-soft);
-      padding: 0.4rem 0;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 0.55rem 0.9rem;
+      min-height: 44px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
       cursor: pointer;
     }
-    .sidebar__collapsible { display: none; padding-top: 0.5rem; }
-    .sidebar.open .sidebar__collapsible { display: block; }
+    .mobile-nav-toggle__pos {
+      color: var(--ink-faint);
+      font-weight: 400;
+    }
+
+    .sidebar-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 14, 16, 0.5);
+      z-index: 46;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100dvh;
+      width: min(85vw, 340px);
+      max-width: 340px;
+      z-index: 47;
+      background: var(--bg);
+      border-right: none;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.22);
+      padding: 4rem 1.4rem 2rem;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar__sub { display: block; }
+    .sidebar-toggle { display: none; }
+    .sidebar__collapsible { display: block; padding-top: 0; }
     .toc { padding-top: 0.5rem; }
-    main { padding: 2.5rem 1.4rem 4rem; }
+    .toc a { min-height: 44px; padding: 0.6rem 0.5rem; font-size: 0.92rem; }
+
+    main { padding: 4.6rem 1.4rem 6.5rem; }
+    .strategy { scroll-margin-top: 4.6rem; }
+
+    /* Sticky Prev/Next bar so switching strategies never requires
+       scrolling back up through a long article first. */
+    .strategy-pager {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      max-width: none;
+      margin: 0;
+      padding: 0.6rem max(0.9rem, env(safe-area-inset-left)) calc(0.6rem + env(safe-area-inset-bottom)) max(0.9rem, env(safe-area-inset-right));
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.12);
+    }
+    .strategy-pager__btn {
+      min-height: 44px;
+      padding: 0.3rem 0.4rem;
+      font-size: 0.92rem;
+    }
+
+    /* Keep the chat launcher and panel clear of the fixed pager bar */
+    .chat-launcher { bottom: calc(4.3rem + env(safe-area-inset-bottom)); }
+    .chat-panel {
+      bottom: calc(4.3rem + env(safe-area-inset-bottom));
+      height: min(560px, calc(100dvh - 8.1rem));
+      max-height: calc(100dvh - 4.3rem - env(safe-area-inset-bottom));
+    }
+    .chat-panel__resize-handle { display: none; }
+    .chat-panel__close, .chat-panel__expand { min-width: 44px; min-height: 44px; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -946,15 +1022,32 @@
   @media (max-width: 480px) {
     .chat-panel {
       right: 0.7rem;
-      bottom: 0.7rem;
+      bottom: calc(4.3rem + env(safe-area-inset-bottom));
       width: calc(100vw - 1.4rem);
+      height: min(560px, calc(100dvh - 8.1rem));
+      border-radius: 12px;
     }
-    .chat-launcher { right: 0.9rem; bottom: 0.9rem; }
+    .chat-panel__resize-handle { display: none; }
+    .chat-launcher {
+      right: 0.9rem;
+      bottom: calc(4.3rem + env(safe-area-inset-bottom));
+      padding: 0.65rem 1rem;
+    }
+    .chat-quick-actions button {
+      min-height: 44px;
+      font-size: 0.85rem;
+    }
+    .chat-panel__send { min-width: 60px; min-height: 44px; }
+    .chat-panel__input { font-size: 16px; }
   }
 </style>
 </head>
 <body>
 
+<button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="sidebar">
+  &#9776; Contents <span class="mobile-nav-toggle__pos" id="mobileNavPos"></span>
+</button>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="page">
   <nav class="sidebar" id="sidebar">
     <p class="sidebar__eyebrow">Reference Guide</p>
@@ -5307,6 +5400,8 @@
   (function () {
     var toggle = document.getElementById('sidebarToggle');
     var sidebar = document.getElementById('sidebar');
+    var mobileToggle = document.getElementById('mobileNavToggle');
+    var sidebarBackdrop = document.getElementById('sidebarBackdrop');
     if (toggle) {
       toggle.addEventListener('click', function () {
         var open = sidebar.classList.toggle('open');
@@ -5314,6 +5409,22 @@
         toggle.textContent = open ? 'Contents ↑' : 'Contents ↓';
       });
     }
+    function setDrawerOpen(open) {
+      sidebar.classList.toggle('open', open);
+      if (sidebarBackdrop) sidebarBackdrop.classList.toggle('open', open);
+      if (mobileToggle) mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function () {
+        setDrawerOpen(!sidebar.classList.contains('open'));
+      });
+    }
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', function () { setDrawerOpen(false); });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setDrawerOpen(false);
+    });
     // ---- Single-article view: exactly one strategy is shown in <main> at a
     // time (not the whole guide stacked as one long scroll). The sidebar TOC,
     // related-strategy links, and prev/next pager all route through showStrategy().
@@ -5333,6 +5444,7 @@
     var prevBtn = document.getElementById('prevStrategyBtn');
     var nextBtn = document.getElementById('nextStrategyBtn');
     var posEl = document.getElementById('strategyPos');
+    var mobileNavPos = document.getElementById('mobileNavPos');
     var mainEl = document.querySelector('main');
 
     function matches(el, category, query) {
@@ -5386,6 +5498,7 @@
         nextBtn.setAttribute('data-target', idx < strategyIds.length - 1 ? strategyIds[idx + 1] : '');
       }
       if (posEl) posEl.textContent = (idx + 1) + ' / ' + strategyIds.length;
+      if (mobileNavPos) mobileNavPos.textContent = (idx + 1) + ' / ' + strategyIds.length;
       if (!opts || !opts.skipScroll) {
         window.scrollTo({ top: 0, behavior: 'auto' });
         if (mainEl) mainEl.scrollTop = 0;
@@ -5393,7 +5506,7 @@
       if (!opts || opts.pushHistory !== false) {
         history.replaceState(null, '', '#' + id);
       }
-      if (sidebar) sidebar.classList.remove('open');
+      setDrawerOpen(false);
     }
 
     tocLinks.forEach(function (link) {
