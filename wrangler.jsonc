@@ -1,8 +1,20 @@
 {
   "name": "tax-planning",
   "compatibility_date": "2026-08-01",
+  "main": "src/worker.js",
   "assets": {
     "directory": "./guides",
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "PROGRESS_KV",
+      "id": "36fba8773195435a99d544ab146652df"
+    },
+    {
+      "binding": "EMBEDDINGS_KV",
+      "id": "edaea6a811ed4eb7a0c756a93b706693"
+    }
+  ]
 }
