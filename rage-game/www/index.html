@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>So Close</title>
+<style>
+/* Layout: full-screen portrait canvas, HUD and overlays layered on top. Single dark look by choice. */
+:root {
+  --bg: #14121a;
+  --pipe: #2f9e6e;
+  --pipe-edge: #7be3b0;
+  --bird: #ffcf3f;
+  --alert: #ff4d4d;
+  --ink: #f4f1fa;
+  --muted: #9a94ad;
+  --display: "Bungee", "Impact", sans-serif;
+  --body: "Nunito", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); font-family: var(--body); touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+body { padding: 0; }
+#stage { position: relative; height: 100%; max-width: 480px; margin: 0 auto; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hud { position: absolute; top: 14px; left: 0; right: 0; text-align: center; pointer-events: none; }
+.score { font-family: var(--display); font-size: 64px; line-height: 1; }
+.best { font-size: 13px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 16px; text-align: center; background: rgba(20,18,26,.82); }
+.overlay h1 { font-family: var(--display); font-size: 44px; margin: 0; font-weight: 400; line-height: 1; }
+.overlay p { margin: 0; max-width: 28ch; color: var(--muted); font-size: 16px; line-height: 1.4; }
+.taunt { color: var(--ink); font-size: 20px; font-weight: 800; }
+button { font-family: var(--display); font-size: 22px; color: #14121a; background: var(--bird); border: 0; border-radius: 14px; padding: 16px 32px; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+button.ghost { background: transparent; color: var(--muted); font-family: var(--body); font-size: 14px; padding: 8px 12px; }
+.ad { position: absolute; inset: 0; background: #1d1a26; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px 16px; text-align: center; }
+.ad .x { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; padding: 0; font: 700 12px var(--body); border-radius: 50%; background: #3a3548; color: var(--muted); transition: transform .12s; }
+.ad .tag { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.fail { color: var(--alert); font-weight: 800; min-height: 1.4em; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@600;800&display=swap">
+</head><body>
+
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div class="hud"><div class="score" id="score">0</div><div class="best" id="best"></div></div>
+
+  <div class="overlay" id="menu">
+    <h1>SO CLOSE</h1>
+    <p>Tap to flap. Squeeze through the gaps. It will go fine for a while.</p>
+    <button id="play">PLAY</button>
+  </div>
+
+  <div class="overlay" id="over" hidden>
+    <h1 id="overScore">0</h1>
+    <div class="taunt" id="taunt"></div>
+    <p id="friend"></p>
+    <button id="retry">TRY AGAIN</button>
+    <button class="ghost" id="adBtn">Continue for free (ad)</button>
+  </div>
+
+  <div class="ad" id="ad" hidden>
+    <button class="x" id="adX" aria-label="Close ad">x</button>
+    <div class="tag">Ad &middot; 30s</div>
+    <h1 style="font-family:var(--display);font-weight:400;margin:0;font-size:32px">ULTRA TAX SAVER 9000</h1>
+    <p style="color:var(--muted);margin:0">Save on taxes you do not have.</p>
+    <button id="adGo">WATCH TO CONTINUE</button>
+    <div class="fail" id="adFail"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var W = 360, H = 640;
+  var cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  var $ = function (id) { return document.getElementById(id); };
+  var scoreEl = $("score"), bestEl = $("best");
+  var best = 0;
+  try { best = +localStorage.getItem("soclose-best") || 0; } catch (e) {}
+
+  var TAUNTS = [
+    "So close.", "Skill issue.", "That was literally the easy part.", "Almost had it.",
+    "The pipe moved. Probably.", "Your thumb was fine. The game was not.",
+    "You blinked.", "Try holding the phone differently.", "One more. You can feel it.",
+    "Pipes do not have feelings. They just win."
+  ];
+  var FRIENDS = ["Kevin got 31 on his first try.", "Your cousin got 54 on a bus.", "Someone in Ohio just hit 112.", "Your best is " + best + ". Kevin does not care."];
+
+  var bird, pipes, score, state, last, dead = 0, fails = 0, audio;
+
+  function beep(f, d) {
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      var o = audio.createOscillator(), g = audio.createGain();
+      o.frequency.value = f; o.type = "square"; g.gain.value = 0.04;
+      o.connect(g); g.connect(audio.destination); o.start(); o.stop(audio.currentTime + d);
+    } catch (e) {}
+  }
+
+  function resize() {
+    var r = cv.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = r.width * d; cv.height = r.height * d;
+    ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+
+  function reset() {
+    bird = { x: 90, y: H / 2, v: 0 };
+    pipes = []; score = 0; scoreEl.textContent = "0";
+    for (var i = 0; i < 3; i++) addPipe(W + 120 + i * 210);
+  }
+  function addPipe(x) {
+    var gap = Math.max(118, 160 - pipes.length * 0.9);
+    pipes.push({ x: x, base: 150 + Math.random() * (H - 300), gap: gap, off: 0, seen: false, ph: Math.random() * 6 });
+  }
+
+  function flap() {
+    if (state !== "run") return;
+    bird.v = -430; beep(520, 0.06);
+  }
+
+  function start() {
+    reset(); state = "run"; last = performance.now();
+    $("menu").hidden = true; $("over").hidden = true; $("ad").hidden = true;
+    bestEl.textContent = "Best " + best;
+  }
+
+  function die() {
+    state = "over"; fails++; beep(110, 0.25);
+    if (score > best) { best = score; try { localStorage.setItem("soclose-best", best); } catch (e) {} }
+    $("overScore").textContent = score;
+    $("taunt").textContent = TAUNTS[Math.floor(Math.random() * TAUNTS.length)];
+    $("friend").textContent = FRIENDS[Math.floor(Math.random() * FRIENDS.length)].replace(/\d+\./, best + ".");
+    $("adBtn").hidden = fails < 2;
+    var retry = $("retry");
+    retry.style.transform = "";
+    setTimeout(function () { $("over").hidden = false; }, 450);
+  }
+
+  function step(dt) {
+    bird.v += 1250 * dt; bird.y += bird.v * dt;
+    var speed = 150 + Math.min(score, 30) * 2;
+    for (var i = 0; i < pipes.length; i++) {
+      var p = pipes[i];
+      p.x -= speed * dt;
+      // From pipe 5 on, the gap breathes. It grows more eager the closer you get.
+      var near = Math.max(0, Math.min(1, (260 - (p.x - bird.x)) / 260));
+      p.off = score >= 5 ? Math.sin(performance.now() / 380 + p.ph) * 16 * near : 0;
+      var cy = p.base + p.off, top = cy - p.gap / 2, bot = cy + p.gap / 2;
+      if (bird.x + 12 > p.x && bird.x - 12 < p.x + 56 && (bird.y - 12 < top || bird.y + 12 > bot)) return die();
+      if (!p.seen && p.x + 56 < bird.x) {
+        p.seen = true; score++; scoreEl.textContent = score; beep(880, 0.05);
+      }
+    }
+    if (pipes[0].x < -70) { pipes.shift(); addPipe(pipes[pipes.length - 1].x + 210); }
+    if (bird.y > H - 12 || bird.y < -40) die();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#1b1824"; ctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < pipes.length; i++) {
+      var p = pipes[i], cy = p.base + p.off, top = cy - p.gap / 2, bot = cy + p.gap / 2;
+      ctx.fillStyle = "#2f9e6e";
+      ctx.fillRect(p.x, 0, 56, top); ctx.fillRect(p.x, bot, 56, H - bot);
+      ctx.fillStyle = "#7be3b0";
+      ctx.fillRect(p.x - 4, top - 14, 64, 14); ctx.fillRect(p.x - 4, bot, 64, 14);
+    }
+    var tilt = Math.max(-0.5, Math.min(1, bird.v / 600));
+    ctx.save(); ctx.translate(bird.x, bird.y); ctx.rotate(tilt);
+    ctx.fillStyle = "#ffcf3f"; ctx.beginPath(); ctx.arc(0, 0, 13, 0, 7); ctx.fill();
+    ctx.fillStyle = "#14121a"; ctx.beginPath(); ctx.arc(5, -3, 3, 0, 7); ctx.fill();
+    ctx.fillStyle = "#ff7a3d"; ctx.fillRect(10, 1, 9, 5);
+    ctx.restore();
+  }
+
+  function loop(t) {
+    if (state === "run") { step(Math.min((t - last) / 1000, 0.033)); last = t; }
+    if (bird) draw();
+    requestAnimationFrame(loop);
+  }
+
+  // Input
+  var stage = $("stage");
+  stage.addEventListener("pointerdown", function (e) {
+    if (e.target.closest("button, .ad")) return;
+    flap();
+  });
+  window.addEventListener("keydown", function (e) { if (e.code === "Space") { e.preventDefault(); flap(); } });
+
+  $("play").addEventListener("click", start);
+
+  // The retry button dodges the first tap after a bad death.
+  var dodged = false;
+  $("retry").addEventListener("click", function (e) {
+    if (fails % 3 === 0 && !dodged) {
+      dodged = true;
+      e.target.style.transform = "translate(" + (Math.random() < .5 ? -90 : 90) + "px, 10px)";
+      return;
+    }
+    dodged = false; start();
+  });
+
+  $("adBtn").addEventListener("click", function () {
+    $("over").hidden = true; $("ad").hidden = false; $("adFail").textContent = "";
+    $("adX").style.transform = "";
+  });
+  var xTries = 0;
+  $("adX").addEventListener("click", function (e) {
+    if (xTries++ < 1) { e.target.style.transform = "translate(-60px, 180px)"; return; }
+    xTries = 0; $("ad").hidden = true; $("over").hidden = false;
+  });
+  $("adGo").addEventListener("click", function () {
+    $("adFail").textContent = "Ad failed to load. Tap again.";
+  });
+
+  resize(); reset(); state = "menu"; requestAnimationFrame(loop);
+})();
+</script>
+</body></html>
