@@ -1,24 +1,43 @@
-name: Build So Close APK
+name: Build So Close
 on:
   workflow_dispatch:
   push:
     paths: ["rage-game/**"]
 jobs:
-  apk:
+  build:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: rage-game
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
+        with: { distribution: temurin, java-version: 21 }
       - run: npm ci
       - run: npx cap sync android
-      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+      - name: Debug APK (for testing on your phone)
+        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: so-close-debug-apk
           path: rage-game/android/app/build/outputs/apk/debug/app-debug.apk
+      - name: Signed release bundle (for Google Play)
+        if: ${{ env.KEYSTORE_BASE64 != '' }}
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          export KEYSTORE_PATH="$RUNNER_TEMP/release.jks"
+          cd android && ./gradlew bundleRelease
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.KEYSTORE_BASE64 != '' }}
+        with:
+          name: so-close-release-aab
+          path: rage-game/android/app/build/outputs/bundle/release/app-release.aab
